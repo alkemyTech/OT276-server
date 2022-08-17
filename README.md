@@ -1,4 +1,4 @@
-# OT276 Proyecto ONG - Somos Más
+# OT276 Proyecto ONG
 
 ## Acerca del proyecto 📍
 
