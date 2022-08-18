@@ -32,7 +32,10 @@ public class Category implements Auditable {
     @Column(nullable = false)
     private String name;
 
+    @Column
     private String description;
+
+    @Column
     private String image;
 
     @Embedded
