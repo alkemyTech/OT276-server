@@ -10,9 +10,14 @@ import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 
@@ -56,7 +61,6 @@ public class Organization implements Auditable {
     @Embedded
     private Audit audit;
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,12 +68,10 @@ public class Organization implements Auditable {
         Organization organization = (Organization) o;
         return Objects.equals(id, organization.id);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
-
 
 }
