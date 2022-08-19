@@ -30,16 +30,16 @@ public class Testimonial implements Auditable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "testimonial_id")
-	Long id;
+	private Long id;
 	
 	@Column(nullable = false)
-	String name;
+	private String name;
 	
 	@Column
-	String image;
+	private String image;
 	
 	@Column(columnDefinition = "text")
-	String content;
+	private String content;
 
 	@Embedded
     private Audit audit;
