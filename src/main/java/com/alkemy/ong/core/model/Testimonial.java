@@ -38,7 +38,7 @@ public class Testimonial implements Auditable {
 	@Column
 	String image;
 	
-	@Column
+	@Column(columnDefinition = "text")
 	String content;
 
 	@Embedded
