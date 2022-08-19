@@ -47,11 +47,11 @@ public class Organization implements Auditable {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name="welcome_text", columnDefinition = "text")
     private String welcomeText;
 
-
-    private String aboutUsText;
+    @Column(name = "about_us_text", columnDefinition = "text")
+    private String aboutusText;
 
     @Embedded
     private Audit audit;
