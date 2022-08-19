@@ -38,8 +38,9 @@ public class Slide implements Auditable {
     @Column(name="o_rder", nullable = false)
     private Integer order;
 
-    @ManyToOne
-    @JoinColumn(name="organization_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="organization_id", referencedColumnName = "organization_id")
+    @ToString.Exclude
     private Organization organization;
 
     @Embedded
