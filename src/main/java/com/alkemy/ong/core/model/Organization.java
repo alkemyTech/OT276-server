@@ -51,7 +51,7 @@ public class Organization implements Auditable {
     private String welcomeText;
 
     @Column(name = "about_us_text", columnDefinition = "text")
-    private String aboutusText;
+    private String aboutUsText;
 
     @Embedded
     private Audit audit;
