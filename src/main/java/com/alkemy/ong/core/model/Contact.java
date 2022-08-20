@@ -22,7 +22,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "contact")
 @Where(clause = "is_active=true")
-@SQLDelete(sql = "UPDATE contacts SET is_active=false, deleted_at=current_timestamp() where contact_id=?")
+@SQLDelete(sql = "UPDATE contact SET is_active=false, deleted_at=current_timestamp() where contact_id=?")
 @EntityListeners(AuditListener.class)
 public class Contact implements Auditable{
 
