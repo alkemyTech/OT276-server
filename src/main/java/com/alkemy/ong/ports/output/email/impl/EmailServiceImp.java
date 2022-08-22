@@ -31,8 +31,6 @@ public class EmailServiceImp implements EmailService {
 
 
         Response response = sendEmail(from, to, subject, new Content("text/plain", body));
-        System.out.println("Status Code: " + response.getStatusCode() + ", Body: " + response.getBody() + ", Headers: "
-                + response.getHeaders());
 
     }
 
@@ -41,9 +39,6 @@ public class EmailServiceImp implements EmailService {
 
 
         Response response = sendEmail(from, to, subject, new Content("text/html", body));
-        System.out.println("Status Code: " + response.getStatusCode() + ", Body: " + response.getBody() + ", Headers: "
-                + response.getHeaders());
-
 
     }
 
