@@ -18,7 +18,7 @@ public class EmailServiceImp implements EmailService {
 
 
    private SendGrid sendGridClient;
-
+   private static final String NO_REPLY_SOMOSMAS_ORG = "no-reply@somosmas.org";
     @Autowired
     public void SendGridEmailService(SendGrid sendGridClient) {
         this.sendGridClient = sendGridClient;
@@ -52,7 +52,7 @@ public class EmailServiceImp implements EmailService {
 
 
         Mail mail = new Mail(new Email(from), subject, new Email(to), content);
-        mail.setReplyTo(new Email("abc@gmail.com"));
+        mail.setReplyTo(new Email(NO_REPLY_SOMOSMAS_ORG));
         Request request = new Request();
         Response response = null;
 
