@@ -35,7 +35,7 @@ public class Slide implements Auditable {
     @Column(columnDefinition = "text", nullable = false)
     private String text;
 
-    @Column(name="o_rder", nullable = false)
+    @Column(name="slide_order", nullable = false)
     private Integer order;
 
     @ManyToOne(fetch = FetchType.LAZY)
