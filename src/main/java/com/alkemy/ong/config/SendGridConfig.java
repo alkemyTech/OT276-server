@@ -13,7 +13,7 @@ public class SendGridConfig {
 
     @Value("${email.sendgrid.apikey}")
 
-    String sendGridAPIKey;
+    private String sendGridAPIKey;
     @Bean
     SendGrid getSendGrid(){
 
