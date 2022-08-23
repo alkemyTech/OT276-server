@@ -26,7 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
-            if (existeJWTToken(request)) {
+            if (existeJWTToken(request, response)) {
                 Claims claims = validateToken(request);
                 if (claims.get("authorities") != null) {
                     setUpSpringAuthentication(claims);
@@ -39,7 +39,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+            return;
         }
     }
 
@@ -47,7 +48,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         String secretString = Encoders.BASE64.encode(jwtUtils.SECRET_KEY.getEncoded());
 
-        request.getHeader(jwtUtils.HEADER).replace(jwtUtils.PREFIX, "");
+        String jwtToken = request.getHeader(jwtUtils.HEADER).replace(jwtUtils.PREFIX, "");
+//        return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
 
         return Jwts.parserBuilder()
                 .setSigningKey(jwtUtils.SECRET_KEY)
@@ -57,7 +59,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 
     private void setUpSpringAuthentication(Claims claims) {
-
+        @SuppressWarnings("unchecked")
         List<String> authorities = (List) claims.get("authorities");
 
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
@@ -66,9 +68,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     }
 
-    private boolean existeJWTToken(HttpServletRequest request) {
+    private boolean existeJWTToken(HttpServletRequest request, HttpServletResponse res) {
         String authenticationHeader = request.getHeader(jwtUtils.HEADER);
-        return authenticationHeader != null && authenticationHeader.startsWith(jwtUtils.PREFIX);
+        if (authenticationHeader == null || !authenticationHeader.startsWith(jwtUtils.PREFIX))
+            return false;
+        return true;
     }
 
 }
