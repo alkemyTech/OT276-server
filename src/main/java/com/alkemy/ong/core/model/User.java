@@ -10,13 +10,19 @@ import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 import java.util.Objects;
 
 @Getter
@@ -29,6 +35,7 @@ import java.util.Objects;
 @SQLDelete(sql = "UPDATE user SET is_active=false WHERE user_id=?")
 @EntityListeners(AuditListener.class)
 public class User implements Auditable, UserDetails {
+
     @Id
     @Column(name = "user_id")
     private Long id;
@@ -39,7 +46,7 @@ public class User implements Auditable, UserDetails {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -48,7 +55,7 @@ public class User implements Auditable, UserDetails {
     @Column
     private String photo;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     @ToString.Exclude
     private Role role;
@@ -72,10 +79,9 @@ public class User implements Auditable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role != null) {
-            List<GrantedAuthority> roles = new ArrayList<>();
-            roles.add(new SimpleGrantedAuthority(role.toString()));
+            return Collections.singleton(this.role);
         }
-        return null;
+        return Collections.emptySet();
     }
 
     @Override
