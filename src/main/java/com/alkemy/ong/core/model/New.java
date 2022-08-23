@@ -3,6 +3,7 @@ package com.alkemy.ong.core.model;
 import com.alkemy.ong.core.model.audit.Audit;
 import com.alkemy.ong.core.model.audit.AuditListener;
 import com.alkemy.ong.core.model.audit.Auditable;
+import com.alkemy.ong.core.model.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
