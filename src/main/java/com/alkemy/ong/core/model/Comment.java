@@ -35,12 +35,12 @@ public class Comment implements Auditable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	@ToStringExclude
+	@ToString.Exclude
 	private User userId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "new_id")
-	@ToStringExclude
+	@ToString.Exclude
 	private New newId;
 	
 	@Column(nullable = false, columnDefinition = "text")
