@@ -58,6 +58,15 @@ public class Organization implements Auditable {
     @Column(name = "about_us_text", columnDefinition = "text")
     private String aboutUsText;
 
+    @Column(name="facebook")
+    private String facebookUrl;
+
+    @Column(name="linkedin")
+    private String linkedinUrl;
+
+    @Column(name="instagram")
+    private String instagramUrl;
+
     @Embedded
     private Audit audit;
 
