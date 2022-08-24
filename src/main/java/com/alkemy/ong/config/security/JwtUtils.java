@@ -22,7 +22,7 @@ public class JwtUtils {
     public String getJWTToken(String username) {
 
         String token = Jwts.builder()
-                .setSubject("Alkemy")
+                .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
                 .signWith(SECRET_KEY)
