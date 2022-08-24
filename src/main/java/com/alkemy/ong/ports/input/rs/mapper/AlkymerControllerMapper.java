@@ -1,7 +1,9 @@
 package com.alkemy.ong.ports.input.rs.mapper;
 
 import com.alkemy.ong.core.model.Alkymer;
+import com.alkemy.ong.core.model.Member;
 import com.alkemy.ong.ports.input.rs.request.CreateAlkymerRequest;
+import com.alkemy.ong.ports.input.rs.request.MemberRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateAlkymerRequest;
 import com.alkemy.ong.ports.input.rs.response.AlkymerResponse;
 import org.mapstruct.IterableMapping;
@@ -24,5 +26,6 @@ public interface AlkymerControllerMapper extends CommonMapper {
 
     Alkymer createAlkymerRequestToAlkymer(CreateAlkymerRequest create);
 
+    Member createMemberRequestToMember(MemberRequest memberRequest);
     Alkymer updateAlkymerRequestToAlkymer(UpdateAlkymerRequest create);
 }
