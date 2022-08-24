@@ -6,10 +6,11 @@ import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+import com.sendgrid.helpers.mail.objects.Personalization;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,6 +23,9 @@ public class EmailServiceImp implements EmailService {
 
     private SendGrid sendGridClient;
 
+    @Value("${email.sendgrid.template}")
+    private String templateId;
+
     @Autowired
     public void SendGridEmailService(SendGrid sendGridClient) {
 
@@ -29,23 +33,28 @@ public class EmailServiceImp implements EmailService {
     }
 
     @Override
-    public void sendText(String from, String to, String subject, String body) {
+    public void sendText(String to) {
 
-        Response response = sendEmail(from, to, subject, new Content("text/plain", body));
+        Response response = sendEmail(to);
     }
 
     @Override
-    public void sendHTML(String from, String to, String subject, String body) {
+    public void sendHTML(String to) {
 
-        Response response = sendEmail(from, to, subject, new Content("text/html", body));
+        Response response = sendEmail(to);
     }
 
-    private Response sendEmail(String from, String to, String subject, Content content) {
+    private Response sendEmail(String to) {
 
-        Mail mail = new Mail(new Email(from), subject, new Email(to), content);
+        Personalization personalization= new Personalization();
+        personalization.addTo(new Email(to));
+        Mail mail = new Mail();
+        mail.setFrom(new Email(NO_REPLY_SOMOSMAS_ORG));
+        mail.addPersonalization(personalization);
         mail.setReplyTo(new Email(NO_REPLY_SOMOSMAS_ORG));
         Request request = new Request();
         Response response;
+        mail.setTemplateId(templateId);
 
         try {
             request.setMethod(Method.POST);
