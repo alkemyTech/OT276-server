@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,11 +19,11 @@ import java.util.Date;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class S3ServiceImpl implements S3Service{
+public class S3ServiceImpl implements S3Service {
 
     private final AmazonS3 s3client;
 
-    @Value("${amazonProperties.bucketName:cohorte-agosto-38d749a7}")
+    @Value("${s3.bucket}")
     private String bucketName;
 
 
