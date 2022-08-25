@@ -18,6 +18,7 @@ public interface ApiConstants {
     String COMMENTS_URI = "/v1/comments";
     String CONTACTS_URI = "/v1/contacts";
 
+
     int DEFAULT_PAGE = 0;
     int DEFAULT_PAGE_SIZE = 10;
 
