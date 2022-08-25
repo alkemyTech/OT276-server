@@ -1,3 +1,0 @@
-insert into role (role_id, name, description, is_active, created_at, updated_at)
-values ('1', 'ROLE_ADMIN', 'Administrator', 1, current_timestamp, null),
- ('2', 'ROLE_USER', 'Public User', 1, current_timestamp, null);
