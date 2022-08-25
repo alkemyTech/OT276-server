@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class MemberRequest {
 
 
-    @NotBlank(message = "El nombre no puede ser nulo")
+    @NotBlank(message = "Name cannot be null")
     @JsonProperty("name")
     private String name;
 
@@ -29,7 +29,7 @@ public class MemberRequest {
     @JsonProperty("linkedin_url")
     private String linkedinUrl;
 
-    @NotNull(message = "La imagen no puede ser nula")
+    @NotNull(message = "Image cannot be null")
     @JsonProperty("image")
     private String image;
 
