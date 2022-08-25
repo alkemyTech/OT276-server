@@ -1,7 +1,6 @@
 package com.alkemy.ong.config;
 
 import com.alkemy.ong.config.security.JwtRequestFilter;
-import com.alkemy.ong.config.security.MyUserDetailsService;
 import com.alkemy.ong.core.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
