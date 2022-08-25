@@ -1,6 +1,7 @@
 package com.alkemy.ong.ports.output.email;
 
 public interface EmailService {
-    void sendText(String to);
-    void sendHTML(String to);
+    void sendText(String from, String to, String subject, String body);
+
+    void sendHTML(String from, String to, String subject, String body);
 }

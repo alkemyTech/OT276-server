@@ -33,20 +33,20 @@ public class EmailServiceImp implements EmailService {
     }
 
     @Override
-    public void sendText(String to) {
+    public void sendText(String from, String to, String subject, String body) {
 
         Response response = sendEmail(to);
     }
 
     @Override
-    public void sendHTML(String to) {
+    public void sendHTML(String from, String to, String subject, String body) {
 
         Response response = sendEmail(to);
     }
 
     private Response sendEmail(String to) {
 
-        Personalization personalization= new Personalization();
+        Personalization personalization = new Personalization();
         personalization.addTo(new Email(to));
         Mail mail = new Mail();
         mail.setFrom(new Email(NO_REPLY_SOMOSMAS_ORG));
