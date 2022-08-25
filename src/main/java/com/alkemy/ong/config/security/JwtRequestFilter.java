@@ -1,11 +1,14 @@
 package com.alkemy.ong.config.security;
 
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Encoders;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alkemy.ong.core.usecase.impl.UserServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -14,65 +17,41 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    @Autowired
-    JwtUtils jwtUtils;
+
+    private final UserServiceImpl userServiceImpl;
+    private final JwtUtils jwtUtils;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws ServletException, IOException {
+
+        final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
         try {
-            if (existeJWTToken(request, response)) {
-                Claims claims = validateToken(request);
-                if (claims.get("authorities") != null) {
-                    setUpSpringAuthentication(claims);
-                } else {
-                    SecurityContextHolder.clearContext();
+            var username = jwtUtils.extractUsername(authorizationHeader);
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+                UserDetails userDetails = userServiceImpl.loadUserByUsername(username);
+
+                if (jwtUtils.validateToken(authorizationHeader, userDetails)) {
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
-            } else {
-                SecurityContextHolder.clearContext();
             }
-            chain.doFilter(request, response);
-        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
-            return;
+        } catch (Exception e) {
+            logger.warn("Invalid jwt token exception due " + e);
+            throw new BadCredentialsException(e.getLocalizedMessage());
         }
+
+        chain.doFilter(request, response);
     }
-
-    private Claims validateToken(HttpServletRequest request) {
-
-        String secretString = Encoders.BASE64.encode(jwtUtils.SECRET_KEY.getEncoded());
-
-        String jwtToken = request.getHeader(jwtUtils.HEADER).replace(jwtUtils.PREFIX, "");
-//        return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
-
-        return Jwts.parserBuilder()
-                .setSigningKey(jwtUtils.SECRET_KEY)
-                .build()
-                .parseClaimsJws(secretString).getBody();
-    }
-
-
-    private void setUpSpringAuthentication(Claims claims) {
-        @SuppressWarnings("unchecked")
-        List<String> authorities = (List) claims.get("authorities");
-
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
-                authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-        SecurityContextHolder.getContext().setAuthentication(auth);
-
-    }
-
-    private boolean existeJWTToken(HttpServletRequest request, HttpServletResponse res) {
-        String authenticationHeader = request.getHeader(jwtUtils.HEADER);
-        if (authenticationHeader == null || !authenticationHeader.startsWith(jwtUtils.PREFIX))
-            return false;
-        return true;
-    }
-
 }
+
