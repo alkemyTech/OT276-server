@@ -1,0 +1,2 @@
+insert into role(role_id, name, description, created_at, is_active) values (1, 'ROLE_USER', 'Permisos de Usuario', current_timestamp(), true);
+insert into role(role_id, name, description, created_at, is_active) values (2, 'ROLE_ADMIN', 'Permisos de Administrador', current_timestamp(), true);
