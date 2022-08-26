@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.ORGANIZATIONS_URI;
 
 @RestController
@@ -25,8 +26,6 @@ public class OrganizationController implements OrganizationApi {
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<OrganizationResponse> getOrganization(@PathVariable("id") Long id) {
-
-
         Organization organization = serviceOrganization.getOrganizationEntity(id);
         OrganizationResponse organizationResponse = mapper.organizationToOrganizationResponse(organization);
         return ResponseEntity.ok(organizationResponse);

@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 
 @Mapper
-public interface OrganizationControllerMapper extends CommonMapper{
+public interface OrganizationControllerMapper extends CommonMapper {
 
     @Named("organizationToOrganizationResponse")
     OrganizationResponse organizationToOrganizationResponse(Organization organization);
