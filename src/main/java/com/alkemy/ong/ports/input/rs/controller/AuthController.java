@@ -20,7 +20,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.AUTHENTICATION_URI;
 @RestController
 @RequestMapping(AUTHENTICATION_URI)
 @RequiredArgsConstructor
-public class AuthController  {
+public class AuthController {
 
     private final UserService userService;
 

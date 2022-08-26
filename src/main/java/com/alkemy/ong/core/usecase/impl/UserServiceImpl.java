@@ -1,14 +1,12 @@
 package com.alkemy.ong.core.usecase.impl;
 
-import com.alkemy.ong.core.model.Role;
+
 import com.alkemy.ong.core.model.User;
 import com.alkemy.ong.core.repository.RoleRepository;
 import com.alkemy.ong.core.repository.UserRepository;
 import com.alkemy.ong.core.usecase.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Long createEntity(User user){
+    public Long createEntity(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         /*Role role = new Role();
          role.setName("ROLE_USER");
@@ -43,7 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) {
-        return (UserDetails) userRepository.findByEmail(email)
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("username %s not found".formatted(email)));
     }
 }
