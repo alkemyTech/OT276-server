@@ -122,27 +122,27 @@ Las ramas de feature deben tener nombres descriptivos, por ejemplo *feature/OT27
 #### Features
 
 Este tipo de branch lo utilizamos cuando estemos trabajando en una funcionalidad particular que se agrega a la aplicación.
-> Ejemplo: **feature/OT149-123**
+> Ejemplo: **feature/OT276-123**
 
 #### Refactors
 
 Este tipo de branch lo utilizamos cuando no estemos agregando ningún tipo de funcionalidad, sino que modificamos nuestro código para que se más mantenible, escalable, perfomante o para mejorar la seguridad.
-> Ejemplo: **refactor/OT149-124**
+> Ejemplo: **refactor/OT276-124**
 
 #### Bug Fixes
 
 Este tipo de branch se utiliza para solucionar algún bug encontrado que necesita ser corregido en la rama principal.
-> Ejemplo: **bugfix/OT149-125**
+> Ejemplo: **bugfix/OT276-125**
 
 #### Hot Fixes
 
 Este tipo de branch raramente se utiliza, significa que hay que solucionar un bug en producción que necesita ser integrado cuanto antes.
-> Ejemplo: **hotfix/OT149-126**
+> Ejemplo: **hotfix/OT276-126**
 
 #### Tests
 
 Este tipo de branch se utiliza cuando queremos agregar tests automatizados a la aplicación.
-> Ejemplo: **tests/OT149-127**
+> Ejemplo: **tests/OT276-127**
 
 &nbsp;
 
@@ -159,6 +159,7 @@ Esta rama se utiliza para el desarrollo. Cada desarrollador crea un branch desde
 Esta rama se utiliza para las pruebas de integración y demos. Cuando se quieren pasar suficientes cambios a release candidate se hace un "tag-cut" como se muestra a continuación:
 
 > ***v1.0-rc1 -> v1.0-rc2 -> v1.0-rc3***.
+
 Una vez que se produce el "tag-cut" los cambios son candidatos para la próxima release.
 
 #### Main con tag Release
@@ -176,7 +177,7 @@ Esta es la rama que tiene el último código listo para producción. Una vez que
 3. Como título de PR usar la siguiente convención de nombre: **[#NRO-TICKET] Descripción breve**
 
 Ejemplo:
-> **[OT149-123] Added Users documentation**
+> **[OT276-123] Added Users documentation**
 
 4. Llenar en el *Pull-request Template* la información relevante sobre lo que modificamos en el código fuente.
 
@@ -195,6 +196,33 @@ En lugar de la capa de presentación, la aplicación tiene ahora uno o más adap
 El **Core** tiene uno o más puertos. Un puerto define un conjunto de operaciones que permiten al núcleo interactuar con los adaptadores y, por tanto, con lo que está fuera de la aplicación. Al igual que tenemos dos tipos de adaptadores, de entrada y de salida, hay un puerto de entrada y un puerto de salida. Los puertos de entrada son APIs expuestas por el núcleo para ser accedidas por aplicaciones externas, mientras que los puertos de salida son interfaces que permiten al núcleo consumir servicios externos.
 
 ![](docs/hexarch.png "Hexagonal Architecture Example")
+
+&nbsp;
+
+## Users and Roles
+
+| User                          | Password            | Role   |
+|-------------------------------|---------------------|--------|
+| pedrojuarez@somosmas.org      | pedrojuarez123      | USER   |
+| juanacosta@somosmas.org       | juanacosta123       | USER   |
+| estebangarcia@somosmas.org    | estebangarcia123    | USER   |
+| matiascarvallo@somosmas.org   | matiascarvallo123   | USER   |
+| federicolopez@somosmas.org    | federicolopez123    | USER   |
+| carolinagomez@somosmas.org    | carolinagomez123    | USER   |
+| vivianagutierrez@somosmas.org | vivianagutierrez123 | USER   |
+| belenvera@somosmas.org        | belenvera123        | USER   |
+| zahirapiniero@somosmas.org    | zahirapiniero123    | USER   |
+| rocioromero@somosmas.org      | rocioromero123      | USER   |
+| ricardogrimaldi@somosmas.org  | ricardogrimaldi123  | ADMIN  |
+| luismoretti@somosmas.org      | luismoretti123      | ADMIN  |
+| manuelesposito@somosmas.org   | manuelesposito123   | ADMIN  |
+| cristiancolombo@somosmas.org  | cristiancolombo123  | ADMIN  |
+| oscarcarrasco@somosmas.org    | oscarcarrasco123    | ADMIN  |
+| carlabenson@somosmas.org      | carlabenson123      | ADMIN  |
+| elenamedina@somosmas.org      | elenamedina123      | ADMIN  |
+| silvinatorres@somosmas.org    | silvinatorres123    | ADMIN  |
+| monicaaranda@somosmas.org     | monicaaranda123     | ADMIN  |
+| norazapata@somosmas.org       | norazapata123       | ADMIN  |
 
 &nbsp;
 
