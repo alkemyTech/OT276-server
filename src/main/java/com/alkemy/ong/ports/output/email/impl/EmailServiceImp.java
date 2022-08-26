@@ -4,7 +4,6 @@ import com.alkemy.ong.core.model.Organization;
 import com.alkemy.ong.ports.output.email.EmailService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
-import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
@@ -32,22 +31,22 @@ public class EmailServiceImp implements EmailService {
     @Override
     public void sendText(String from, String to, String subject, String body) {
 
-        Response response = sendEmail(from, to, subject, new Content("text/plain", body));
+         sendEmail(from, to, subject, new Content("text/plain", body));
     }
 
     @Override
     public void sendHTML(String from, String to, String subject, String body) {
 
-        Response response = sendEmail(from, to, subject, new Content("text/html", body));
+       sendEmail(from, to, subject, new Content("text/html", body));
     }
     
     @Override
     public void sendWelcomEmail(Organization organization, String to) {
 
-        Response response = sendEmail(organization.getEmail(), to);
+        sendEmail(organization.getEmail(), to);
     }
 
-    private Response sendEmail(String from, String to) {
+    private void sendEmail(String from, String to) {
 
         Personalization personalization = new Personalization();
         personalization.addTo(new Email(to));
@@ -56,32 +55,29 @@ public class EmailServiceImp implements EmailService {
         mail.setReplyTo(new Email(NO_REPLY_SOMOSMAS_ORG));
         mail.setTemplateId(templateId);
         mail.addPersonalization(personalization);
-
-        return send(mail);
+        send(mail);
     }
 
-    private Response send(Mail mail) {
+    private void send(Mail mail) {
 
         Request request = new Request();
-        Response response;
 
         try {
             request.setMethod(Method.POST);
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
-            response = this.sendGridClient.api(request);
+            this.sendGridClient.api(request);
 
         } catch (IOException ex) {
             log.error("Error sending email", ex);
             throw new RuntimeException(ex);
         }
-        return response;
     }
 
-    private Response sendEmail(String from, String to, String subject, Content content) {
+    private void sendEmail(String from, String to, String subject, Content content) {
 
         Mail mail = new Mail(new Email(from), subject, new Email(to), content);
         mail.setReplyTo(new Email(NO_REPLY_SOMOSMAS_ORG));
-        return send(mail);
+        send(mail);
     }
 }
