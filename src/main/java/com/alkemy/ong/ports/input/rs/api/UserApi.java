@@ -9,5 +9,5 @@ import javax.validation.Valid;
 
 public interface UserApi {
 
-    ResponseEntity<Void> createUser(@Valid @RequestBody CreateUserRequest userRequest);
+
 }
