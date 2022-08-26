@@ -198,6 +198,33 @@ El **Core** tiene uno o más puertos. Un puerto define un conjunto de operacione
 
 &nbsp;
 
+## Users and Roles
+
+| User                          | Password            | Role   |
+|-------------------------------|---------------------|--------|
+| pedrojuarez@somosmas.org      | pedrojuarez123      | USER   |
+| juanacosta@somosmas.org       | juanacosta123       | USER   |
+| estebangarcia@somosmas.org    | estebangarcia123    | USER   |
+| matiascarvallo@somosmas.org   | matiascarvallo123   | USER   |
+| federicolopez@somosmas.org    | federicolopez123    | USER   |
+| carolinagomez@somosmas.org    | carolinagomez123    | USER   |
+| vivianagutierrez@somosmas.org | vivianagutierrez123 | USER   |
+| belenvera@somosmas.org        | belenvera123        | USER   |
+| zahirapiniero@somosmas.org    | zahirapiniero123    | USER   |
+| rocioromero@somosmas.org      | rocioromero123      | USER   |
+| ricardogrimaldi@somosmas.org  | ricardogrimaldi123  | ADMIN  |
+| luismoretti@somosmas.org      | luismoretti123      | ADMIN  |
+| manuelesposito@somosmas.org   | manuelesposito123   | ADMIN  |
+| cristiancolombo@somosmas.org  | cristiancolombo123  | ADMIN  |
+| oscarcarrasco@somosmas.org    | oscarcarrasco123    | ADMIN  |
+| carlabenson@somosmas.org      | carlabenson123      | ADMIN  |
+| elenamedina@somosmas.org      | elenamedina123      | ADMIN  |
+| silvinatorres@somosmas.org    | silvinatorres123    | ADMIN  |
+| monicaaranda@somosmas.org     | monicaaranda123     | ADMIN  |
+| norazapata@somosmas.org       | norazapata123       | ADMIN  |
+
+&nbsp;
+
 ## Links útiles 📖
 
 * Documentación funcional: [Caso ONG](docs/Caso-ONG.pdf)
