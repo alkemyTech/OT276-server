@@ -29,10 +29,6 @@ public class OrganizationController implements OrganizationApi {
 
         Organization organization = serviceOrganization.getOrganizationEntity(id);
         OrganizationResponse organizationResponse = mapper.organizationToOrganizationResponse(organization);
-        //retorno la OrganizationResponse
         return ResponseEntity.ok(organizationResponse);
-
-
-        ////////// main     58      24
     }
 }
