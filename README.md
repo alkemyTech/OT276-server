@@ -122,27 +122,27 @@ Las ramas de feature deben tener nombres descriptivos, por ejemplo *feature/OT27
 #### Features
 
 Este tipo de branch lo utilizamos cuando estemos trabajando en una funcionalidad particular que se agrega a la aplicación.
-> Ejemplo: **feature/OT149-123**
+> Ejemplo: **feature/OT276-123**
 
 #### Refactors
 
 Este tipo de branch lo utilizamos cuando no estemos agregando ningún tipo de funcionalidad, sino que modificamos nuestro código para que se más mantenible, escalable, perfomante o para mejorar la seguridad.
-> Ejemplo: **refactor/OT149-124**
+> Ejemplo: **refactor/OT276-124**
 
 #### Bug Fixes
 
 Este tipo de branch se utiliza para solucionar algún bug encontrado que necesita ser corregido en la rama principal.
-> Ejemplo: **bugfix/OT149-125**
+> Ejemplo: **bugfix/OT276-125**
 
 #### Hot Fixes
 
 Este tipo de branch raramente se utiliza, significa que hay que solucionar un bug en producción que necesita ser integrado cuanto antes.
-> Ejemplo: **hotfix/OT149-126**
+> Ejemplo: **hotfix/OT276-126**
 
 #### Tests
 
 Este tipo de branch se utiliza cuando queremos agregar tests automatizados a la aplicación.
-> Ejemplo: **tests/OT149-127**
+> Ejemplo: **tests/OT276-127**
 
 &nbsp;
 
@@ -159,6 +159,7 @@ Esta rama se utiliza para el desarrollo. Cada desarrollador crea un branch desde
 Esta rama se utiliza para las pruebas de integración y demos. Cuando se quieren pasar suficientes cambios a release candidate se hace un "tag-cut" como se muestra a continuación:
 
 > ***v1.0-rc1 -> v1.0-rc2 -> v1.0-rc3***.
+
 Una vez que se produce el "tag-cut" los cambios son candidatos para la próxima release.
 
 #### Main con tag Release
@@ -176,7 +177,7 @@ Esta es la rama que tiene el último código listo para producción. Una vez que
 3. Como título de PR usar la siguiente convención de nombre: **[#NRO-TICKET] Descripción breve**
 
 Ejemplo:
-> **[OT149-123] Added Users documentation**
+> **[OT276-123] Added Users documentation**
 
 4. Llenar en el *Pull-request Template* la información relevante sobre lo que modificamos en el código fuente.
 
