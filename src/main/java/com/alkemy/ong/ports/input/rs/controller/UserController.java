@@ -18,9 +18,9 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.USERS_URI;
 @RequiredArgsConstructor
 public class UserController {
 
-    @GetMapping("/me")
-    public ResponseEntity<UserResponse> getUserInformation(@AuthenticationPrincipal User user) {
-        UserResponse userResponse = userMapper.userToUserResponse(user);
-        return new ResponseEntity<>(userResponse, HttpStatus.OK);
-    }
+  //  @GetMapping("/me")
+    //public ResponseEntity<UserResponse> getUserInformation(@AuthenticationPrincipal User user) {
+      //  UserResponse userResponse = userMapper.userToUserResponse(user);
+        //return new ResponseEntity<>(userResponse, HttpStatus.OK);
+    //}
 }
