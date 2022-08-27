@@ -1,5 +1,6 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
+import com.alkemy.ong.ports.input.rs.api.S3Api;
 import com.alkemy.ong.ports.output.s3.S3ServiceImpl;
 import com.amazonaws.services.kafka.model.S3;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +21,14 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.S3_URI;
 @RestController
 @RequestMapping(S3_URI)
 @RequiredArgsConstructor
-public class S3Controller {
+public class S3Controller implements S3Api {
 
     private final S3ServiceImpl service;
 
     @PostMapping
-    public ResponseEntity<Void> createS3(@NotNull @RequestBody MultipartFile multipartFile) {
+    public ResponseEntity<Void> createS3(@NotNull @RequestBody MultipartFile file) {
 
-        final String url = service.uploadFile(multipartFile);
+        final String url = service.uploadFile(file);
 
         URI location = URI.create(url);
 
