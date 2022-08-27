@@ -41,7 +41,7 @@ public class EmailServiceImp implements EmailService {
     }
     
     @Override
-    public void sendWelcomEmail(Organization organization, String to) {
+    public void sendWelcomeEmail(Organization organization, String to) {
 
         sendEmail(organization.getEmail(), to);
     }
@@ -55,6 +55,13 @@ public class EmailServiceImp implements EmailService {
         mail.setReplyTo(new Email(NO_REPLY_SOMOSMAS_ORG));
         mail.setTemplateId(templateId);
         mail.addPersonalization(personalization);
+        send(mail);
+    }
+
+    private void sendEmail(String from, String to, String subject, Content content) {
+
+        Mail mail = new Mail(new Email(from), subject, new Email(to), content);
+        mail.setReplyTo(new Email(NO_REPLY_SOMOSMAS_ORG));
         send(mail);
     }
 
@@ -72,12 +79,5 @@ public class EmailServiceImp implements EmailService {
             log.error("Error sending email", ex);
             throw new RuntimeException(ex);
         }
-    }
-
-    private void sendEmail(String from, String to, String subject, Content content) {
-
-        Mail mail = new Mail(new Email(from), subject, new Email(to), content);
-        mail.setReplyTo(new Email(NO_REPLY_SOMOSMAS_ORG));
-        send(mail);
     }
 }

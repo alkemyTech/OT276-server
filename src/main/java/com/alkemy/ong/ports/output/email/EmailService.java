@@ -8,5 +8,5 @@ public interface EmailService {
 
     void sendHTML(String from, String to, String subject, String body);
 
-    void sendWelcomEmail(Organization organization, String to);
+    void sendWelcomeEmail(Organization organization, String to);
 }
