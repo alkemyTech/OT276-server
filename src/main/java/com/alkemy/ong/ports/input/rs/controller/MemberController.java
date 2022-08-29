@@ -25,6 +25,7 @@ public class MemberController implements MemberApi {
     private final MemberControllerMapper mapper;
     private  final MemberServiceImpl memberService;
 
+    @Override
     @PostMapping
     public ResponseEntity<Void> createMember(@Valid @RequestBody MemberRequest memberRequest) {
 

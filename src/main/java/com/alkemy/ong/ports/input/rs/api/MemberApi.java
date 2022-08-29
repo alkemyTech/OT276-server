@@ -12,8 +12,5 @@ import javax.validation.Valid;
 @SecurityRequirement(name = "bearerAuth")
 @Validated
 public interface MemberApi {
-
-    public ResponseEntity<Void> createMember(@Valid @RequestBody MemberRequest memberRequest);
-
-
-
+    ResponseEntity<Void> createMember(@Valid @RequestBody MemberRequest memberRequest);
+}
