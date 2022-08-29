@@ -1,6 +1,5 @@
 package com.alkemy.ong.ports.input.rs.response;
 
-import com.alkemy.ong.core.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

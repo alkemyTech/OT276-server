@@ -30,10 +30,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Long createEntity(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        /*Role role = new Role();
-         role.setName("ROLE_USER");
-         role.setDescription("Usuario normal");
-        roleRepository.save(role);*/
         user.setRole(roleRepository.findById(1L).get());
         return userRepository.save(user).getId();
     }
