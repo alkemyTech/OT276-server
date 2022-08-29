@@ -3,6 +3,7 @@ package com.alkemy.ong.config;
 import com.alkemy.ong.config.exception.handler.AuthenticationEntryPointHandler;
 import com.alkemy.ong.config.exception.handler.CustomAccessDeniedHandler;
 import com.alkemy.ong.config.security.JwtRequestFilter;
+import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @RequiredArgsConstructor
@@ -36,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PATCH).hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, ApiConstants.USERS_URI).hasRole("ADMIN")
                 .and().exceptionHandling()
                 .authenticationEntryPoint(new AuthenticationEntryPointHandler())
                 .accessDeniedHandler(new CustomAccessDeniedHandler())
