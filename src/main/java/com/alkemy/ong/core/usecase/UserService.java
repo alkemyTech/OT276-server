@@ -9,5 +9,6 @@ public interface UserService extends UserDetailsService {
 
     Long createEntity(User user);
 
+
 }
 

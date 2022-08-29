@@ -77,6 +77,7 @@ public class User implements Auditable, UserDetails {
         return Collections.emptySet();
     }
 
+
     @Override
     public String getUsername() {
         return this.getEmail();
