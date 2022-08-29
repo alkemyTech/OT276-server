@@ -1,10 +1,12 @@
 package com.alkemy.ong.ports.input.rs.api;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.validation.annotation.Validated;
+import com.alkemy.ong.core.model.User;
+import com.alkemy.ong.ports.input.rs.response.UserResponse;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
-@SecurityRequirement(name = "bearerAuth")
-@Validated
 public interface UserApi {
+
+    ResponseEntity<UserResponse> getUserInformation(@AuthenticationPrincipal User user)
 
 }
