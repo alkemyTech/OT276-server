@@ -31,25 +31,26 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws ServletException, IOException {
 
         final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (authorizationHeader != null) {
+            try {
+                String userName = jwtUtils.extractUsername(authorizationHeader);
+                if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-        try {
-            var username = jwtUtils.extractUsername(authorizationHeader);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UserDetails userDetails = userServiceImpl.loadUserByUsername(userName);
 
-                UserDetails userDetails = userServiceImpl.loadUserByUsername(username);
-
-                if (jwtUtils.validateToken(authorizationHeader, userDetails)) {
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    if (jwtUtils.validateToken(authorizationHeader, userDetails)) {
+                        UsernamePasswordAuthenticationToken authentication =
+                                new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
                 }
-            }
-        } catch (Exception e) {
-            logger.warn("Invalid jwt token exception due " + e);
-            throw new BadCredentialsException(e.getLocalizedMessage());
-        }
 
+            } catch (Exception e) {
+                logger.warn("Invalid jwt token exception", e);
+                throw new BadCredentialsException(e.getLocalizedMessage());
+            }
+        }
         chain.doFilter(request, response);
     }
 }
