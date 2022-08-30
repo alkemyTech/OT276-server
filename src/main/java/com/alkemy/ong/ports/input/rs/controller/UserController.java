@@ -27,11 +27,7 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> getUsers() {
 
         List<User> list = service.getList();
-        List<UserResponse> response = new ArrayList<>();
-
-        for (User entity : list) {
-            response.add(mapper.userToUserResponse(entity));
-        }
+        List<UserResponse> response = mapper.userListToUserResponseList(list);
 
         return ResponseEntity.ok().body(response);
     }
