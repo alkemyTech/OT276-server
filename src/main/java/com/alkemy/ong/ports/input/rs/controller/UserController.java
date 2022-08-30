@@ -10,7 +10,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.USERS_URI;
 @RestController
 @RequestMapping(USERS_URI)
 @RequiredArgsConstructor
-public class UserController implements UserApi {
+public class UserController  {
 
 
 }

@@ -43,18 +43,24 @@ public class EmailServiceImp implements EmailService {
     @Override
     public void sendWelcomeEmail(Organization organization, String to) {
 
-        sendEmail(organization.getEmail(), to);
-    }
-
-    private void sendEmail(String from, String to) {
-
         Personalization personalization = new Personalization();
-        personalization.addTo(new Email(to));
+
         Mail mail = new Mail();
-        mail.setFrom(new Email(from));
+
+        personalization.addTo(new Email(to));
+        personalization.addDynamicTemplateData("name", organization.getName());
+        personalization.addDynamicTemplateData("welcome", organization.getWelcomeText());
+        personalization.addDynamicTemplateData("image", organization.getImage());
+        personalization.addDynamicTemplateData("instagram", organization.getInstagramUrl());
+        personalization.addDynamicTemplateData("linkedin", organization.getLinkedinUrl());
+        personalization.addDynamicTemplateData("facebook", organization.getFacebookUrl());
+        personalization.addDynamicTemplateData("phone", organization.getPhone());
+
+        mail.setFrom(new Email(organization.getEmail()));
         mail.setReplyTo(new Email(NO_REPLY_SOMOSMAS_ORG));
         mail.setTemplateId(templateId);
         mail.addPersonalization(personalization);
+
         send(mail);
     }
 
