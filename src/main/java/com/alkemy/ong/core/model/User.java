@@ -12,7 +12,15 @@ import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -29,7 +37,6 @@ import java.util.Objects;
 public class User implements Auditable, UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
@@ -76,7 +83,6 @@ public class User implements Auditable, UserDetails {
         }
         return Collections.emptySet();
     }
-
 
     @Override
     public String getUsername() {

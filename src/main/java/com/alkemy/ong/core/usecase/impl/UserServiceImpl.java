@@ -1,14 +1,10 @@
 package com.alkemy.ong.core.usecase.impl;
 
-
-import com.alkemy.ong.core.model.User;
-import com.alkemy.ong.core.repository.RoleRepository;
 import com.alkemy.ong.core.repository.UserRepository;
 import com.alkemy.ong.core.usecase.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,23 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-
-    private final PasswordEncoder passwordEncoder;
-
-
     private final UserRepository userRepository;
-
-
-    private final RoleRepository roleRepository;
-
-
-    @Override
-    @Transactional
-    public Long createEntity(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(roleRepository.findById(1L).get());
-        return userRepository.save(user).getId();
-    }
 
     @Override
     @Transactional(readOnly = true)
