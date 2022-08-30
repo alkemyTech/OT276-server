@@ -1,6 +1,7 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.config.security.JwtUtils;
+import com.alkemy.ong.ports.input.rs.api.UserApi;
 import com.alkemy.ong.ports.input.rs.request.LoginRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.AUTHENTICATION_URI;
 @RestController
 @RequestMapping(AUTHENTICATION_URI)
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements UserApi {
 
     private final AuthenticationManager authenticationManager;
 
