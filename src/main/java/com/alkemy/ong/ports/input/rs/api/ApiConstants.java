@@ -19,6 +19,7 @@ public interface ApiConstants {
     String CONTACTS_URI = "/v1/contacts";
     String S3_URI =  "/s3/files";
 
+
     int DEFAULT_PAGE = 0;
     int DEFAULT_PAGE_SIZE = 10;
 
