@@ -27,8 +27,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.AUTHENTICATION_URI;
 @RestController
 @RequestMapping(AUTHENTICATION_URI)
 @RequiredArgsConstructor
-public class
-AuthController implements UserApi {
+public class AuthController implements UserApi {
 
     private final AuthenticationManager authenticationManager;
 
