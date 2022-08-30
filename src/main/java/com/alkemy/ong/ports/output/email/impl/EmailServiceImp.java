@@ -43,25 +43,24 @@ public class EmailServiceImp implements EmailService {
     @Override
     public void sendWelcomeEmail(Organization organization, String to) {
 
-        sendEmail(organization.getEmail(), organization.getName(), organization.getWelcomeText(), organization.getImage(), organization.getInstagramUrl(), organization.getLinkedinUrl(), organization.getFacebookUrl(), organization.getPhone(), to);
-    }
-
-    private void sendEmail(String from,String name, String welcome, String image, String instagram, String linkedin, String facebook, int phone, String to) {
-
         Personalization personalization = new Personalization();
-        personalization.addTo(new Email(to));
-        personalization.addDynamicTemplateData("name", name);
-        personalization.addDynamicTemplateData("welcome", welcome);
-        personalization.addDynamicTemplateData("image", image);
-        personalization.addDynamicTemplateData("instagram", instagram);
-        personalization.addDynamicTemplateData("linkedin", linkedin);
-        personalization.addDynamicTemplateData("facebook", facebook);
-        personalization.addDynamicTemplateData("phone",phone);
+
         Mail mail = new Mail();
-        mail.setFrom(new Email(from));
+
+        personalization.addTo(new Email(to));
+        personalization.addDynamicTemplateData("name", organization.getName());
+        personalization.addDynamicTemplateData("welcome", organization.getWelcomeText());
+        personalization.addDynamicTemplateData("image", organization.getImage());
+        personalization.addDynamicTemplateData("instagram", organization.getInstagramUrl());
+        personalization.addDynamicTemplateData("linkedin", organization.getLinkedinUrl());
+        personalization.addDynamicTemplateData("facebook", organization.getFacebookUrl());
+        personalization.addDynamicTemplateData("phone", organization.getPhone());
+
+        mail.setFrom(new Email(organization.getEmail()));
         mail.setReplyTo(new Email(NO_REPLY_SOMOSMAS_ORG));
         mail.setTemplateId(templateId);
         mail.addPersonalization(personalization);
+
         send(mail);
     }
 
