@@ -1,6 +1,7 @@
 package com.alkemy.ong.ports.input.rs.mapper;
 
 import com.alkemy.ong.core.model.User;
+import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -17,4 +18,7 @@ public interface UserControllerMapper extends CommonMapper {
     @Named("userListToUserResponseList")
     @IterableMapping(qualifiedByName = "userToUserResponse")
     List<UserResponse> userListToUserResponseList(List<User> users);
+
+    @Named("updateUserRequestToUser")
+    User updateUserRequestToUser(UpdateUserRequest updateUserRequest);
 }
