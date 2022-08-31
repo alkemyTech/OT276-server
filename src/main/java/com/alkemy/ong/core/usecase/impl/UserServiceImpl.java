@@ -1,6 +1,7 @@
 package com.alkemy.ong.core.usecase.impl;
 
 
+import com.alkemy.ong.config.exception.ConflictException;
 import com.alkemy.ong.core.model.User;
 import com.alkemy.ong.core.repository.RoleRepository;
 import com.alkemy.ong.core.repository.UserRepository;
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Long createEntity(User user) {
+        if (exist(user.getEmail())) {
+            throw new ConflictException("There is already an account with that email address: " + user.getEmail());
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(roleRepository.findById(1L).get());
         return userRepository.save(user).getId();
