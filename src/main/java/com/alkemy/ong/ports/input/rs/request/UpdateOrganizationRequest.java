@@ -24,18 +24,18 @@ public class UpdateOrganizationRequest {
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("welcomeText")
+    @JsonProperty("welcome_text")
     private String welcomeText;
 
-    @JsonProperty("aboutUsText")
+    @JsonProperty("about_us")
     private String aboutUsText;
 
-    @JsonProperty("facebookUrl")
+    @JsonProperty("facebook_url")
     private String facebookUrl;
 
-    @JsonProperty("linkedinUrl")
+    @JsonProperty("linkedin_url")
     private String linkedinUrl;
 
-    @JsonProperty("instagramUrl")
+    @JsonProperty("instagram_url")
     private String instagramUrl;
 }

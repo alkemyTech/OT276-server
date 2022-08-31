@@ -33,7 +33,7 @@ public class OrganizationController implements OrganizationApi {
     @Override
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateOrganizacion(@PathVariable("id") Long id,@RequestBody UpdateOrganizationRequest updateOrganizationRequest) {
+    public void updateOrganization(@PathVariable("id") Long id,@RequestBody UpdateOrganizationRequest updateOrganizationRequest) {
         Organization organization = mapper.updateOrganizationRequestToOrganization(updateOrganizationRequest);
         organizationService.updateEntityIfExists(id, organization);
     }

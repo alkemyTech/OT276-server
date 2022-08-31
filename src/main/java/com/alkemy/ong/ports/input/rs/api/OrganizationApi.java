@@ -17,5 +17,5 @@ public interface OrganizationApi {
     })
     ResponseEntity<OrganizationResponse> getOrganization(Long id);
 
-    void updateOrganizacion(@NotNull Long id, @Valid UpdateOrganizationRequest updateOrganizationRequest);
+    void updateOrganization(@NotNull Long id, @Valid UpdateOrganizationRequest updateOrganizationRequest);
 }
