@@ -1,8 +1,8 @@
 insert into organization(organization_id, name, image, address, phone, email, welcome_text, about_us_text, facebook, linkedin, instagram, created_at, is_active)
         values (1,
                 "Somos Mas",
-                "LOGO-SOMOS MAS",
                 "https://cohorte-agosto-38d749a7.s3.amazonaws.com/1661519321851-LOGO-SOMOS_MAS.png",
+                "La Cava",
                 1160112988,
                 "somosfundacionmas@gmail.com",
                 "¡Bienvenido a ONG Somos Más! Trabajamos para transformar la realidad de los que más lo necesitan.",
