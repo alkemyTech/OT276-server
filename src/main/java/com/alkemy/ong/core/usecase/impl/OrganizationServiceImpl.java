@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrganizationServiceImpl implements OrganizationService {
 
-    private final OrganizationRepository repoOrganization;
+    private final OrganizationRepository organizationRepository;
 
     @Override
     public Organization getOrganizationEntity(Long id) {
-        return repoOrganization.findById(id).orElseThrow(() -> new NotFoundException(id));
+        return organizationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 }
