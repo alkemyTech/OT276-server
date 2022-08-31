@@ -1,5 +1,6 @@
 package com.alkemy.ong.ports.input.rs.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,14 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserResponse {
 
-    private long id;
+    private Long id;
 
+    @JsonProperty("first_Name")
     private String firstName;
 
+    @JsonProperty("last_Name")
     private String lastName;
 
     private String email;
 
-    private String password;
+    private String photo;
 
 }

@@ -9,17 +9,15 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import java.util.Objects;
-
 
 @Getter
 @Setter
@@ -28,13 +26,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "organization")
 @Where(clause = "is_active=true")
-@SQLDelete(sql ="UPDATE organization SET is_active=false WHERE organization_id=? ")
+@SQLDelete(sql = "UPDATE organization SET is_active=false WHERE organization_id=? ")
 @EntityListeners(AuditListener.class)
 public class Organization implements Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="organization_id")
+    @Column(name = "organization_id")
     private Long id;
 
     @Column(nullable = false)
@@ -52,19 +50,19 @@ public class Organization implements Auditable {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false, name="welcome_text", columnDefinition = "text")
+    @Column(nullable = false, name = "welcome_text", columnDefinition = "text")
     private String welcomeText;
 
     @Column(name = "about_us_text", columnDefinition = "text")
     private String aboutUsText;
 
-    @Column(name="facebook")
+    @Column(name = "facebook")
     private String facebookUrl;
 
-    @Column(name="linkedin")
+    @Column(name = "linkedin")
     private String linkedinUrl;
 
-    @Column(name="instagram")
+    @Column(name = "instagram")
     private String instagramUrl;
 
     @Embedded
@@ -82,5 +80,4 @@ public class Organization implements Auditable {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }
