@@ -1,11 +1,15 @@
 package com.alkemy.ong.ports.input.rs.api;
 
+import com.alkemy.ong.ports.input.rs.request.UpdateOrganizationRequest;
 import com.alkemy.ong.ports.input.rs.response.OrganizationResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Validated
 public interface OrganizationApi {
@@ -15,4 +19,5 @@ public interface OrganizationApi {
     })
     ResponseEntity<OrganizationResponse> getOrganization(Long id);
 
+    void updateOrganizacion(@NotNull Long id, @Valid UpdateOrganizationRequest updateOrganizationRequest);
 }
