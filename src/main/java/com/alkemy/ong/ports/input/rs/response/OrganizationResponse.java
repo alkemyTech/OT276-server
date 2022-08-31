@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrganizationResponse {
 
-    //nombre imagen teleofno y direccion
     private String name;
     private String image;
     private int phone;
