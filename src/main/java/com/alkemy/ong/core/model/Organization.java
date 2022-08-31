@@ -9,10 +9,15 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import java.util.Objects;
-
 
 @Getter
 @Setter
@@ -75,5 +80,4 @@ public class Organization implements Auditable {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }
