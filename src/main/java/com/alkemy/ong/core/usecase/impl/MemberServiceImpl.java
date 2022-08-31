@@ -26,11 +26,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public void deleteById(Long id) {
-        var validId= memberRepository.findById(id);
-        if(validId.isEmpty()){
-            validId.orElseThrow(() -> new NotFoundException(id));}
-        else{
-        validId.ifPresent(memberRepository::delete);}
-
+        memberRepository.findById(id).ifPresent(memberRepository::delete);
     }
 }
