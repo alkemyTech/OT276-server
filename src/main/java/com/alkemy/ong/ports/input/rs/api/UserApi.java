@@ -25,6 +25,5 @@ public interface UserApi {
             schema = @Schema(implementation = ErrorDetails.class),
             examples =@ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))})
     })
-
 AuthenticationResponse login(@Valid @RequestBody LoginRequest request);
 }
