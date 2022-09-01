@@ -58,6 +58,9 @@ public class Organization implements Auditable {
     @Column(name = "about_us_text", columnDefinition = "text")
     private String aboutUsText;
 
+    @Column(nullable = false, name="contact_text", columnDefinition = "text")
+    private String contactText;
+
     @Column(name="facebook")
     private String facebookUrl;
 
