@@ -31,20 +31,19 @@ public class EmailServiceImp implements EmailService {
     @Override
     public void sendText(String from, String to, String subject, String body) {
 
-         sendEmail(from, to, subject, new Content("text/plain", body));
+        sendEmail(from, to, subject, new Content("text/plain", body));
     }
 
     @Override
     public void sendHTML(String from, String to, String subject, String body) {
 
-       sendEmail(from, to, subject, new Content("text/html", body));
+        sendEmail(from, to, subject, new Content("text/html", body));
     }
-    
+
     @Override
     public void sendWelcomeEmail(Organization organization, String to) {
 
-        Mail mail=personalizeEmail(organization,to);
-        mail.getPersonalization().get(0).addDynamicTemplateData("text",organization.getWelcomeText());
+        Mail mail = personalizeEmail(organization, to, organization.getWelcomeText());
 
         send(mail);
     }
@@ -52,13 +51,12 @@ public class EmailServiceImp implements EmailService {
     @Override
     public void sendContactEmail(Organization organization, String to) {
 
-        Mail mail=personalizeEmail(organization,to);
-        mail.getPersonalization().get(0).addDynamicTemplateData("text",organization.getContactText());
+        Mail mail = personalizeEmail(organization, to, organization.getContactText());
 
         send(mail);
     }
 
-    private Mail personalizeEmail(Organization organization,String to){
+    private Mail personalizeEmail(Organization organization, String to, String text) {
 
         Personalization personalization = new Personalization();
 
@@ -70,6 +68,7 @@ public class EmailServiceImp implements EmailService {
         personalization.addDynamicTemplateData("linkedin", organization.getLinkedinUrl());
         personalization.addDynamicTemplateData("facebook", organization.getFacebookUrl());
         personalization.addDynamicTemplateData("phone", organization.getPhone());
+        personalization.addDynamicTemplateData("text", text);
         personalization.addTo(new Email(to));
 
         mail.setFrom(new Email(organization.getEmail()));
