@@ -1,7 +1,5 @@
 package com.alkemy.ong.core.usecase.impl;
 
-
-
 import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.core.model.Member;
 import com.alkemy.ong.core.repository.MemberRepository;
@@ -15,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+
     @Override
     @Transactional
     public Long createEntity(Member member) {
@@ -23,6 +22,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
+
     public void updateEntityIfExists(Long id, Member member) {
         memberRepository.findById(id)
                 .map(memberJpa -> {
@@ -34,6 +34,11 @@ public class MemberServiceImpl implements MemberService {
                     memberJpa.setDescription(member.getDescription());
                     return memberRepository.save(memberJpa);
                 }).orElseThrow(() -> new NotFoundException(id));
+    }
+
+
+    public void deleteById(Long id) {
+        memberRepository.findById(id).ifPresent(memberRepository::delete);
     }
 
 }
