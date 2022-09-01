@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PATCH).hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, ApiConstants.USERS_URI).hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, ApiConstants.USERS_URI, ApiConstants.SLIDES_URI+ "/{id}").hasRole("ADMIN")
                 .and().exceptionHandling()
                 .authenticationEntryPoint(new AuthenticationEntryPointHandler())
                 .accessDeniedHandler(new CustomAccessDeniedHandler())
