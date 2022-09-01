@@ -6,4 +6,5 @@ public interface MemberService {
 
 
     Long createEntity(Member member);
+    void deleteById(Long id);
 }
