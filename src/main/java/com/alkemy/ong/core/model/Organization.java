@@ -35,7 +35,7 @@ public class Organization implements Auditable {
     @Column(name = "organization_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private String name;
 
     @Column(nullable = false)
