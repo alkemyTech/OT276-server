@@ -6,4 +6,5 @@ public interface CategoryService {
 
     Long createEntity(Category category);
 
+    void deleteById(Long id);
 }

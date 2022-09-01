@@ -7,14 +7,13 @@ import com.alkemy.ong.ports.input.rs.api.CategoryApi;
 import com.alkemy.ong.ports.input.rs.mapper.CategoryMapperController;
 import com.alkemy.ong.ports.input.rs.request.CreateCategoryRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.CATEGORIES_URI;
@@ -42,5 +41,12 @@ public class CategoryController implements CategoryApi {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCategoryById(@NotNull @PathVariable("id") Long id) {
+        categoryService.deleteById(id);
     }
 }
