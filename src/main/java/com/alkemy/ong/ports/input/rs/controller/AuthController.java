@@ -27,13 +27,13 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.AUTHENTICATION_URI;
 @RequiredArgsConstructor
 public class AuthController implements UserApi {
 
-    private final UserService userService;
-
-    private final UserControllerMapper mapper;
-
     private final AuthenticationManager authenticationManager;
 
     private final JwtUtils jwtUtils;
+
+    private final UserService userService;
+
+    private final UserControllerMapper mapper;
 
 
     @PostMapping("/login")
@@ -49,7 +49,7 @@ public class AuthController implements UserApi {
         return createJwtToken(userRequest.getEmail(), userRequest.getPassword());
     }
 
-    public AuthenticationResponse createJwtToken(String username, String password) {
+    private AuthenticationResponse createJwtToken(String username, String password) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));
         if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails user1) {
@@ -59,5 +59,9 @@ public class AuthController implements UserApi {
         }
         throw new AccessDeniedException("error in the authentication process");
     }
+
+
+
+
 
 }

@@ -15,11 +15,11 @@ import javax.validation.constraints.NotEmpty;
 public class CreateUserRequest {
 
     @NotEmpty
-    @JsonProperty("firstName")
+    @JsonProperty("first_name")
     private String firstName;
 
     @NotEmpty
-    @JsonProperty("lastName")
+    @JsonProperty("last_name")
     private String lastName;
 
     @Email

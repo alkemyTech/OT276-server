@@ -9,8 +9,6 @@ public interface UserService extends UserDetailsService {
 
     Long createEntity(User user);
 
-    Boolean exist(String email);
-
     List<User> getList();
 
 }

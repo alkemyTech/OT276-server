@@ -54,8 +54,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user).getId();
     }
 
-    @Override
-    public Boolean exist(String email) {
+    private Boolean exist(String email) {
         return userRepository.existsByEmail(email);
     }
 
