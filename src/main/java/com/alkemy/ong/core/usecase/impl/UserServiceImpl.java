@@ -7,6 +7,7 @@ import com.alkemy.ong.core.usecase.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -32,10 +34,15 @@ public class UserServiceImpl implements UserService {
                 .map(userJpa -> {
                     Optional.ofNullable(user.getFirstName()).ifPresent(userJpa::setFirstName);
                     Optional.ofNullable(user.getLastName()).ifPresent(userJpa::setLastName);
-                    Optional.ofNullable(user.getPassword()).ifPresent(userJpa::setPassword);
-                    Optional.ofNullable(user.getPhoto()).ifPresent(userJpa::setPhoto);
 
+                    if (user.getPassword() != null) {
+                        user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    }
+                    Optional.ofNullable(user.getPassword()).ifPresent(userJpa::setPassword);
+
+                    Optional.ofNullable(user.getPhoto()).ifPresent(userJpa::setPhoto);
                     return userRepository.save(userJpa);
+
                 }).orElseThrow(() -> new NotFoundException(id));
     }
 
