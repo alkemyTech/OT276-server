@@ -9,14 +9,18 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.MediaType;
+
+import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
-import java.awt.*;
 
 @Validated
 public interface UserApi {
+
 
     @Operation(summary = "Login user", description = "Login an exist user", responses = {
             @ApiResponse(responseCode = "200", description = "Ok"),
@@ -25,5 +29,13 @@ public interface UserApi {
             schema = @Schema(implementation = ErrorDetails.class),
             examples =@ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))})
     })
-AuthenticationResponse login(@Valid @RequestBody LoginRequest request);
+    AuthenticationResponse login(@Valid @RequestBody LoginRequest request);
+
+    @Operation(summary = "Register user", description = "Register a new user", responses = {
+            @ApiResponse(responseCode = "200", description = "Ok"),
+            @ApiResponse(responseCode = )
+    })
+
+    ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest userRequest);
+
 }
