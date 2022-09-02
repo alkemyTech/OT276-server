@@ -16,6 +16,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,9 +59,10 @@ public class AuthController implements UserApi {
         return new ResponseEntity<>(mapper.userToUserResponse(user), HttpStatus.CREATED);
     }
 
-    @Override
-    public ResponseEntity<UserResponse> getUserInformation(User user) {
-        return null;
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> getUserInformation(@AuthenticationPrincipal User user) {
+        UserResponse userResponse = mapper.userToUserResponse(user);
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
 
