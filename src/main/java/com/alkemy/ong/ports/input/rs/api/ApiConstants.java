@@ -17,6 +17,8 @@ public interface ApiConstants {
     String ACTIVITIES_URI = "/v1/activities";
     String COMMENTS_URI = "/v1/comments";
     String CONTACTS_URI = "/v1/contacts";
+    String S3_URI =  "/s3/files";
+
 
     int DEFAULT_PAGE = 0;
     int DEFAULT_PAGE_SIZE = 10;
