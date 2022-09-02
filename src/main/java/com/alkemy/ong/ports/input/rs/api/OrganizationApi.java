@@ -1,11 +1,14 @@
 package com.alkemy.ong.ports.input.rs.api;
 
+import com.alkemy.ong.ports.input.rs.request.UpdateOrganizationRequest;
 import com.alkemy.ong.ports.input.rs.response.OrganizationResponse;
 import com.alkemy.ong.ports.input.rs.response.SlideResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -18,9 +21,11 @@ public interface OrganizationApi {
     })
     ResponseEntity<OrganizationResponse> getOrganization(Long id);
 
+    void updateOrganization(@NotNull Long id, @Valid UpdateOrganizationRequest updateOrganizationRequest);
+
     @Operation(summary = "get Slides filtered and order", description = "get Slides by Organization Id and order by Order", responses = {
             @ApiResponse(responseCode = "200", description = "Ok")
     })
     ResponseEntity<List<SlideResponse>> getSlidesByOrganizationIdAndOrderByOrder(@NotNull Long id);
-
+    
 }

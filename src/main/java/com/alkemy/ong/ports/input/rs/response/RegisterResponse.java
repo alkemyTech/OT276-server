@@ -10,15 +10,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SlideResponse {
+public class RegisterResponse {
 
     private Long id;
 
-    @JsonProperty("image_url")
-    private String imageUrl;
+    @JsonProperty("first_Name")
+    private String firstName;
 
-    private String text;
+    @JsonProperty("last_Name")
+    private String lastName;
 
-    private Integer order;
-    
+    private String email;
+
+    private String photo;
+
+    private AuthenticationResponse auth;
 }

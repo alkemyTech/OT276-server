@@ -7,9 +7,11 @@ import com.alkemy.ong.core.usecase.SlideService;
 import com.alkemy.ong.ports.input.rs.api.OrganizationApi;
 import com.alkemy.ong.ports.input.rs.mapper.OrganizationControllerMapper;
 import com.alkemy.ong.ports.input.rs.mapper.SlideControllerMapper;
+import com.alkemy.ong.ports.input.rs.request.UpdateOrganizationRequest;
 import com.alkemy.ong.ports.input.rs.response.OrganizationResponse;
 import com.alkemy.ong.ports.input.rs.response.SlideResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +40,15 @@ public class OrganizationController implements OrganizationApi {
         OrganizationResponse organizationResponse = mapper.organizationToOrganizationResponse(organization);
         return ResponseEntity.ok(organizationResponse);
     }
-
+    
+    @Override
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateOrganization(@PathVariable("id") Long id,@RequestBody UpdateOrganizationRequest updateOrganizationRequest) {
+        Organization organization = mapper.updateOrganizationRequestToOrganization(updateOrganizationRequest);
+        organizationService.updateEntityIfExists(id, organization);
+    }
+    
     @Override
     @GetMapping("/{id}/slides")
     public ResponseEntity<List<SlideResponse>> getSlidesByOrganizationIdAndOrderByOrder(@NotNull @PathVariable Long id) {
@@ -48,5 +58,5 @@ public class OrganizationController implements OrganizationApi {
 
         return ResponseEntity.ok(response);
     }
-
+    
 }

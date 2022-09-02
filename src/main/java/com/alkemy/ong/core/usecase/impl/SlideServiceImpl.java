@@ -20,8 +20,14 @@ public class SlideServiceImpl implements SlideService {
 
     @Override
     @Transactional(readOnly = true)
+    public Slide getSlideEntity(Long id) {
+        return slideRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
     public List<Slide> getListByOrganizationIdAndOrderByOrder(Long id) {
-
+    
         organizationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
         return slideRepository.findByOrganizationIdOrderByOrder(id);
     }

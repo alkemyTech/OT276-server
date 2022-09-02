@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface SlideService {
 
-    List<Slide> getListByOrganizationIdAndOrderByOrder(Long id);
+    Slide getSlideEntity(Long id);
 
+    List<Slide> getListByOrganizationIdAndOrderByOrder(Long id);
+    
 }
