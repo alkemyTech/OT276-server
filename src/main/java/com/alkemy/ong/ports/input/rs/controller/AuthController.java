@@ -58,5 +58,10 @@ public class AuthController implements UserApi {
         return new ResponseEntity<>(mapper.userToUserResponse(user), HttpStatus.CREATED);
     }
 
+    @Override
+    public ResponseEntity<UserResponse> getUserInformation(User user) {
+        return null;
+    }
+
 
 }
