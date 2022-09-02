@@ -14,5 +14,5 @@ public interface UserApi {
 
     AuthenticationResponse login(@Valid @RequestBody LoginRequest request);
 
-    AuthenticationResponse register(@Valid @RequestBody CreateUserRequest userRequest);
+    ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest userRequest);
 }
