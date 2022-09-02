@@ -8,7 +8,7 @@ import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -44,12 +44,12 @@ public class UserController {
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@NotNull @PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest, @AuthenticationPrincipal User loggedUser) {
-        System.out.println(loggedUser.getRole().getName());
+
         if (loggedUser.getId() == id || loggedUser.getRole().getName().equals("ROLE_ADMIN")) {
             User user = mapper.updateUserRequestToUser(updateUserRequest);
             service.updateEntityIfExists(id, user);
         } else {
-            throw new BadCredentialsException("");
+            throw new AccessDeniedException("Access denied to resource");
         }
     }
 
