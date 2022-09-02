@@ -8,7 +8,7 @@ import com.alkemy.ong.ports.input.rs.mapper.UserControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
 import com.alkemy.ong.ports.input.rs.request.LoginRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
-import com.alkemy.ong.ports.input.rs.response.UserResponse;
+import com.alkemy.ong.ports.input.rs.response.RegisterResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,10 +45,13 @@ public class AuthController implements UserApi {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest userRequest) {
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody CreateUserRequest userRequest) {
         User user = mapper.createUserRequestToUser(userRequest);
         userService.createEntity(user);
-        return new ResponseEntity<>(createJwtToken(userRequest.getEmail(), userRequest.getPassword()), HttpStatus.CREATED);
+        RegisterResponse response = mapper.userResponseToRegisterResponse(user);
+        AuthenticationResponse auth = createJwtToken(userRequest.getEmail(), userRequest.getPassword());
+        response.setAuth(auth);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     private AuthenticationResponse createJwtToken(String username, String password) {
@@ -61,9 +64,6 @@ public class AuthController implements UserApi {
         }
         throw new AccessDeniedException("error in the authentication process");
     }
-
-
-
 
 
 }
