@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
+    Long createEntity(User user);
+
     List<User> getList();
 
     void updateEntityIfExists(Long id, User entity);
