@@ -18,4 +18,10 @@ public class CategoryServiceImpl implements CategoryService {
     public Long createEntity(Category category) {
         return categoryRepository.save(category).getId();
     }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        categoryRepository.findById(id).ifPresent(categoryRepository::delete);
+    }
 }
