@@ -21,6 +21,4 @@ public class SlideResponse {
 
     private Integer order;
 
-    private OrganizationResponse organization;
-
 }
