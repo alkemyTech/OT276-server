@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ContactServiceImp implements ContactService {
 
-    ContactRepository contactRepository;
+    private final ContactRepository contactRepository;
 
     @Override
     @Transactional
