@@ -1,24 +1,28 @@
 package com.alkemy.ong.ports.input.rs.request;
 
+import com.alkemy.ong.core.model.Category;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateActivityRequest {
+public class CreateNewRequest {
 
     @NotBlank(message = "El nombre no debe estar vacio.")
     @JsonProperty("name")
     private String name;
 
+    @NotBlank(message = "El contenido no debe estar vacio.")
     @JsonProperty("content")
     private String content;
 
+    @NotNull(message = "La categoria no puede ser nula.")
+    @JsonProperty("categori")
+    private Category categori;
 }
