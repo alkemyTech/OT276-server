@@ -50,7 +50,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user).getId();
     }
 
-    private Boolean exist(String email) { return userRepository.existsByEmail(email); }
+    private Boolean exist(String email) {
+        return userRepository.existsByEmail(email);
+    }
 
     @Override
     @Transactional(readOnly = true)
