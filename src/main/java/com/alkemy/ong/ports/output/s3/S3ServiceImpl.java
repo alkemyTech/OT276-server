@@ -11,9 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.xml.bind.DatatypeConverter;
+import java.io.*;
 import java.util.Date;
 
 @Slf4j
@@ -49,8 +48,21 @@ public class S3ServiceImpl implements S3Service {
 
     @Override
     public String uploadFile(String fileBase64, String fileName) {
-        //todo
-        return null;
+        String fileUrl;
+        byte[] data = DatatypeConverter.parseBase64Binary(fileBase64);
+        File file = new File(fileName);
+        try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
+            outputStream.write(data);
+            fileUrl = s3client.getUrl(bucketName, fileName).toString();
+            uploadFileTos3bucket(fileName, file);
+            file.delete();
+        } catch (Exception e) {
+            log.error("error uploading file", e);
+            throw new RuntimeException(e);
+        }
+
+
+        return fileUrl;
     }
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {
