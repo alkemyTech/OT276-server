@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -44,10 +45,18 @@ public class MemberController implements MemberApi {
 
         return ResponseEntity.created(location).build();
     }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void upDateMember(@NotNull @PathVariable Long id, @Valid @RequestBody MemberRequest MemberRequest){
+    public void upDateMember(@NotNull @PathVariable Long id, @Valid @RequestBody MemberRequest MemberRequest) {
         Member member = mapper.memberRequestToMember(MemberRequest);
         memberService.updateEntityIfExists(id, member);
     }
+
+        @DeleteMapping("/{id}")
+        @ResponseStatus(HttpStatus.NO_CONTENT)
+        public void deleteMember(@NotNull @PathVariable Long id){
+            memberService.deleteById(id);
+
+        }
 }
