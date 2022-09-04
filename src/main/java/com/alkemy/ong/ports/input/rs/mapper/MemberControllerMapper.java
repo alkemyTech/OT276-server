@@ -7,7 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface MemberControllerMapper extends CommonMapper {
 
-    Member createMemberRequestToMember(MemberRequest memberRequest);
+    Member memberRequestToMember(MemberRequest memberRequest);
 
-    Member updateMemberRequestToMember(MemberRequest memberRequest);
 }
