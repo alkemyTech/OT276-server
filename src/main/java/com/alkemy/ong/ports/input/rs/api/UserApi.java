@@ -1,5 +1,6 @@
 package com.alkemy.ong.ports.input.rs.api;
 
+
 import com.alkemy.ong.config.exception.error.ErrorDetails;
 import com.alkemy.ong.ports.input.rs.request.LoginRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
@@ -13,6 +14,14 @@ import org.springframework.http.MediaType;
 import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
 import org.springframework.http.ResponseEntity;
 
+
+import com.alkemy.ong.core.model.User;
+import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
+import com.alkemy.ong.ports.input.rs.request.LoginRequest;
+import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
+import com.alkemy.ong.ports.input.rs.response.UserResponse;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -37,5 +46,14 @@ public interface UserApi {
     })
 
     ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest userRequest);
+
+    @Operation(summary = "Register user", description = "Register a new user", responses = {
+            @ApiResponse(responseCode = "200", description = "Ok"),
+            @ApiResponse(responseCode = )
+    })
+
+
+    ResponseEntity<UserResponse> getUserInformation(@AuthenticationPrincipal User user);
+    
 
 }

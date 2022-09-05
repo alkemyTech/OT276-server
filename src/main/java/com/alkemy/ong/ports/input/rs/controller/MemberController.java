@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ public class MemberController implements MemberApi {
     @PostMapping
     public ResponseEntity<Void> createMember(@Valid @RequestBody MemberRequest memberRequest) {
 
-        Member member = mapper.createMemberRequestToMember(memberRequest);
+        Member member = mapper.memberRequestToMember(memberRequest);
 
         final long id = memberService.createEntity(member);
 
@@ -45,9 +46,17 @@ public class MemberController implements MemberApi {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMember(@NotNull @PathVariable Long id) {
-        memberService.deleteById(id);
+    public void upDateMember(@NotNull @PathVariable Long id, @Valid @RequestBody MemberRequest MemberRequest) {
+        Member member = mapper.memberRequestToMember(MemberRequest);
+        memberService.updateEntityIfExists(id, member);
     }
+
+        @DeleteMapping("/{id}")
+        @ResponseStatus(HttpStatus.NO_CONTENT)
+        public void deleteMember(@NotNull @PathVariable Long id){
+            memberService.deleteById(id);
+
+        }
 }
