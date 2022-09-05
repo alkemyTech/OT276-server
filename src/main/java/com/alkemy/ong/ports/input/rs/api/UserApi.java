@@ -20,4 +20,5 @@ public interface UserApi {
     ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest userRequest);
 
     ResponseEntity<UserResponse> getUserInformation(@AuthenticationPrincipal User user);
+    
 }

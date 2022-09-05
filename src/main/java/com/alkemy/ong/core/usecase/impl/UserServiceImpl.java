@@ -1,5 +1,6 @@
 package com.alkemy.ong.core.usecase.impl;
 
+import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.config.exception.ConflictException;
 import com.alkemy.ong.core.model.User;
 import com.alkemy.ong.core.repository.OrganizationRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,19 +29,13 @@ public class UserServiceImpl implements UserService {
     @Value("${app.default.organization-id}")
     private Long defaultOrganizationId;
 
-    private final PasswordEncoder passwordEncoder;
-
-
-    private final UserRepository userRepository;
-
-
     private final RoleRepository roleRepository;
-
-
-    private final EmailServiceImp emailServiceImp;
-
+    private final UserRepository userRepository;
     private final OrganizationRepository organizationRepository;
-
+    
+    private final EmailServiceImp emailServiceImp;
+    
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -62,6 +58,25 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public List<User> getList() {
         return userRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void updateEntityIfExists(Long id, User user) {
+        userRepository.findById(id)
+                .map(userJpa -> {
+                    Optional.ofNullable(user.getFirstName()).ifPresent(userJpa::setFirstName);
+                    Optional.ofNullable(user.getLastName()).ifPresent(userJpa::setLastName);
+
+                    if (user.getPassword() != null) {
+                        user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    }
+                    Optional.ofNullable(user.getPassword()).ifPresent(userJpa::setPassword);
+
+                    Optional.ofNullable(user.getPhoto()).ifPresent(userJpa::setPhoto);
+                    return userRepository.save(userJpa);
+
+                }).orElseThrow(() -> new NotFoundException(id));
     }
 
     @Override
