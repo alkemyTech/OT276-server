@@ -23,6 +23,6 @@ public class CreateNewRequest {
     private String content;
 
     @NotNull(message = "La categoria no puede ser nula.")
-    @JsonProperty("categori")
-    private Category categori;
+    @JsonProperty("category")
+    private Category category;
 }

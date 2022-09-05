@@ -31,5 +31,4 @@ public class NewServiceImpl implements NewService {
         news.setCategory(categoryRepository.findById(category_id).get());
         return newRepository.save(news).getId();
     }
-
 }
