@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -18,7 +19,7 @@ public class CreateContactRequest {
     @JsonProperty("name")
     private String name;
 
-    @NotBlank(message = "complete with your phone")
+    @NotNull(message = "complete with your phone")
     @JsonProperty("phone")
     private int phone;
 
