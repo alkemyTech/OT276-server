@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.UUID;
+
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +34,8 @@ public class SlideServiceImpl implements SlideService {
     @Override
     @Transactional
     public long createEntity(SlideRequest slideRequest) {
-        final String IMG_NAME = "img_tmp";
-        final String imageUrl = s3Service.uploadFile(slideRequest.getImageBase64(), IMG_NAME);
+        String filename = UUID.randomUUID().toString();
+        final String imageUrl = s3Service.uploadFile(slideRequest.getImageBase64(), filename);
         Slide slide = new Slide();
         Organization organization = organizationRepository.findById(slideRequest.getOrganization().getId())
                 .orElseThrow(() -> new NotFoundException(slideRequest.getOrganization().getId()));
@@ -51,6 +54,14 @@ public class SlideServiceImpl implements SlideService {
         slide.setImageUrl(imageUrl);
 
         return slideRepository.save(slide).getId();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Slide> getListByOrganizationIdAndOrderByOrder(Long id) {
+
+        organizationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        return slideRepository.findByOrganizationIdOrderByOrder(id);
     }
 
 }
