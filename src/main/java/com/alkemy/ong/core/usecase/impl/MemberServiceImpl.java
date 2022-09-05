@@ -1,10 +1,15 @@
 package com.alkemy.ong.core.usecase.impl;
 
 import com.alkemy.ong.config.exception.NotFoundException;
+import com.alkemy.ong.core.model.Alkymer;
+import com.alkemy.ong.core.model.AlkymerList;
 import com.alkemy.ong.core.model.Member;
+import com.alkemy.ong.core.model.MemberList;
 import com.alkemy.ong.core.repository.MemberRepository;
 import com.alkemy.ong.core.usecase.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,4 +46,10 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.findById(id).ifPresent(memberRepository::delete);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public MemberList getList(PageRequest pageRequest) {
+        Page<Member> page = memberRepository.findAll(pageRequest);
+        return new MemberList(page.getContent(), pageRequest, page.getTotalElements());
+    }
 }
