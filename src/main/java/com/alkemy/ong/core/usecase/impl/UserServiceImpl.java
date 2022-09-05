@@ -1,7 +1,7 @@
 package com.alkemy.ong.core.usecase.impl;
 
-import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.config.exception.ConflictException;
+import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.core.model.User;
 import com.alkemy.ong.core.repository.OrganizationRepository;
 import com.alkemy.ong.core.repository.RoleRepository;
@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final OrganizationRepository organizationRepository;
-    
+
     private final EmailServiceImp emailServiceImp;
-    
+
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -52,6 +52,12 @@ public class UserServiceImpl implements UserService {
 
     private Boolean exist(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        userRepository.findById(id).ifPresent(userRepository::delete);
     }
 
     @Override
