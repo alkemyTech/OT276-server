@@ -24,10 +24,19 @@ public class SlideServiceImpl implements SlideService {
     private final OrganizationRepository organizationRepository;
     private final S3ServiceImpl s3Service;
 
+
     @Override
     @Transactional(readOnly = true)
     public Slide getSlideEntity(Long id) {
         return slideRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<Slide> getListByOrganizationIdAndOrderByOrder(Long id) {
+    
+        organizationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        return slideRepository.findByOrganizationIdOrderByOrder(id);
     }
 
 

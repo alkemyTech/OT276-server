@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface SlideService {
 
     Slide getSlideEntity(Long id);

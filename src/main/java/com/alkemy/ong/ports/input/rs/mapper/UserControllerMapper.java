@@ -1,7 +1,7 @@
 package com.alkemy.ong.ports.input.rs.mapper;
 
 import com.alkemy.ong.core.model.User;
-
+import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
 import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
 import com.alkemy.ong.ports.input.rs.response.RegisterResponse;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;
@@ -16,6 +16,8 @@ public interface UserControllerMapper extends CommonMapper {
 
     User createUserRequestToUser(CreateUserRequest userRequest);
 
+    RegisterResponse userResponseToRegisterResponse(User user);
+    
     @Named("userToUserResponse")
     UserResponse userToUserResponse(User user);
 
@@ -23,6 +25,7 @@ public interface UserControllerMapper extends CommonMapper {
     @IterableMapping(qualifiedByName = "userToUserResponse")
     List<UserResponse> userListToUserResponseList(List<User> users);
 
-    RegisterResponse userResponseToRegisterResponse(User user);
-
+    @Named("updateUserRequestToUser")
+    User updateUserRequestToUser(UpdateUserRequest updateUserRequest);
+    
 }
