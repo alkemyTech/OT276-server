@@ -5,10 +5,12 @@ import com.alkemy.ong.config.exception.error.ErrorDetails;
 import com.alkemy.ong.ports.input.rs.request.LoginRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.MediaType;
 
 import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
@@ -54,6 +56,8 @@ public interface UserApi {
     })
     ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest userRequest);
 
+    @Parameter(name = "user", hidden = true)
+    @SecurityRequirement(name = "bearerAuth")
     @Operation(summary = "User profile", description = "Get information about actual user", responses = {
             @ApiResponse(responseCode = "200", description = "Ok")
     })
