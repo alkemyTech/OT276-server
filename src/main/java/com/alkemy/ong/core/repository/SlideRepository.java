@@ -2,10 +2,10 @@ package com.alkemy.ong.core.repository;
 
 import com.alkemy.ong.core.model.Slide;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import java.util.List;
+import java.util.Optional;
 
 public interface SlideRepository extends JpaRepository<Slide, Long> {
-
-    @Query(value = "select max(slide_order) + 1 from slide", nativeQuery = true)
-    Integer findNextMaxSlideOrder();
+    List<Slide> findByOrganizationIdOrderByOrder(Long id);
+    Optional<Slide> findFirstByOrderByIdDesc();
 }
