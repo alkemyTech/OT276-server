@@ -38,7 +38,8 @@ public class SlideController implements SlideApi {
     @PostMapping
     public ResponseEntity<Void> createSlide(@Valid @RequestBody SlideRequest slideRequest) {
 
-        final long id = slideService.createEntity(slideRequest);
+        final long id = slideService.createEntity(slideRequest.getImageBase64(),
+                slideRequest.getOrder(), slideRequest.getText(), slideRequest.getOrganization().getId());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id)

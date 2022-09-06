@@ -6,13 +6,11 @@ import com.alkemy.ong.core.model.Slide;
 import com.alkemy.ong.core.repository.OrganizationRepository;
 import com.alkemy.ong.core.repository.SlideRepository;
 import com.alkemy.ong.core.usecase.SlideService;
-import com.alkemy.ong.ports.input.rs.request.SlideRequest;
 import com.alkemy.ong.ports.output.s3.S3ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 
@@ -30,38 +28,26 @@ public class SlideServiceImpl implements SlideService {
         return slideRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
-
     @Override
     @Transactional
-    public long createEntity(SlideRequest slideRequest) {
-        String filename = UUID.randomUUID().toString();
-        final String imageUrl = s3Service.uploadFile(slideRequest.getImageBase64(), filename);
+    public long createEntity(String imageBase64, Integer order, String text, Long organizationId) {
         Slide slide = new Slide();
-        Organization organization = organizationRepository.findById(slideRequest.getOrganization().getId())
-                .orElseThrow(() -> new NotFoundException(slideRequest.getOrganization().getId()));
+        String filename = UUID.randomUUID().toString();
+        final String imageUrl = s3Service.uploadFile(imageBase64, filename);
 
-        if (slideRequest.getOrder() == null) {
+        Organization organization = organizationRepository.findById(organizationId)
+                .orElseThrow(() -> new NotFoundException(organizationId));
 
-            slide.setOrder(slideRepository.findFirstByOrderByIdDesc().stream().findFirst().
-                    orElseThrow(() -> new NotFoundException("order")).getOrder());
-
+        if (order != null) {
+            slide.setOrder(order);
         } else {
-            slide.setOrder(slideRequest.getOrder());
+            slide.setOrder(slideRepository.findNextMaxSlideOrder());
         }
-
         slide.setOrganization(organization);
-        slide.setText(slideRequest.getText());
+        slide.setText(text);
         slide.setImageUrl(imageUrl);
 
         return slideRepository.save(slide).getId();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Slide> getListByOrganizationIdAndOrderByOrder(Long id) {
-
-        organizationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
-        return slideRepository.findByOrganizationIdOrderByOrder(id);
     }
 
 }

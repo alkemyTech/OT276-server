@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.bind.DatatypeConverter;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 
 @Slf4j
@@ -62,46 +65,47 @@ public class S3ServiceImpl implements S3Service {
     }
 
     private File decodeBase64(String imgBase64, String fileName) {
-        String extension;
-        String[] strings = imgBase64.split(",");
-        byte[] data;
 
-        if (strings[0].contains("data")) {
+        try {
+            String extension;
+            String[] strings = imgBase64.split(",");
+            byte[] data;
 
-            switch (strings[0]) {
-                case "data:image/jpeg;base64":
-                    extension = ".jpeg";
-                    break;
-                case "data:image/png;base64":
-                    extension = ".png";
-                    break;
-                default:
-                    extension = ".jpg";
-                    break;
+            if (strings[0].contains("data")) {
+
+                switch (strings[0]) {
+                    case "data:image/jpeg;base64":
+                        extension = ".jpeg";
+                        break;
+                    case "data:image/png;base64":
+                        extension = ".png";
+                        break;
+                    default:
+                        extension = ".jpg";
+                        break;
+                }
+                data = DatatypeConverter.parseBase64Binary(strings[1]);
+            } else {
+                char firstChar = imgBase64.charAt(0);
+                switch (firstChar) {
+                    case '/':
+                        extension = ".jpeg";
+                        break;
+                    case 'i':
+                        extension = ".png";
+                        break;
+                    default:
+                        extension = ".jpg";
+                        break;
+                }
+                data = DatatypeConverter.parseBase64Binary(imgBase64);
             }
-            data = DatatypeConverter.parseBase64Binary(strings[1]);
-        } else {
-            char firstChar = imgBase64.charAt(0);
-            switch (firstChar) {
-                case '/':
-                    extension = ".jpeg";
-                    break;
-                case 'i':
-                    extension = ".png";
-                    break;
-                default:
-                    extension = ".jpg";
-                    break;
-            }
-            data = DatatypeConverter.parseBase64Binary(imgBase64);
-        }
 
-
-        String fileFullName = fileName + extension;
-        File file = new File(fileFullName);
-        try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
-            outputStream.write(data);
-
+            String fileFullName = fileName + extension;
+            OutputStream out = new FileOutputStream(fileFullName);
+            out.write(data);
+            out.close();
+            File file = new File(fileFullName);
             return file;
 
         } catch (Exception e) {
