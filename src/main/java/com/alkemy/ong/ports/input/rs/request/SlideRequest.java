@@ -1,10 +1,13 @@
 package com.alkemy.ong.ports.input.rs.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -22,8 +25,8 @@ public class SlideRequest {
     @JsonProperty("order")
     private Integer order;
 
-    @Valid
+    @NotNull
     @JsonProperty("organization_id")
-    private OrganizationRequest organization;
+    private Long organizationId;
 
 }

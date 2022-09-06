@@ -29,11 +29,11 @@ public class SlideServiceImpl implements SlideService {
     public Slide getSlideEntity(Long id) {
         return slideRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public List<Slide> getListByOrganizationIdAndOrderByOrder(Long id) {
-    
+
         organizationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
         return slideRepository.findByOrganizationIdOrderByOrder(id);
     }
@@ -41,21 +41,24 @@ public class SlideServiceImpl implements SlideService {
     @Override
     @Transactional
     public long createEntity(String imageBase64, Integer order, String text, Long organizationId) {
-        Slide slide = new Slide();
         String filename = UUID.randomUUID().toString();
-        final String imageUrl = s3Service.uploadFile(imageBase64, filename);
+        Slide slide = new Slide();
 
         Organization organization = organizationRepository.findById(organizationId)
                 .orElseThrow(() -> new NotFoundException(organizationId));
+
+        final String imageUrl = s3Service.uploadFile(imageBase64, filename);
+        slide.setImageUrl(imageUrl);
+        slide.setOrganization(organization);
 
         if (order != null) {
             slide.setOrder(order);
         } else {
             slide.setOrder(slideRepository.findNextMaxSlideOrder());
         }
-        slide.setOrganization(organization);
+
         slide.setText(text);
-        slide.setImageUrl(imageUrl);
+
 
         return slideRepository.save(slide).getId();
     }
