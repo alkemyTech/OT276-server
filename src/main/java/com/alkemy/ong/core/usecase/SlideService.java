@@ -8,5 +8,7 @@ public interface SlideService {
 
     Slide getSlideEntity(Long id);
 
+    List<Slide> getListByOrganizationIdAndOrderByOrder(Long id);
+
     long createEntity(String imageBase64, Integer order, String text, Long organizationId);
 }
