@@ -9,6 +9,10 @@ public interface UserService extends UserDetailsService {
 
     Long createEntity(User user);
 
+    void deleteById(Long id);
+
     List<User> getList();
+
+    void updateEntityIfExists(Long id, User entity);
 
 }
