@@ -3,7 +3,6 @@ package com.alkemy.ong.ports.input.rs.api;
 import com.alkemy.ong.config.exception.error.ErrorDetails;
 import com.alkemy.ong.ports.input.rs.request.TestimonialRequest;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
-import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
