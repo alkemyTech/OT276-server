@@ -37,27 +37,27 @@ public interface UserApi {
 
     @Operation(summary = "Login user", description = "Login an exist user", responses = {
             @ApiResponse(responseCode = "200", description = "Ok",
-            content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = AuthenticationResponse.class))}),
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AuthenticationResponse.class))}),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
-            content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = ErrorDetails.class),
-            examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))})
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))})
     })
     AuthenticationResponse login(@Valid @RequestBody LoginRequest request);
 
     @Operation(summary = "Register user", description = "Register a new user", responses = {
             @ApiResponse(responseCode = "200", description = "Ok",
-            content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = RegisterResponse.class))}),
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = RegisterResponse.class))}),
             @ApiResponse(responseCode = "409", description = "Conflict",
-            content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = ErrorDetails.class),
-            examples = @ExampleObject(value = "{\"code\":\"RESOURCE_ALREADY_EXISTS\",\"detail\":\"There is already an account with that email address:\"}"))}),
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "{\"code\":\"RESOURCE_ALREADY_EXISTS\",\"detail\":\"There is already an account with that email address:\"}"))}),
             @ApiResponse(responseCode = "400", description = "Bad Request",
-            content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation =  ErrorDetails.class),
-            examples = @ExampleObject(value = "{\"code\":\"INVALID_FIELD_VALUE\",\"detail\":\"Password dont must be empty or email must be a correctly format e-mail address\"}"))})
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "{\"code\":\"INVALID_FIELD_VALUE\",\"detail\":\"Password dont must be empty or email must be a correctly format e-mail address\"}"))})
 
     })
     ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest userRequest);
@@ -66,12 +66,12 @@ public interface UserApi {
     @SecurityRequirement(name = "bearerAuth")
     @Operation(summary = "User profile", description = "Get information about actual user", responses = {
             @ApiResponse(responseCode = "200", description = "Ok",
-            content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = UserResponse.class))}),
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = UserResponse.class))}),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
-            content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = ErrorDetails.class),
-            examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}" ))})
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))})
     })
     ResponseEntity<UserResponse> getUserInformation(@AuthenticationPrincipal User user);
 
