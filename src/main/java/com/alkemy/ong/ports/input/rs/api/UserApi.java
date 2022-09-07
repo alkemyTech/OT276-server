@@ -4,6 +4,7 @@ package com.alkemy.ong.ports.input.rs.api;
 import com.alkemy.ong.config.exception.error.ErrorDetails;
 import com.alkemy.ong.ports.input.rs.request.LoginRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
+import com.alkemy.ong.ports.input.rs.response.RegisterResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,7 +49,7 @@ public interface UserApi {
     @Operation(summary = "Register user", description = "Register a new user", responses = {
             @ApiResponse(responseCode = "200", description = "Ok",
             content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = RegisterableService.class))}),
+            schema = @Schema(implementation = RegisterResponse.class))}),
             @ApiResponse(responseCode = "409", description = "Conflict",
             content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
             schema = @Schema(implementation = ErrorDetails.class),
