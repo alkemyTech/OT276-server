@@ -32,7 +32,7 @@ import javax.imageio.spi.RegisterableService;
 import javax.validation.Valid;
 
 @Validated
-public interface UserApi {
+public interface AuthApi {
 
 
     @Operation(summary = "Login user", description = "Login an exist user", responses = {
