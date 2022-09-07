@@ -22,6 +22,10 @@ public interface TestimonialApi {
 
     @Operation(summary = "Create Testimonial", description = "Create a new Testimonial event", responses = {
             @ApiResponse(responseCode = "201", description = "Created"),
+            @ApiResponse(responseCode = "403", description = "Forbidden",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "{\"code\":\"ROLE_INVALID\",\"detail\":\"The user does not have access to the current resource \"}"))}),
             @ApiResponse(responseCode = "409", description = "Conflict",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class),
