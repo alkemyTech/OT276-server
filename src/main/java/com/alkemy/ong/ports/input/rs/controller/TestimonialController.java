@@ -47,4 +47,10 @@ public class TestimonialController implements TestimonialApi {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
+
+    @Override
+    public ResponseEntity<Void> deleteTestimonial(long id) {
+        testimonialService.
+        return null;
+    }
 }

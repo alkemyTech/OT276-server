@@ -6,4 +6,6 @@ import com.alkemy.ong.core.repository.TestimonialRepository;
 public interface TestimonialService {
 
     Long createNewTestimonial(Testimonial testimonial);
+
+    void deleteTestimonial(long id);
 }

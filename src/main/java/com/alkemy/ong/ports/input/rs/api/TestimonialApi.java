@@ -13,8 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Validated
 @SecurityRequirement(name = "bearerAuth")
@@ -40,4 +42,9 @@ public interface TestimonialApi {
                             examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))})
     })
     ResponseEntity<Void> createTestimonial(@Valid @RequestBody TestimonialRequest request);
+
+    ResponseEntity<Void> deleteTestimonial(@NotNull @RequestParam long id);
+
+
+
 }
