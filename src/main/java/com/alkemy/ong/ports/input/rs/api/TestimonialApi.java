@@ -21,9 +21,11 @@ import javax.validation.Valid;
 public interface TestimonialApi {
 
     @Operation(summary = "Create Testimonial", description = "Create a new Testimonial event", responses = {
-            @ApiResponse(responseCode = "200", description = "Ok",
+            @ApiResponse(responseCode = "201", description = "Created"),
+            @ApiResponse(responseCode = "409", description = "Conflict",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = TestimonialResponse.class))}),
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "{\"code\":\"RESOURCE_ALREADY_EXISTS\",\"detail\":\"There is already testimonial with name: \"}"))}),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class),
@@ -33,5 +35,5 @@ public interface TestimonialApi {
                             schema = @Schema(implementation = ErrorDetails.class),
                             examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))})
     })
-    ResponseEntity<TestimonialResponse> createTestimonial(@Valid @RequestBody TestimonialRequest request);
+    ResponseEntity<Void> createTestimonial(@Valid @RequestBody TestimonialRequest request);
 }
