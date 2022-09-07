@@ -1,5 +1,6 @@
 package com.alkemy.ong.core.usecase.impl;
 
+import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.core.model.Category;
 import com.alkemy.ong.core.repository.CategoryRepository;
 import com.alkemy.ong.core.usecase.CategoryService;
@@ -17,6 +18,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Long createEntity(Category category) {
         return categoryRepository.save(category).getId();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Category getByIdIfExists(Long id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
     @Override
