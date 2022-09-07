@@ -1,8 +1,6 @@
 package com.alkemy.ong.core.usecase.impl;
 
 import com.alkemy.ong.config.exception.NotFoundException;
-import com.alkemy.ong.core.model.Alkymer;
-import com.alkemy.ong.core.model.AlkymerList;
 import com.alkemy.ong.core.model.Member;
 import com.alkemy.ong.core.model.MemberList;
 import com.alkemy.ong.core.repository.MemberRepository;
