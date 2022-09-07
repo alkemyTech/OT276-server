@@ -3,7 +3,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.config.security.JwtUtils;
 import com.alkemy.ong.core.model.User;
 import com.alkemy.ong.core.usecase.UserService;
-import com.alkemy.ong.ports.input.rs.api.UserApi;
+import com.alkemy.ong.ports.input.rs.api.AuthApi;
 import com.alkemy.ong.ports.input.rs.mapper.UserControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
 import com.alkemy.ong.ports.input.rs.request.LoginRequest;
@@ -35,7 +35,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.AUTHENTICATION_URI;
 @RestController
 @RequestMapping(AUTHENTICATION_URI)
 @RequiredArgsConstructor
-public class AuthController implements UserApi {
+public class AuthController implements AuthApi {
 
     private final AuthenticationManager authenticationManager;
 
