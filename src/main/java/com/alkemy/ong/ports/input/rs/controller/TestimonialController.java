@@ -20,5 +20,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.TESTIMONIALS_URI;
 public class TestimonialController {
 
     @PostMapping
-    public ResponseEntity<TestimonialResponse> createTestimonial(@Valid @RequestBody TestimonialRequest request)
+    public ResponseEntity<TestimonialResponse> createTestimonial(@Valid @RequestBody TestimonialRequest request){
+
+    }
 }
