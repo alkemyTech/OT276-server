@@ -32,7 +32,7 @@ public class TestimonialController implements TestimonialApi {
 
     @Override
     @PostMapping
-    public ResponseEntity<TestimonialResponse> createTestimonial(TestimonialRequest request) {
+    public ResponseEntity<TestimonialResponse> createTestimonial(@Valid @RequestBody TestimonialRequest request) {
         Testimonial testimonial = mapper.testimonialRequestToEntity(request);
         repository.save(testimonial);
         return new ResponseEntity(mapper.EntityToTestimonialResponse(testimonial), HttpStatus.OK);
