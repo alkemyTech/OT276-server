@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +49,17 @@ public class UserController {
         if (loggedUser.getId() == id || loggedUser.getRole().getName().equals("ROLE_ADMIN")) {
             User user = mapper.updateUserRequestToUser(updateUserRequest);
             service.updateEntityIfExists(id, user);
+        } else {
+            throw new AccessDeniedException("Access denied to resource");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@NotNull @PathVariable Long id, @AuthenticationPrincipal User loggedUser) {
+
+        if (loggedUser.getId() == id || loggedUser.getRole().getName().equals("ROLE_ADMIN")) {
+            service.deleteById(id);
         } else {
             throw new AccessDeniedException("Access denied to resource");
         }
