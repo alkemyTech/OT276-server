@@ -4,18 +4,12 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.core.model.Category;
 import com.alkemy.ong.core.usecase.CategoryService;
 import com.alkemy.ong.ports.input.rs.api.CategoryApi;
-import com.alkemy.ong.ports.input.rs.mapper.CategoryMapperController;
+import com.alkemy.ong.ports.input.rs.mapper.CategoryControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateCategoryRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -32,7 +26,7 @@ public class CategoryController implements CategoryApi {
 
     private final CategoryService categoryService;
 
-    private final CategoryMapperController mapper;
+    private final CategoryControllerMapper mapper;
 
     @Override
     @PostMapping

@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 
 @Mapper
-public interface CategoryMapperController extends CommonMapper{
+public interface CategoryControllerMapper extends CommonMapper {
 
     @Named("createCategoryRequestToCategory")
     Category createCategoryRequestToCategory(CreateCategoryRequest createCategoryRequest);
