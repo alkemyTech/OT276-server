@@ -30,7 +30,5 @@ public class CreateUserRequest {
 
     @NotEmpty
     private String photo;
-
-
-    private Role role;
+    
 }
