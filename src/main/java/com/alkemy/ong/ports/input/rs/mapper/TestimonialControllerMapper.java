@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Mapper
 public interface TestimonialControllerMapper extends  CommonMapper{
@@ -15,4 +16,6 @@ public interface TestimonialControllerMapper extends  CommonMapper{
     Testimonial testimonialRequestToEntity(TestimonialRequest request);
 
     TestimonialResponse EntityToTestimonialResponse(Testimonial testimonial);
+
+    List<TestimonialResponse> testimonialListToTResponse(List<Testimonial> testimonialList);
 }
