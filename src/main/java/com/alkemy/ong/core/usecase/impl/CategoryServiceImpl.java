@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
@@ -24,6 +26,23 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(readOnly = true)
     public Category getByIdIfExists(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    @Override
+    @Transactional
+    public void updateEntityIfExists(Long id, Category category) {
+        categoryRepository.findById(id)
+                .map(categoryJpa -> {
+                    Optional.ofNullable(category.getName()).ifPresent(categoryJpa::setName);
+
+                    if (category.getDescription() != null) categoryJpa.setDescription(category.getDescription());
+                    else categoryJpa.setDescription("");
+
+                    if (category.getImage() != null) categoryJpa.setImage(category.getImage());
+                    else categoryJpa.setImage("");
+
+                    return categoryRepository.save(categoryJpa);
+                }).orElseThrow(() -> new NotFoundException(id));
     }
 
     @Override
