@@ -8,5 +8,7 @@ public interface CategoryService {
 
     Category getByIdIfExists(Long id);
 
+    void updateEntityIfExists(Long id, Category entity);
+
     void deleteById(Long id);
 }
