@@ -38,6 +38,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
+    public void updateEntityIfExists(Long id, Category category) {
+        categoryRepository.findById(id)
+                .map(categoryJpa -> {
+                    categoryJpa.setName(category.getName());
+                    categoryJpa.setDescription(category.getDescription());
+                    categoryJpa.setImage(category.getImage());
+
+                    return categoryRepository.save(categoryJpa);
+                }).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    @Override
+    @Transactional
     public void deleteById(Long id) {
         categoryRepository.findById(id).ifPresent(categoryRepository::delete);
     }

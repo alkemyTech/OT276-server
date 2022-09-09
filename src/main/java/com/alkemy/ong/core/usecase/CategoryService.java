@@ -12,6 +12,8 @@ public interface CategoryService {
 
     CategoryList getList(PageRequest pageRequest);
 
+    void updateEntityIfExists(Long id, Category entity);
+
     void deleteById(Long id);
 
 }

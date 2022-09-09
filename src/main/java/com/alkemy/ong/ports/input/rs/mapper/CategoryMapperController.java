@@ -2,6 +2,7 @@ package com.alkemy.ong.ports.input.rs.mapper;
 
 import com.alkemy.ong.core.model.Category;
 import com.alkemy.ong.ports.input.rs.request.CreateCategoryRequest;
+import com.alkemy.ong.ports.input.rs.request.UpdateCategoryRequest;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -14,6 +15,9 @@ public interface CategoryMapperController extends CommonMapper {
 
     @Named("createCategoryRequestToCategory")
     Category createCategoryRequestToCategory(CreateCategoryRequest createCategoryRequest);
+
+    @Named("updateCategoryRequestToCategory")
+    Category updateCategoryRequestToCategory(UpdateCategoryRequest updateCategoryRequest);
 
     @Named("categoryToCategoryResponse")
     CategoryResponse categoryToCategoryResponse(Category category);

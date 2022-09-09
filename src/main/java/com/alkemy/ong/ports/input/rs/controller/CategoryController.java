@@ -7,6 +7,7 @@ import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.api.CategoryApi;
 import com.alkemy.ong.ports.input.rs.mapper.CategoryMapperController;
 import com.alkemy.ong.ports.input.rs.request.CreateCategoryRequest;
+import com.alkemy.ong.ports.input.rs.request.UpdateCategoryRequest;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponseList;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,6 +90,13 @@ public class CategoryController implements CategoryApi {
         Category category = categoryService.getByIdIfExists(id);
         CategoryResponse response = mapper.categoryToCategoryResponse(category);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateCategory(@NotNull @PathVariable Long id, @Valid @RequestBody UpdateCategoryRequest updateCategoryRequest) {
+        Category category = mapper.updateCategoryRequestToCategory(updateCategoryRequest);
+        categoryService.updateEntityIfExists(id, category);
     }
 
     @Override

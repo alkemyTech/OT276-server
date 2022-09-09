@@ -57,8 +57,8 @@ public class MemberController implements MemberApi {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void upDateMember(@NotNull @PathVariable Long id, @Valid @RequestBody MemberRequest MemberRequest) {
-        Member member = mapper.memberRequestToMember(MemberRequest);
+    public void upDateMember(@NotNull @PathVariable Long id, @Valid @RequestBody MemberRequest memberRequest) {
+        Member member = mapper.memberRequestToMember(memberRequest);
         memberService.updateEntityIfExists(id, member);
     }
 
@@ -70,7 +70,7 @@ public class MemberController implements MemberApi {
         }
 
     @GetMapping
-    public ResponseEntity<MemberResponseList> getMember(@RequestParam Optional<Integer> page,
+    public ResponseEntity<MemberResponseList> getMembers(@RequestParam Optional<Integer> page,
                                                         @RequestParam Optional<Integer> size) {
 
         final int pageNumber = page.filter(p -> p > 0).orElse(ApiConstants.DEFAULT_PAGE);
