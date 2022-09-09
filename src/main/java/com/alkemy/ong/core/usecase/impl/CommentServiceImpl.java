@@ -20,9 +20,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public Long createEntity(Comment comment, Long idNew) {
+    public Long createEntity(Comment comment, Long newId) {
 
-        New _new = newRepository.findById(idNew).orElseThrow(() -> new NotFoundException(idNew));
+        New _new = newRepository.findById(newId).orElseThrow(() -> new NotFoundException(newId));
         comment.set_new(_new);
         return commentRepository.save(comment).getId();
     }

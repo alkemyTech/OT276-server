@@ -4,5 +4,5 @@ import com.alkemy.ong.core.model.Comment;
 
 public interface CommentService {
 
-    Long createEntity(Comment entity, Long idNew);
+    Long createEntity(Comment entity, Long newId);
 }
