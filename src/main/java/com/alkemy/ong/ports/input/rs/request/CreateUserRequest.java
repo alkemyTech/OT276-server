@@ -30,5 +30,5 @@ public class CreateUserRequest {
 
     @NotEmpty
     private String photo;
-    
+
 }
