@@ -6,25 +6,27 @@ import com.alkemy.ong.core.repository.TestimonialRepository;
 import com.alkemy.ong.core.usecase.TestimonialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class TestimonialServiceImpl implements TestimonialService {
 
-    private final TestimonialRepository repositoryT;
+    private final TestimonialRepository repository;
 
 
     @Override
+    @Transactional
     public Long createNewTestimonial(Testimonial testimonial) {
         if (exist(testimonial.getName())) {
             throw new ConflictException("There is already testimonial with name: "+testimonial.getName());
         }
-        return repositoryT.save(testimonial).getId();
+        return repository.save(testimonial).getId();
     }
 
 
     private Boolean exist(String name){
-    return repositoryT.existsByName(name);
+    return repository.existsByName(name);
     }
 
 }
