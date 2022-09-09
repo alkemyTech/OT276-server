@@ -14,4 +14,6 @@ public interface SlideService {
 
     void updateEntityIfExists(Long id, Long organizationId, String imageBase64, Integer order, String text);
 
+    void deleteById(Long id);
+
 }

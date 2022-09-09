@@ -65,6 +65,7 @@ public class SlideServiceImpl implements SlideService {
 
     @Override
     @Transactional
+
     public void updateEntityIfExists(Long id, Long organizationId, String imageBase64, Integer order, String text) {
 
         Slide slide = new Slide();
@@ -92,6 +93,12 @@ public class SlideServiceImpl implements SlideService {
             slideJpa.setOrganization(slide.getOrganization());
             return slideRepository.save(slideJpa);
         }).orElseThrow(() -> new NotFoundException(id));
+        
+        }
+
+        public void deleteById(Long id) {
+
+        slideRepository.findById(id).ifPresent(slideRepository::delete);
 
     }
 

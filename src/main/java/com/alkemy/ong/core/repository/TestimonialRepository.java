@@ -6,4 +6,6 @@ import com.alkemy.ong.core.model.Testimonial;
 
 public interface TestimonialRepository extends JpaRepository<Testimonial, Long> {
 
+    Boolean existsByName(String name);
+
 }
