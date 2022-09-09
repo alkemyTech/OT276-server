@@ -23,6 +23,7 @@ public class ContactServiceImp implements ContactService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Contact> getContacts() {
 
         return contactRepository.findAll();
