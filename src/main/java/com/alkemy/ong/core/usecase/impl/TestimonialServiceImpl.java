@@ -12,29 +12,32 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TestimonialServiceImpl implements TestimonialService {
 
-    private final TestimonialRepository repositoryT;
+    private final TestimonialRepository repository;
 
 
     @Override
     @Transactional
     public Long createNewTestimonial(Testimonial testimonial) {
         if (exist(testimonial.getName())) {
-            throw new ConflictException("There is already testimonial with name: "+testimonial.getName());
+            throw new ConflictException("There is already testimonial with name: " + testimonial.getName());
         }
-        return repositoryT.save(testimonial).getId();
+
+        return repository.save(testimonial).getId();
     }
 
     @Override
     @Transactional
     public void deleteTestimonial(long id) {
-        repositoryT.findById(id).ifPresent(repositoryT::delete);
+        repository.findById(id).ifPresent(repository::delete);
     }
 
-    private Boolean exist(String name){
-    return repositoryT.existsByName(name);
+    private Boolean exist(String name) {
+        return repository.existsByName(name);
     }
-
-
 
 }
+
+
+
+
 
