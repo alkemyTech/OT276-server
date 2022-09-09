@@ -71,6 +71,15 @@ public class SlideServiceImpl implements SlideService {
     public SlideList getList(PageRequest pageRequest) {
         Page<Slide> page = slideRepository.findAll(pageRequest);
         return new SlideList(page.getContent(), pageRequest, page.getTotalElements());
+     }
+
+    @Transactional
+    public void deleteById(Long id) {
+
+        slideRepository.findById(id).ifPresent(slideRepository::delete);
+
+
+
     }
 
 }

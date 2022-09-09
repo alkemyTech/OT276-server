@@ -11,11 +11,13 @@ import com.alkemy.ong.ports.input.rs.response.SlideResponse;
 import com.alkemy.ong.ports.input.rs.response.SlideResponseList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -82,5 +84,15 @@ public class SlideController implements SlideApi {
 
 
     }
+
+    @Override
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSlide(@NotNull @PathVariable Long id) {
+
+        slideService.deleteById(id);
+
+    }
+
 
 }
