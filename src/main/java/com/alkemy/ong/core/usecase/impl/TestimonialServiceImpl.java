@@ -1,10 +1,12 @@
 package com.alkemy.ong.core.usecase.impl;
 
 import com.alkemy.ong.config.exception.ConflictException;
+import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.core.model.Testimonial;
 import com.alkemy.ong.core.model.TestimonialList;
 import com.alkemy.ong.core.repository.TestimonialRepository;
 import com.alkemy.ong.core.usecase.TestimonialService;
+import com.amazonaws.services.mq.model.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,6 +39,17 @@ public class TestimonialServiceImpl implements TestimonialService {
     public TestimonialList getList(PageRequest request) {
         Page<Testimonial> page = repositoryT.findAll(request);
         return new TestimonialList(page.getContent(), request, page.getTotalElements());
+    }
+
+    @Override
+    public void updateTestimonialIfExist(long id, Testimonial testimonialR) {
+        repositoryT.findById(id)
+                .map((testimonial)->{
+                    testimonial.setContent(testimonialR.getContent());
+                    testimonial.setImage(testimonialR.getImage());
+                    testimonial.setName(testimonialR.getImage());
+                    return repositoryT.save(testimonial);
+                }).orElseThrow(()-> new NotFoundException(id));
     }
 
     private Boolean exist(String name){

@@ -65,5 +65,7 @@ public interface TestimonialApi {
     ResponseEntity<TestimonialResponseList> getTestimonialList(@RequestParam Optional<Integer> page,
                                                                @RequestParam Optional<Integer> size);
 
+    ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @PathVariable Long id, @RequestBody TestimonialRequest request);
+
 
 }

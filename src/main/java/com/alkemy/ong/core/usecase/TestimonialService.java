@@ -12,4 +12,6 @@ public interface TestimonialService {
     void deleteTestimonial(long id);
 
     TestimonialList getList(PageRequest request);
+
+    void updateTestimonialIfExist(long id, Testimonial testimonial);
 }
