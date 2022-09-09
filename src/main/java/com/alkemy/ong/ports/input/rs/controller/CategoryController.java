@@ -4,7 +4,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.core.model.Category;
 import com.alkemy.ong.core.usecase.CategoryService;
 import com.alkemy.ong.ports.input.rs.api.CategoryApi;
-import com.alkemy.ong.ports.input.rs.mapper.CategoryControllerMapper;
+import com.alkemy.ong.ports.input.rs.mapper.CategoryMapperController;
 import com.alkemy.ong.ports.input.rs.request.CreateCategoryRequest;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class CategoryController implements CategoryApi {
 
     private final CategoryService categoryService;
 
-    private final CategoryControllerMapper mapper;
+    private final CategoryMapperController mapper;
 
     @Override
     @PostMapping
