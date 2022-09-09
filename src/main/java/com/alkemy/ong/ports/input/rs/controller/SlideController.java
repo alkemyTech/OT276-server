@@ -7,11 +7,13 @@ import com.alkemy.ong.ports.input.rs.mapper.SlideControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.SlideRequest;
 import com.alkemy.ong.ports.input.rs.response.SlideResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.SLIDES_URI;
@@ -49,5 +51,16 @@ public class SlideController implements SlideApi {
 
 
     }
+
+
+    @Override
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateSlide(@NotNull @PathVariable Long id, @Valid @RequestBody SlideRequest slideRequest) {
+
+        slideService.updateEntityIfExists(id, slideRequest.getOrganizationId(), slideRequest.getImageBase64(), slideRequest.getOrder(), slideRequest.getText());
+
+    }
+
 
 }
