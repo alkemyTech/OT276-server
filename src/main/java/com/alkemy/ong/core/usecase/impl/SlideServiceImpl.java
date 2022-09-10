@@ -63,4 +63,13 @@ public class SlideServiceImpl implements SlideService {
         return slideRepository.save(slide).getId();
     }
 
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+
+        slideRepository.findById(id).ifPresent(slideRepository::delete);
+
+
+    }
+
 }
