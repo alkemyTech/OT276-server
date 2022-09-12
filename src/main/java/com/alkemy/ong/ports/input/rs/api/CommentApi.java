@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Validated
 public interface CommentApi {
@@ -17,4 +18,8 @@ public interface CommentApi {
             @ApiResponse(responseCode = "201", description = "Created"),
             @ApiResponse(responseCode = "400", description = "Bad Request")})
     ResponseEntity<Void> createEntity(@Valid CreateCommentRequest createCommentRequest, @AuthenticationPrincipal User user);
+
+    @Operation(summary = "Delete comment", description = "Delete comment", responses = {
+            @ApiResponse(responseCode = "204", description = "No content")})
+    void deleteCommentById(@NotNull Long id, @AuthenticationPrincipal User user);
 }
