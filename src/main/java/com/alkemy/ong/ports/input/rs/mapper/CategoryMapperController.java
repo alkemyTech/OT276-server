@@ -4,9 +4,11 @@ import com.alkemy.ong.core.model.Category;
 import com.alkemy.ong.ports.input.rs.request.CreateCategoryRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateCategoryRequest;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
-import jdk.jfr.Name;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
+
+import java.util.List;
 
 @Mapper
 public interface CategoryMapperController extends CommonMapper {
@@ -17,7 +19,10 @@ public interface CategoryMapperController extends CommonMapper {
     @Named("updateCategoryRequestToCategory")
     Category updateCategoryRequestToCategory(UpdateCategoryRequest updateCategoryRequest);
 
-    @Name("CategoryToCategoryResponse")
+    @Named("categoryToCategoryResponse")
     CategoryResponse categoryToCategoryResponse(Category category);
+
+    @IterableMapping(qualifiedByName = "categoryToCategoryResponse")
+    List<CategoryResponse> categoryListToCategoryResponseList(List<Category> categories);
 
 }
