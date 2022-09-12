@@ -1,8 +1,10 @@
 package com.alkemy.ong.core.usecase;
 
-import com.alkemy.ong.core.model.New;
+import com.alkemy.ong.core.model.Comment;
+
+import java.util.List;
 
 public interface NewService {
 
-    New getByIdIfExists(Long id);
+    List<Comment> getComments(Long id);
 }
