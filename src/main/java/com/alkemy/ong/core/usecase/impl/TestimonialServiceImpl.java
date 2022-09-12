@@ -11,21 +11,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 @Service
 @RequiredArgsConstructor
 public class TestimonialServiceImpl implements TestimonialService {
 
-    private final TestimonialRepository testimonialRepository;
 
+    private final TestimonialRepository testimonialRepository;
 
     @Override
     @Transactional
     public Long createNewTestimonial(Testimonial testimonial) {
         if (exist(testimonial.getName())) {
+
             throw new ConflictException("There is already testimonial with name: "+testimonial.getName());
         }
         return testimonialRepository.save(testimonial).getId();
+
     }
 
     @Override
@@ -56,6 +57,10 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
 
-
 }
+
+
+
+
+
 
