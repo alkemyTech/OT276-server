@@ -19,15 +19,25 @@ public class TestimonialServiceImpl implements TestimonialService {
     @Transactional
     public Long createNewTestimonial(Testimonial testimonial) {
         if (exist(testimonial.getName())) {
-            throw new ConflictException("There is already testimonial with name: "+testimonial.getName());
+            throw new ConflictException("There is already testimonial with name: " + testimonial.getName());
         }
+
         return repository.save(testimonial).getId();
     }
 
+    @Override
+    @Transactional
+    public void deleteTestimonial(long id) {
+        repository.findById(id).ifPresent(repository::delete);
+    }
 
-    private Boolean exist(String name){
-    return repository.existsByName(name);
+    private Boolean exist(String name) {
+        return repository.existsByName(name);
     }
 
 }
+
+
+
+
 

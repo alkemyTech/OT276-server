@@ -1,6 +1,6 @@
 package com.alkemy.ong.ports.input.rs.request;
 
-import com.alkemy.ong.core.model.Role;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

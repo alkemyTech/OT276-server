@@ -8,4 +8,6 @@ public interface TestimonialRepository extends JpaRepository<Testimonial, Long> 
 
     Boolean existsByName(String name);
 
+    Boolean existsById(long id);
+
 }
