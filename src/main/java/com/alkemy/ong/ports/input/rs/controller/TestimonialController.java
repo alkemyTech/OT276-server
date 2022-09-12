@@ -2,7 +2,6 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.core.model.Testimonial;
 import com.alkemy.ong.core.model.TestimonialList;
-import com.alkemy.ong.core.repository.TestimonialRepository;
 import com.alkemy.ong.core.usecase.TestimonialService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.api.TestimonialApi;
@@ -10,7 +9,6 @@ import com.alkemy.ong.ports.input.rs.mapper.TestimonialControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.TestimonialRequest;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponseList;
-import com.amazonaws.services.xray.model.Http;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -38,7 +36,6 @@ public class TestimonialController implements TestimonialApi {
     private final TestimonialService testimonialService;
 
 
-
     @Override
     @PostMapping
     public ResponseEntity<Void> createTestimonial(@Valid @RequestBody TestimonialRequest request) {
@@ -63,34 +60,34 @@ public class TestimonialController implements TestimonialApi {
     @GetMapping
     public ResponseEntity<TestimonialResponseList> getTestimonialList(Optional<Integer> page, Optional<Integer> size) {
 
-        final int pageNumber= page.filter(p -> p > 0).orElse(ApiConstants.DEFAULT_PAGE);
+        final int pageNumber = page.filter(p -> p > 0).orElse(ApiConstants.DEFAULT_PAGE);
         final int pageSize = size.filter(s -> s > 0).orElse(ApiConstants.DEFAULT_PAGE_SIZE);
 
-        TestimonialList list = testimonialService.getList(PageRequest.of(pageNumber,pageSize));
+        TestimonialList list = testimonialService.getList(PageRequest.of(pageNumber, pageSize));
 
         TestimonialResponseList response;
         {
-        response = new TestimonialResponseList();
+            response = new TestimonialResponseList();
 
-        List<TestimonialResponse> content= mapper.testimonialListToTResponse(list.getContent());
+            List<TestimonialResponse> content = mapper.testimonialListToTResponse(list.getContent());
 
-        response.setContent(content);
+            response.setContent(content);
 
-        final int nextPage = list.getPageable().next().getPageNumber();
-        response.setNextUri(ApiConstants.uriByPageAsString.apply(nextPage));
+            final int nextPage = list.getPageable().next().getPageNumber();
+            response.setNextUri(ApiConstants.uriByPageAsString.apply(nextPage));
 
-        final int previousPage = list.getPageable().previousOrFirst().getPageNumber();
-        response.setPreviousUri(ApiConstants.uriByPageAsString.apply(previousPage));
+            final int previousPage = list.getPageable().previousOrFirst().getPageNumber();
+            response.setPreviousUri(ApiConstants.uriByPageAsString.apply(previousPage));
 
-        response.setTotalPages(list.getTotalPages());
-        response.setTotalElements(list.getTotalElements());
+            response.setTotalPages(list.getTotalPages());
+            response.setTotalElements(list.getTotalElements());
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Override
     @PutMapping("{id}")
-    public ResponseEntity<TestimonialResponse> updateTestimonial(Long id,TestimonialRequest request) {
+    public ResponseEntity<TestimonialResponse> updateTestimonial(Long id, TestimonialRequest request) {
         Testimonial testimonial = mapper.testimonialRequestToEntity(request);
         testimonialService.updateTestimonialIfExist(id, testimonial);
         return new ResponseEntity<>(mapper.EntityToTestimonialResponse(testimonial), HttpStatus.OK);
@@ -98,3 +95,4 @@ public class TestimonialController implements TestimonialApi {
 
 
 }
+-
