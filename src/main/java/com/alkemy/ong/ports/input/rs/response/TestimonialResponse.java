@@ -15,13 +15,13 @@ public class TestimonialResponse {
 
 
 
-    @NotEmpty
+
     private String name;
 
 
     private String image;
 
-    @NotEmpty
+
     private String content;
 
 
