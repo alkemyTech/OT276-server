@@ -11,5 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserCommentResponse {
 
-    private String email;
+    private String firstName;
+
+    private String lastName;
 }
