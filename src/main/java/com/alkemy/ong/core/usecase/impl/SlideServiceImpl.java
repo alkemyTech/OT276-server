@@ -3,11 +3,14 @@ package com.alkemy.ong.core.usecase.impl;
 import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.core.model.Organization;
 import com.alkemy.ong.core.model.Slide;
+import com.alkemy.ong.core.model.SlideList;
 import com.alkemy.ong.core.repository.OrganizationRepository;
 import com.alkemy.ong.core.repository.SlideRepository;
 import com.alkemy.ong.core.usecase.SlideService;
 import com.alkemy.ong.ports.output.s3.S3ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +64,22 @@ public class SlideServiceImpl implements SlideService {
 
 
         return slideRepository.save(slide).getId();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public SlideList getList(PageRequest pageRequest) {
+        Page<Slide> page = slideRepository.findAll(pageRequest);
+        return new SlideList(page.getContent(), pageRequest, page.getTotalElements());
+     }
+
+    @Transactional
+    public void deleteById(Long id) {
+
+        slideRepository.findById(id).ifPresent(slideRepository::delete);
+
+
+
     }
 
 }
