@@ -108,7 +108,6 @@ public class SlideServiceImpl implements SlideService {
 
         slideRepository.findById(id).ifPresent(slideRepository::delete);
 
-
     }
 
 }
