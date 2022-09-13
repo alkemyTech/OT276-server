@@ -59,6 +59,15 @@ public class SlideController implements SlideApi {
     public void updateSlide(@NotNull @PathVariable Long id, @Valid @RequestBody SlideRequest slideRequest) {
 
         slideService.updateEntityIfExists(id, slideRequest.getOrganizationId(), slideRequest.getImageBase64(), slideRequest.getOrder(), slideRequest.getText());
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSlide(@NotNull @PathVariable Long id) {
+
+        slideService.deleteById(id);
+
 
     }
 
