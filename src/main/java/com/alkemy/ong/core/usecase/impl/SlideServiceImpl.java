@@ -88,9 +88,9 @@ public class SlideServiceImpl implements SlideService {
             slide.setOrganization(organization);
         }
 
-        if (order == null) {
-            slide.setOrder(slideRepository.findNextMaxSlideOrder());
-        } else slide.setOrder(slide.getOrder());
+        if (order != null) {
+            slide.setOrder(order);
+        } else slide.setOrder(slideRepository.findNextMaxSlideOrder());
 
         slide.setText(text);
         slide.setImageUrl(slide.getImageUrl());
