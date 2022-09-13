@@ -3,7 +3,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.core.usecase.NewService;
 import com.alkemy.ong.ports.input.rs.api.NewApi;
 import com.alkemy.ong.ports.input.rs.mapper.NewControllerMapper;
-import com.alkemy.ong.ports.input.rs.response.NewCommentsResponse;
+import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
