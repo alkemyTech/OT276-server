@@ -3,8 +3,6 @@ package com.alkemy.ong.ports.input.rs.api;
 import com.alkemy.ong.config.exception.error.ErrorDetails;
 import com.alkemy.ong.ports.input.rs.request.CreateCategoryRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateCategoryRequest;
-import com.alkemy.ong.ports.input.rs.response.AlkymerResponse;
-import com.alkemy.ong.ports.input.rs.response.AlkymerResponseList;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponseList;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,22 +44,30 @@ public interface CategoryApi {
     @Operation(summary = "Get Category List", description = "Get Category List", responses = {
             @ApiResponse(responseCode = "200", description = "OK",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = AlkymerResponseList.class))}),
+                            schema = @Schema(implementation = CategoryResponseList.class))}),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class),
                             examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))}),
+            @ApiResponse(responseCode = "403", description = "Forbidden",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "{\"code\":\"ROLE_INVALID\",\"detail\":\"The user does not have access to the current resource\"}"))}),
     })
     ResponseEntity<CategoryResponseList> getCategories(Optional<Integer> page, Optional<Integer> size);
 
     @Operation(summary = "Get Category", description = "Get Category", responses = {
             @ApiResponse(responseCode = "200", description = "OK",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = AlkymerResponse.class))}),
+                            schema = @Schema(implementation = CategoryResponse.class))}),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class),
                             examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))}),
+            @ApiResponse(responseCode = "403", description = "Forbidden",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "{\"code\":\"ROLE_INVALID\",\"detail\":\"The user does not have access to the current resource\"}"))}),
             @ApiResponse(responseCode = "404", description = "Not Found",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class),
