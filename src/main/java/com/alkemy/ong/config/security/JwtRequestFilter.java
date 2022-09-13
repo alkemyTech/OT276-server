@@ -49,7 +49,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             } catch (Exception e) {
                 logger.warn("Invalid jwt token exception", e);
-                throw new BadCredentialsException(e.getLocalizedMessage());
             }
         }
         chain.doFilter(request, response);
