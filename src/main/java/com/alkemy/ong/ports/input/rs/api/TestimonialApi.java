@@ -5,7 +5,6 @@ import com.alkemy.ong.ports.input.rs.request.TestimonialRequest;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponseList;
 
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;

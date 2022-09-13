@@ -7,10 +7,8 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-
 @Mapper
 public interface TestimonialControllerMapper extends CommonMapper {
-
 
     Testimonial testimonialRequestToEntity(TestimonialRequest request);
 
@@ -18,6 +16,5 @@ public interface TestimonialControllerMapper extends CommonMapper {
 
     List<TestimonialResponse> testimonialListToTResponse(List<Testimonial> testimonialList);
 }
-
 
 
