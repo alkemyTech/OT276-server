@@ -83,23 +83,19 @@ public class SlideServiceImpl implements SlideService {
             slide.setImageUrl(s3Service.uploadFile(imageBase64, UUID.randomUUID().toString()));
         }
         if (organizationId != null) {
-            Organization organization;
-            organization = organizationRepository.findById(organizationId).orElseThrow(() -> new NotFoundException(organizationId));
+            Organization organization = organizationRepository.findById(organizationId).orElseThrow(
+                    () -> new NotFoundException(organizationId));
             slide.setOrganization(organization);
         }
 
         if (order == null) {
             slide.setOrder(slideRepository.findNextMaxSlideOrder());
-        }
-
-
-        if (text != null) {
-            slide.setText(text);
         } else slide.setOrder(slide.getOrder());
+
+        slide.setText(text);
         slide.setImageUrl(slide.getImageUrl());
         slide.setOrganization(slide.getOrganization());
         slideRepository.save(slide);
-
 
     }
 
