@@ -1,13 +1,15 @@
 package com.alkemy.ong.ports.input.rs.mapper;
 
-import com.alkemy.ong.core.model.New;
-import com.alkemy.ong.ports.input.rs.response.NewCommentsResponse;
+import com.alkemy.ong.core.model.Comment;
+import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 
-@Mapper
-public interface NewControllerMapper extends CommonMapper {
+import java.util.List;
 
-    @Named("newToNewCommentsResponse")
-    NewCommentsResponse newToNewCommentsResponse(New _new);
+@Mapper
+public interface NewControllerMapper extends CommonMapper{
+
+    @Named("commentListToCommentResponseList")
+    List<CommentResponse> commentListToCommentResponseList(List<Comment> comments);
 }
