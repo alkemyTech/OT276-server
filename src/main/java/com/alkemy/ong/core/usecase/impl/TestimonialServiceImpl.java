@@ -38,7 +38,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public TestimonialList getList(PageRequest request) {
         Page<Testimonial> page = repository.findAll(request);
         return new TestimonialList(page.getContent(), request, page.getTotalElements());
