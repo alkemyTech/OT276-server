@@ -32,6 +32,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public void deleteEntityById(Long id, User user) {
         Comment comment = commentRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
         if(Objects.equals(comment.getUser().getId(), user.getId()) || user.getRole().getName().equals("ROLE_ADMIN")) {
