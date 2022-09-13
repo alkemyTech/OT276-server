@@ -29,7 +29,7 @@ public class NewController implements NewApi {
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentResponse>> getComments(@NotNull @PathVariable Long id) {
 
-        List<CommentResponse> response = mapper.commentListToCommentResponseList(newService.getComments(id).stream().toList());
+        List<CommentResponse> response = mapper.commentListToCommentResponseList(newService.getComments(id));
 
         return ResponseEntity.ok(response);
     }
