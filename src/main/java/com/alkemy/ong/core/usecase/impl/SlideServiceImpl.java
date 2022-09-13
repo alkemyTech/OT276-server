@@ -67,8 +67,7 @@ public class SlideServiceImpl implements SlideService {
     @Transactional
     public void updateEntityIfExists(Long id, Long organizationId, String imageBase64, Integer order, String text) {
 
-        Slide slide = new Slide();
-        slide.setId(id);
+        Slide slide = slideRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 
         if (imageBase64 != null) {
             slide.setImageUrl(s3Service.uploadFile(imageBase64, UUID.randomUUID().toString()));
@@ -84,14 +83,13 @@ public class SlideServiceImpl implements SlideService {
         }
 
 
-        slideRepository.findById(id).map(slideJpa -> {
-            if (text != null) {
-                slideJpa.setText(text);
-            } else slideJpa.setOrder(slide.getOrder());
-            slideJpa.setImageUrl(slide.getImageUrl());
-            slideJpa.setOrganization(slide.getOrganization());
-            return slideRepository.save(slideJpa);
-        }).orElseThrow(() -> new NotFoundException(id));
+        if (text != null) {
+            slide.setText(text);
+        } else slide.setOrder(slide.getOrder());
+        slide.setImageUrl(slide.getImageUrl());
+        slide.setOrganization(slide.getOrganization());
+        slideRepository.save(slide);
+
 
     }
 
