@@ -10,5 +10,5 @@ import java.util.List;
 @Validated
 public interface NewApi {
 
-    ResponseEntity <List<CommentResponse>> getComments(@NotNull Long id);
+    ResponseEntity<List<CommentResponse>> getComments(@NotNull Long id);
 }

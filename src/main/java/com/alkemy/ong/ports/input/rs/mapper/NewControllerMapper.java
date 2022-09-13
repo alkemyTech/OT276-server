@@ -8,7 +8,7 @@ import org.mapstruct.Named;
 import java.util.List;
 
 @Mapper
-public interface NewControllerMapper extends CommonMapper{
+public interface NewControllerMapper extends CommonMapper {
 
     @Named("commentListToCommentResponseList")
     List<CommentResponse> commentListToCommentResponseList(List<Comment> comments);

@@ -27,7 +27,7 @@ public class NewController implements NewApi {
 
     @Override
     @GetMapping("/{id}/comments")
-    public ResponseEntity<List<CommentResponse>>  getComments(@NotNull @PathVariable Long id) {
+    public ResponseEntity<List<CommentResponse>> getComments(@NotNull @PathVariable Long id) {
 
         List<CommentResponse> response = mapper.commentListToCommentResponseList(newService.getComments(id).stream().toList());
 
