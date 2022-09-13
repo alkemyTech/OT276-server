@@ -48,14 +48,13 @@ public class CommentServiceImpl implements CommentService {
         New _new = newRepository.findById(newId).orElseThrow(() -> new NotFoundException(newId));
         commentRepository.findById(id)
                 .map(commentJpa->{
-                    if(Objects.equals(comment.getUser().getId(), user.getId()) || user.getRole().getName().equals("ROLE_ADMIN")) {
+                    if(Objects.equals(commentJpa.getUser().getId(), user.getId()) || user.getRole().getName().equals("ROLE_ADMIN")) {
                         commentJpa.set_new(_new);
                         commentJpa.setBody(comment.getBody());
-                        commentJpa.setUser(comment.getUser());
+                        return commentRepository.save(commentJpa);
                     } else {
                         throw new AccessDeniedException("Access denied to resource");
                     }
-                    return commentRepository.save(commentJpa);
                 })
                 .orElseThrow(() -> new NotFoundException(id));
     }

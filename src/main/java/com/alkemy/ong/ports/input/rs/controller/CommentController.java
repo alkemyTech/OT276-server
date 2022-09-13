@@ -60,7 +60,7 @@ public class CommentController implements CommentApi {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCommentIfExists(@Valid @RequestBody CreateCommentRequest createCommentRequest, @PathVariable("id") Long id, @AuthenticationPrincipal User user) {
-        Comment comment = mapper.createCommentRequestToComment(createCommentRequest, user);
+        Comment comment = mapper.createCommentRequestToComment(createCommentRequest);
         commentService.updateEntityIfExists(id, comment, createCommentRequest.getNewId(), user);
     }
 }
