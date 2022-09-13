@@ -44,6 +44,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
     @Override
+    @Transactional
     public void updateTestimonialIfExist(long id, Testimonial testimonialRequest) {
         testimonialRepository.findById(id)
                 .map((testimonialJpa) -> {
@@ -58,15 +59,4 @@ public class TestimonialServiceImpl implements TestimonialService {
         return testimonialRepository.existsByName(name);
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
