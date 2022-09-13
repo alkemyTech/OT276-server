@@ -2,9 +2,12 @@ package com.alkemy.ong.core.usecase.impl;
 
 import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.core.model.Category;
+import com.alkemy.ong.core.model.CategoryList;
 import com.alkemy.ong.core.repository.CategoryRepository;
 import com.alkemy.ong.core.usecase.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +30,29 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public CategoryList getList(PageRequest pageRequest) {
+        Page<Category> page = categoryRepository.findAll(pageRequest);
+        return new CategoryList(page.getContent(), pageRequest, page.getTotalElements());
+    }
+
+    @Override
+    @Transactional
+    public void updateEntityIfExists(Long id, Category category) {
+        categoryRepository.findById(id)
+                .map(categoryJpa -> {
+                    categoryJpa.setName(category.getName());
+                    categoryJpa.setDescription(category.getDescription());
+                    categoryJpa.setImage(category.getImage());
+
+                    return categoryRepository.save(categoryJpa);
+                }).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    @Override
     @Transactional
     public void deleteById(Long id) {
         categoryRepository.findById(id).ifPresent(categoryRepository::delete);
     }
+
 }

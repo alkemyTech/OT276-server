@@ -14,9 +14,10 @@ public interface SlideService {
 
     long createEntity(String imageBase64, Integer order, String text, Long organizationId);
 
-    void updateEntityIfExists(Long id, Long organizationId, String imageBase64, Integer order, String text);
 
     SlideList getList(PageRequest pageRequest);
+
+    void updateEntityIfExists(Long id, Long organizationId, String imageBase64, Integer order, String text);
 
     void deleteById(Long id);
 
