@@ -6,7 +6,6 @@ import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponseList;
 
 
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -17,14 +16,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 
+
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import java.util.Optional;
+
 
 @Validated
 @SecurityRequirement(name = "bearerAuth")
@@ -63,7 +66,6 @@ public interface TestimonialApi {
                             examples = @ExampleObject(value = "{\"code\":\"ROLE_INVALID\",\"detail\":\"The user does not have access to the current resource \"}"))})
     })
     void deleteTestimonial(@NotNull @RequestParam long id);
-
 
 
     ResponseEntity<TestimonialResponseList> getTestimonialList(@RequestParam Optional<Integer> page,

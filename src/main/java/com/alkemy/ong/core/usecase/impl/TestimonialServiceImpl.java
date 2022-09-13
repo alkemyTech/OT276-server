@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class TestimonialServiceImpl implements TestimonialService {
@@ -23,7 +24,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     public Long createNewTestimonial(Testimonial testimonial) {
         if (exist(testimonial.getName())) {
 
-            throw new ConflictException("There is already testimonial with name: "+testimonial.getName());
+            throw new ConflictException("There is already testimonial with name: " + testimonial.getName());
         }
         return testimonialRepository.save(testimonial).getId();
 
@@ -44,20 +45,24 @@ public class TestimonialServiceImpl implements TestimonialService {
     @Override
     public void updateTestimonialIfExist(long id, Testimonial testimonialRequest) {
         testimonialRepository.findById(id)
-                .map((testimonialJpa)->{
+                .map((testimonialJpa) -> {
                     testimonialJpa.setContent(testimonialRequest.getContent());
                     testimonialJpa.setImage(testimonialRequest.getImage());
                     testimonialJpa.setName(testimonialRequest.getImage());
                     return testimonialRepository.save(testimonialJpa);
-                }).orElseThrow(()-> new NotFoundException(id));
+                }).orElseThrow(() -> new NotFoundException(id));
     }
 
-    private Boolean exist(String name){
-    return testimonialRepository.existsByName(name);
+    private Boolean exist(String name) {
+        return testimonialRepository.existsByName(name);
     }
 
 
 }
+
+
+
+
 
 
 
