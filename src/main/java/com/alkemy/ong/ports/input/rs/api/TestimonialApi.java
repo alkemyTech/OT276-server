@@ -28,7 +28,7 @@ import java.util.Optional;
 @SecurityRequirement(name = "bearerAuth")
 public interface TestimonialApi {
 
-    @Operation(summary = "Create Testimonial", description = "Create a new Testimonial event", responses = {
+    @Operation(summary = "Create a new Testimonial", description = "Create a new Testimonial", responses = {
             @ApiResponse(responseCode = "201", description = "Created"),
             @ApiResponse(responseCode = "403", description = "Forbidden",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -49,7 +49,7 @@ public interface TestimonialApi {
     })
     ResponseEntity<Void> createTestimonial(@Valid @RequestBody TestimonialRequest request);
 
-    @Operation(summary = "Delete Testimonial", description = "Delete a Testimonial event", responses = {
+    @Operation(summary = "Delete Testimonial", description = "Delete Testimonial", responses = {
             @ApiResponse(responseCode = "204", description = "No Content"),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -74,7 +74,7 @@ public interface TestimonialApi {
     ResponseEntity<TestimonialResponseList> getTestimonialList(@RequestParam Optional<Integer> page,
                                                                @RequestParam Optional<Integer> size);
 
-    @Operation(summary = "update  Testimonial", description = "update  Testimonial", responses = {
+    @Operation(summary = "Update Testimonial", description = "Update Testimonial", responses = {
             @ApiResponse(responseCode = "204", description = "No Content"),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
