@@ -14,8 +14,6 @@ import javax.validation.constraints.NotEmpty;
 public class TestimonialResponse {
 
 
-
-
     private String name;
 
 
