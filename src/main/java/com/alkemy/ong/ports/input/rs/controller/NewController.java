@@ -5,10 +5,10 @@ import com.alkemy.ong.core.usecase.NewService;
 import com.alkemy.ong.ports.input.rs.api.NewApi;
 import com.alkemy.ong.ports.input.rs.mapper.NewControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateNewRequest;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,12 +28,13 @@ public class NewController implements NewApi {
     private final NewControllerMapper mapper;
 
 
-    @PostMapping("/news")
-    public ResponseEntity<Void> createNew(@Valid @RequestBody CreateNewRequest createNewRequest) {
+    @Override
+    @PostMapping("/new")
+    public ResponseEntity<Void> createEntity(@Valid @RequestBody  CreateNewRequest createNewRequest) {
 
-        New news = mapper.createNewRequestToNew(createNewRequest);
+        New _new= mapper.createNewRequestToNew(createNewRequest);
 
-        final long id = service.createEntity(news,createNewRequest.getCategoryId());
+        final long id = service.createEntity(_new,createNewRequest.getId());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id)
@@ -41,6 +42,4 @@ public class NewController implements NewApi {
 
         return ResponseEntity.created(location).build();
     }
-
-
 }

@@ -7,7 +7,6 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface NewControllerMapper extends CommonMapper{
-
     @Mapping(target = "id", ignore = true)
     New createNewRequestToNew(CreateNewRequest createNewRequest);
 }
