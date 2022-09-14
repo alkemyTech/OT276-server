@@ -35,6 +35,13 @@ public class SlideServiceImpl implements SlideService {
 
     @Override
     @Transactional(readOnly = true)
+    public SlideList getList(PageRequest pageRequest) {
+        Page<Slide> page = slideRepository.findAll(pageRequest);
+        return new SlideList(page.getContent(), pageRequest, page.getTotalElements());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Slide> getListByOrganizationIdAndOrderByOrder(Long id) {
 
         organizationRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
@@ -67,18 +74,32 @@ public class SlideServiceImpl implements SlideService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public SlideList getList(PageRequest pageRequest) {
-        Page<Slide> page = slideRepository.findAll(pageRequest);
-        return new SlideList(page.getContent(), pageRequest, page.getTotalElements());
-     }
+    @Transactional
+    public void updateEntityIfExists(Long id, Long organizationId, String imageBase64, Integer order, String text) {
+
+        Slide slide = slideRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+
+        if (imageBase64 != null) {
+            slide.setImageUrl(s3Service.uploadFile(imageBase64, UUID.randomUUID().toString()));
+        }
+        if (organizationId != null) {
+            Organization organization = organizationRepository.findById(organizationId).orElseThrow(
+                    () -> new NotFoundException(organizationId));
+            slide.setOrganization(organization);
+        }
+
+        if (order != null) {
+            slide.setOrder(order);
+        } else slide.setOrder(slideRepository.findNextMaxSlideOrder());
+
+        slide.setText(text);
+        slideRepository.save(slide);
+    }
 
     @Transactional
     public void deleteById(Long id) {
 
         slideRepository.findById(id).ifPresent(slideRepository::delete);
-
-
 
     }
 

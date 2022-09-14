@@ -94,4 +94,6 @@ public interface TestimonialApi {
                             examples = @ExampleObject(value = "{\"code\":\"RESOURCE_NOT_FOUND\",\"detail\":\"The resource with id 99 is not found\"}"))}),
     })
     ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @PathVariable Long id, @RequestBody TestimonialRequest request);
+
+
 }

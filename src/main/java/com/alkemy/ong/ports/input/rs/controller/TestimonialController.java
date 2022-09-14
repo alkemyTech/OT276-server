@@ -1,7 +1,6 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.core.model.Testimonial;
-
 import com.alkemy.ong.core.model.TestimonialList;
 import com.alkemy.ong.core.usecase.TestimonialService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
@@ -20,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -93,5 +91,16 @@ public class TestimonialController implements TestimonialApi {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Override
+    @PutMapping("/{id}")
+    public ResponseEntity<TestimonialResponse> updateTestimonial(@PathVariable Long id, @RequestBody TestimonialRequest request) {
+        Testimonial testimonial = mapper.testimonialRequestToEntity(request);
+        testimonialService.updateTestimonialIfExist(id, testimonial);
+        return new ResponseEntity<>(mapper.EntityToTestimonialResponse(testimonial), HttpStatus.OK);
+    }
+
 
 }
+
+
+
