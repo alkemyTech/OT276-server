@@ -93,10 +93,7 @@ public class SlideServiceImpl implements SlideService {
         } else slide.setOrder(slideRepository.findNextMaxSlideOrder());
 
         slide.setText(text);
-        slide.setImageUrl(slide.getImageUrl());
-        slide.setOrganization(slide.getOrganization());
         slideRepository.save(slide);
-
     }
 
     @Transactional
