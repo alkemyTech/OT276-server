@@ -22,7 +22,11 @@ public class CreateNewRequest {
     @JsonProperty("content")
     private String content;
 
+    @NotBlank(message = "La image no debe estar vacio.")
+    @JsonProperty("image")
+    private String image;
+
     @NotNull(message = "La categoria no puede ser nula.")
     @JsonProperty("category")
-    private Category category;
+    private Long categoryId;
 }

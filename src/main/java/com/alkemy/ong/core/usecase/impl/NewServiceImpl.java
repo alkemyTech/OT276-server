@@ -15,20 +15,17 @@ import javax.naming.Name;
 @RequiredArgsConstructor
 public class NewServiceImpl implements NewService {
 
-    @Value("${app.default.category-id}")
-    private Long category_id;
-
     private final NewRepository newRepository;
 
     private final CategoryRepository categoryRepository;
 
 
     @Transactional
-    public Long createEntity(New news){
+    public Long createEntity(New news, Long categoryId){
 
         news.setName(news.getName());
         news.setContent(news.getContent());
-        news.setCategory(categoryRepository.findById(category_id).get());
+        news.setCategory(categoryRepository.findById(categoryId).get());
         return newRepository.save(news).getId();
     }
 }

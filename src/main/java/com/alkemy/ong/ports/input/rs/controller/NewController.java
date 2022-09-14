@@ -33,7 +33,7 @@ public class NewController implements NewApi {
 
         New news = mapper.createNewRequestToNew(createNewRequest);
 
-        final long id = service.createEntity(news);
+        final long id = service.createEntity(news,createNewRequest.getCategoryId());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id)
