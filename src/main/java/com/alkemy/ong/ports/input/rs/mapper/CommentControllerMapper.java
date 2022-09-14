@@ -17,7 +17,6 @@ public interface CommentControllerMapper extends CommonMapper {
     Comment createCommentRequestToComment(CreateCommentRequest createCommentRequest, User user);
 
     @Named("createCommentRequestToComment")
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "audit", ignore = true)
     Comment createCommentRequestToComment(CreateCommentRequest createCommentRequest);
 }
