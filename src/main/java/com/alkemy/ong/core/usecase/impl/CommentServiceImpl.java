@@ -41,4 +41,21 @@ public class CommentServiceImpl implements CommentService {
             throw new AccessDeniedException("Access denied to resource");
         }
     }
+
+    @Override
+    @Transactional
+    public void updateEntityIfExists(Long id, Comment comment, Long newId, User user) {
+        commentRepository.findById(id)
+                .map(commentJpa->{
+                    if(Objects.equals(commentJpa.getUser().getId(), user.getId()) || user.getRole().getName().equals("ROLE_ADMIN")) {
+                        New _new = newRepository.findById(newId).orElseThrow(() -> new NotFoundException(newId));
+                        commentJpa.set_new(_new);
+                        commentJpa.setBody(comment.getBody());
+                        return commentRepository.save(commentJpa);
+                    } else {
+                        throw new AccessDeniedException("Access denied to resource");
+                    }
+                })
+                .orElseThrow(() -> new NotFoundException(id));
+    }
 }
