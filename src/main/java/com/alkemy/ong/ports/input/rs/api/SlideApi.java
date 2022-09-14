@@ -17,5 +17,8 @@ public interface SlideApi {
 
     ResponseEntity<Void> createSlide(@Valid @RequestBody SlideRequest slideRequest);
 
+    void updateSlide(@NotNull Long id, @Valid @RequestBody SlideRequest slideRequest);
+
     void deleteSlide(@NotNull Long id);
+
 }
