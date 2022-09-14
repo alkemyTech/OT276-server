@@ -57,6 +57,7 @@ public class CategoryController implements CategoryApi {
         return ResponseEntity.created(location).build();
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<CategoryResponseList> getCategories(@RequestParam Optional<Integer> page,
                                                               @RequestParam Optional<Integer> size) {
@@ -85,6 +86,7 @@ public class CategoryController implements CategoryApi {
         return ResponseEntity.ok().body(response);
     }
 
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> getCategory(@NotNull @PathVariable Long id) {
         Category category = categoryService.getByIdIfExists(id);
@@ -92,6 +94,7 @@ public class CategoryController implements CategoryApi {
         return ResponseEntity.ok(response);
     }
 
+    @Override
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCategory(@NotNull @PathVariable Long id, @Valid @RequestBody UpdateCategoryRequest updateCategoryRequest) {
@@ -102,7 +105,7 @@ public class CategoryController implements CategoryApi {
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCategoryById(@NotNull @PathVariable("id") Long id) {
+    public void deleteCategory(@NotNull @PathVariable("id") Long id) {
         categoryService.deleteById(id);
     }
 

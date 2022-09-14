@@ -5,22 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestimonialResponse {
+public class UserCommentResponse {
 
+    private String email;
 
-    private String name;
+    private String firstName;
 
-
-    private String image;
-
-
-    private String content;
-
-
+    private String lastName;
 }
