@@ -59,7 +59,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@NotNull @PathVariable Long id, @AuthenticationPrincipal User loggedUser) {
 
-        if (loggedUser.getId() == id || loggedUser.getRole().getName().equals("ROLE_ADMIN")) {
+        if (Objects.equals(loggedUser.getId(), id) || loggedUser.getRole().getName().equals("ROLE_ADMIN")) {
             service.deleteById(id);
         } else {
             throw new AccessDeniedException("Access denied to resource");
