@@ -74,7 +74,7 @@ public interface TestimonialApi {
                                                                @RequestParam Optional<Integer> size);
 
     @Operation(summary = "Update Testimonial", description = "Update Testimonial", responses = {
-            @ApiResponse(responseCode = "200", description = "No Content"),
+            @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             array = @ArraySchema(schema = @Schema(implementation = TestimonialResponse.class)),
