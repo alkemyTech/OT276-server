@@ -19,5 +19,5 @@ public class NewResponse {
 
     private String image;
 
-    private Long categoryId;
+    private String category;
 }

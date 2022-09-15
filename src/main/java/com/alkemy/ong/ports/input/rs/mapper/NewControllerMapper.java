@@ -5,6 +5,7 @@ import com.alkemy.ong.core.model.New;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import com.alkemy.ong.ports.input.rs.response.NewResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.util.List;
@@ -16,5 +17,6 @@ public interface NewControllerMapper extends CommonMapper {
     List<CommentResponse> commentListToCommentResponseList(List<Comment> comments);
 
     @Named("CategoryToCategoryResponse")
+    @Mapping(source = "category.name", target = "category")
     NewResponse newToNewResponse(New news);
 }
