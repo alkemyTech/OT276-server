@@ -2,7 +2,6 @@ package com.alkemy.ong.ports.input.rs.api;
 
 import com.alkemy.ong.config.exception.error.ErrorDetails;
 import com.alkemy.ong.ports.input.rs.request.TestimonialRequest;
-import com.alkemy.ong.ports.input.rs.response.AlkymerResponseList;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponseList;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,7 +64,7 @@ public interface TestimonialApi {
     @Operation(summary = "Get Testimonial List", description = "Get Testimonial List", responses = {
             @ApiResponse(responseCode = "200", description = "OK",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = AlkymerResponseList.class))}),
+                            schema = @Schema(implementation = TestimonialResponseList.class))}),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class),
@@ -75,10 +74,10 @@ public interface TestimonialApi {
                                                                @RequestParam Optional<Integer> size);
 
     @Operation(summary = "Update Testimonial", description = "Update Testimonial", responses = {
-            @ApiResponse(responseCode = "204", description = "No Content"),
+            @ApiResponse(responseCode = "200", description = "No Content"),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            array = @ArraySchema(schema = @Schema(implementation = ErrorDetails.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = TestimonialResponse.class)),
                             examples = @ExampleObject(value = "[{\"code\":\"INVALID_FIELD_VALUE\",\"detail\":\"must not be blank\",\"field\":\"name\",\"location\":\"BODY\"}]"))}),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
