@@ -100,8 +100,6 @@ class UserControllerTest {
     @Test
     void updateUser_shouldReturn404() throws Exception {
 
-        User user = new User();
-        user.getRole().setId(1L);
         UpdateUserRequest request = UpdateUserRequest.builder()
                 .build();
 
@@ -111,7 +109,7 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
 
-                .andExpect(status().isNoContent())
+                .andExpect(status().isNotFound())
                 .andDo(print());
     }
 
