@@ -30,6 +30,6 @@ public class CreateNewRequest {
     private String image;
 
     @NotNull
-    @JsonProperty("id_category")
-    private Long id;
+    @JsonProperty("category_id")
+    private Long categoryId;
 }

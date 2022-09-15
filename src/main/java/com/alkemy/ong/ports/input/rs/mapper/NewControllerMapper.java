@@ -16,6 +16,5 @@ public interface NewControllerMapper extends CommonMapper {
     @Named("commentListToCommentResponseList")
     List<CommentResponse> commentListToCommentResponseList(List<Comment> comments);
 
-    @Mapping(target = "id", ignore = true)
     New createNewRequestToNew(CreateNewRequest createNewRequest);
 }
