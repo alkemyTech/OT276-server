@@ -1,6 +1,5 @@
 package com.alkemy.ong.ports.input.rs.response;
 
-import com.alkemy.ong.core.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +19,5 @@ public class NewResponse {
 
     private String image;
 
-    private Category category;
+    private Long categoryId;
 }
