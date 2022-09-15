@@ -1,9 +1,11 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
+import com.alkemy.ong.core.model.New;
 import com.alkemy.ong.core.usecase.NewService;
 import com.alkemy.ong.ports.input.rs.api.NewApi;
 import com.alkemy.ong.ports.input.rs.mapper.NewControllerMapper;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
+import com.alkemy.ong.ports.input.rs.response.NewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,14 @@ public class NewController implements NewApi {
 
         List<CommentResponse> response = mapper.commentListToCommentResponseList(newService.getComments(id));
 
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<NewResponse> getNew(@NotNull @PathVariable Long id) {
+        New news = newService.getByIdIfExists(id);
+        NewResponse response = mapper.newToNewResponse(news);
         return ResponseEntity.ok(response);
     }
 }
