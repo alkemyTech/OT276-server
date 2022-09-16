@@ -2,6 +2,7 @@ package com.alkemy.ong.ports.input.rs.mapper;
 
 import com.alkemy.ong.core.model.Comment;
 import com.alkemy.ong.core.model.New;
+import com.alkemy.ong.ports.input.rs.request.CreateNewRequest;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import com.alkemy.ong.ports.input.rs.response.NewResponse;
 import org.mapstruct.Mapper;
@@ -15,6 +16,8 @@ public interface NewControllerMapper extends CommonMapper {
 
     @Named("commentListToCommentResponseList")
     List<CommentResponse> commentListToCommentResponseList(List<Comment> comments);
+
+    New createNewRequestToNew(CreateNewRequest createNewRequest);
 
     @Named("CategoryToCategoryResponse")
     @Mapping(source = "category.name", target = "category")
