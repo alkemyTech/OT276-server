@@ -2,6 +2,7 @@ package com.alkemy.ong.ports.input.rs.api;
 
 import com.alkemy.ong.ports.input.rs.request.CreateNewRequest;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
+import com.alkemy.ong.ports.input.rs.response.NewResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +18,8 @@ public interface NewApi {
     ResponseEntity<List<CommentResponse>> getComments(@NotNull Long id);
 
     ResponseEntity<Void> createEntity(@Valid CreateNewRequest createNewRequest);
+
+    ResponseEntity<NewResponse> getNew(@NotNull Long id);
 
     void deleteNew(@NotNull Long id);
 }

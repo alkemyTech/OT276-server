@@ -40,8 +40,13 @@ public class NewServiceImpl implements NewService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public New getByIdIfExists(Long id) {
+        return newRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    @Override
     @Transactional
     public void deleteById(Long id) {
         newRepository.findById(id).ifPresent(newRepository::delete);
-    }
 }
