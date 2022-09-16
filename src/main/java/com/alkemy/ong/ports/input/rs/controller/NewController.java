@@ -66,4 +66,5 @@ public class NewController implements NewApi {
         New news = newService.getByIdIfExists(id);
         NewResponse response = mapper.newToNewResponse(news);
         return ResponseEntity.ok(response);
+    }
 }
