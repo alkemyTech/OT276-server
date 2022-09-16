@@ -5,7 +5,6 @@ import com.alkemy.ong.core.model.New;
 import com.alkemy.ong.ports.input.rs.request.CreateNewRequest;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.util.List;

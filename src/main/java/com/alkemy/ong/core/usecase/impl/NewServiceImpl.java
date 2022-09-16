@@ -38,4 +38,10 @@ public class NewServiceImpl implements NewService {
 
         return newRepository.save(_new).getId();
     }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        newRepository.findById(id).ifPresent(newRepository::delete);
+    }
 }

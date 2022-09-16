@@ -17,4 +17,6 @@ public interface NewApi {
     ResponseEntity<List<CommentResponse>> getComments(@NotNull Long id);
 
     ResponseEntity<Void> createEntity(@Valid CreateNewRequest createNewRequest);
+
+    void deleteNew(@NotNull Long id);
 }
