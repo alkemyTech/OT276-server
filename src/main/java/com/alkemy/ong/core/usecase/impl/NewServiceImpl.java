@@ -38,4 +38,9 @@ public class NewServiceImpl implements NewService {
 
         return newRepository.save(_new).getId();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public New getByIdIfExists(Long id) {
+        return newRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 }

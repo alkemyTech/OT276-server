@@ -10,4 +10,6 @@ public interface NewService {
     List<Comment> getComments(Long id);
 
     Long createEntity(New _new, Long categoryId);
+
+    New getByIdIfExists(Long id);
 }
