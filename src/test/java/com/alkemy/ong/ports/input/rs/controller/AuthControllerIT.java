@@ -5,6 +5,7 @@ import com.alkemy.ong.config.util.JsonUtils;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
 import com.alkemy.ong.ports.input.rs.request.LoginRequest;
+import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -46,10 +47,16 @@ class AuthControllerIT {
                 .photo("img")
                 .build();
 
-        mockMvc.perform(post(ApiConstants.AUTHENTICATION_URI + "/register")
+        final String content = mockMvc.perform(post(ApiConstants.AUTHENTICATION_URI + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(print())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        assertThat(content).contains("token", "expiration_date");
 
     }
 
@@ -57,17 +64,23 @@ class AuthControllerIT {
     @Order(2)
     void login_shouldReturn200() throws Exception {
         LoginRequest request = LoginRequest.builder().userName("test@test.com").password("test123").build();
-        mockMvc.perform(post(ApiConstants.AUTHENTICATION_URI + "/login")
+        final String content = mockMvc.perform(post(ApiConstants.AUTHENTICATION_URI + "/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        assertThat(content).contains("token", "expiration_date");
     }
 
     @Test
     @Order(3)
     @WithUserDetails("test@test.com")
     void getUserInformation_shouldReturn200() throws Exception {
-        String content = mockMvc.perform(get(ApiConstants.AUTHENTICATION_URI + "/me"))
+        final String content = mockMvc.perform(get(ApiConstants.AUTHENTICATION_URI + "/me"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn()
@@ -75,6 +88,11 @@ class AuthControllerIT {
                 .getContentAsString();
 
         assertThat(content).isNotBlank();
+
+        UserResponse response = JsonUtils.jsonToObject(content, UserResponse.class);
+
+        assertThat(response.getFirstName()).isEqualTo("test");
+
 
     }
 
@@ -128,14 +146,8 @@ class AuthControllerIT {
     @Order(7)
     @WithAnonymousUser
     void getUserInformation_shouldReturn401() throws Exception {
-        String content = mockMvc.perform(get(ApiConstants.AUTHENTICATION_URI + "/me"))
-                .andExpect(status().isUnauthorized())
-                .andDo(print())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        assertThat(content).isNotBlank();
+        mockMvc.perform(get(ApiConstants.AUTHENTICATION_URI + "/me"))
+                .andExpect(status().isUnauthorized());
 
     }
 }
