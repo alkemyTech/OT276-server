@@ -8,4 +8,6 @@ public interface CommentService {
     Long createEntity(Comment entity, Long newId);
 
     void deleteEntityById(Long id, User user);
+
+    void updateEntityIfExists(Long id, Comment comment, Long newId, User user);
 }
