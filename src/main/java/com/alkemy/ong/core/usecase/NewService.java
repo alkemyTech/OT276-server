@@ -13,5 +13,7 @@ public interface NewService {
 
     Long createEntity(New _new, Long categoryId);
 
+    New getByIdIfExists(Long id);
+
     NewList getList(PageRequest pageRequest);
 }

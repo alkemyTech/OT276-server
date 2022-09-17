@@ -11,7 +11,7 @@ import com.alkemy.ong.ports.input.rs.request.CreateNewRequest;
 import com.alkemy.ong.ports.input.rs.response.AlkymerResponse;
 import com.alkemy.ong.ports.input.rs.response.AlkymerResponseList;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
-import com.alkemy.ong.ports.input.rs.response.NewResponseList;
+import com.alkemy.ong.ports.input.rs.response.NewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -61,10 +61,20 @@ public class NewController implements NewApi {
         return ResponseEntity.created(location).build();
     }
 
+
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<NewResponse> getNew(@NotNull @PathVariable Long id) {
+        New news = newService.getByIdIfExists(id);
+        NewResponse response = mapper.newToNewResponse(news);
+        return ResponseEntity.ok(response);
+    }
+    
+
     @Override
     @GetMapping
     public ResponseEntity<NewResponseList> getNew(@RequestParam Optional<Integer> page,
-                                                           @RequestParam Optional<Integer> size) {
+    @RequestParam Optional<Integer> size) {
 
         final int pageNumber = page.filter(p -> p > 0).orElse(ApiConstants.DEFAULT_PAGE);
         final int pageSize = size.filter(s -> s > 0).orElse(ApiConstants.DEFAULT_PAGE_SIZE);

@@ -44,7 +44,13 @@ public class NewServiceImpl implements NewService {
 
     @Override
     @Transactional(readOnly = true)
-    public NewList getList(PageRequest pageRequest) {
+    public New getByIdIfExists(Long id) {
+        return newRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+        public NewList getList(PageRequest pageRequest) {
         Page<New> page = newRepository.findAll(pageRequest);
         return new NewList(page.getContent(), pageRequest, page.getTotalElements());
     }
