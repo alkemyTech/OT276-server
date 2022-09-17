@@ -12,4 +12,6 @@ public interface NewService {
     Long createEntity(New _new, Long categoryId);
 
     New getByIdIfExists(Long id);
+
+    void deleteById(Long id);
 }

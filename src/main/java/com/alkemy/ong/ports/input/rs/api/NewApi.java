@@ -20,4 +20,6 @@ public interface NewApi {
     ResponseEntity<Void> createEntity(@Valid CreateNewRequest createNewRequest);
 
     ResponseEntity<NewResponse> getNew(@NotNull Long id);
+
+    void deleteNew(@NotNull Long id);
 }
