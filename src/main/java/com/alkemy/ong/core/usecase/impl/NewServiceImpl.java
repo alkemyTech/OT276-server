@@ -49,4 +49,5 @@ public class NewServiceImpl implements NewService {
     @Transactional
     public void deleteById(Long id) {
         newRepository.findById(id).ifPresent(newRepository::delete);
+    }
 }

@@ -76,4 +76,5 @@ public class NewController implements NewApi {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteNew(@NotNull @PathVariable Long id) {
         newService.deleteById(id);
+    }
 }
