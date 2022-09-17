@@ -4,6 +4,7 @@ import com.alkemy.ong.H2Config;
 import com.alkemy.ong.config.util.JsonUtils;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.request.TestimonialRequest;
+import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponseList;
 import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.MethodOrderer;
@@ -33,7 +34,6 @@ public class TestimonialControllerIT {
 
     @Autowired
     MockMvc mockMvc;
-
 
     @Test
     @Order(1)
@@ -92,32 +92,28 @@ public class TestimonialControllerIT {
                 .image("Nueva Imagen")
                 .build();
 
-        mockMvc.perform(put(ApiConstants.TESTIMONIALS_URI + "/1")
+        String content = mockMvc.perform(put(ApiConstants.TESTIMONIALS_URI + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
-                .andExpect(status().isOk()).andDo(print());
-
-        String content = mockMvc.perform(get(ApiConstants.TESTIMONIALS_URI))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
-        TestimonialResponseList response = JsonUtils.jsonToObject(content, TestimonialResponseList.class);
+        TestimonialResponse response = JsonUtils.jsonToObject(content, TestimonialResponse.class);
 
-        assertThat(response).isEqualTo(request);
-
+        assertThat(response.getName()).isEqualTo("Updated Name");
+        // todo agregar otros asserts
 
     }
     @Test
     @Order(4)
     @WithUserDetails("admin@somosmas.org")
     void deleteTestimonial_shouldReturn204() throws Exception {
-        mockMvc.perform(delete(ApiConstants.TESTIMONIALS_URI + "/1"))
+        mockMvc.perform(delete(ApiConstants.TESTIMONIALS_URI + "/{id}", 1L))
                 .andExpect(status().isNoContent())
                 .andDo(print());
-
     }
 
 

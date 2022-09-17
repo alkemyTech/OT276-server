@@ -17,10 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 
@@ -60,7 +58,7 @@ public interface TestimonialApi {
                             schema = @Schema(implementation = ErrorDetails.class),
                             examples = @ExampleObject(value = "{\"code\":\"ROLE_INVALID\",\"detail\":\"The user does not have access to the current resource \"}"))})
     })
-    void deleteTestimonial(@NotNull @RequestParam Long id);
+    void deleteTestimonial(@PathVariable Long id);
 
     @Operation(summary = "Get Testimonial List", description = "Get Testimonial List", responses = {
             @ApiResponse(responseCode = "200", description = "OK",
@@ -71,8 +69,8 @@ public interface TestimonialApi {
                             schema = @Schema(implementation = ErrorDetails.class),
                             examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))}),
     })
-    ResponseEntity<TestimonialResponseList> getTestimonialList(@RequestParam Optional<Integer> page,
-                                                               @RequestParam Optional<Integer> size);
+    ResponseEntity<TestimonialResponseList> getTestimonialList(@PathVariable Optional<Integer> page,
+                                                               @PathVariable Optional<Integer> size);
 
     @Operation(summary = "Update Testimonial", description = "Update Testimonial", responses = {
             @ApiResponse(responseCode = "200", description = "OK"),
@@ -93,7 +91,7 @@ public interface TestimonialApi {
                             schema = @Schema(implementation = ErrorDetails.class),
                             examples = @ExampleObject(value = "{\"code\":\"RESOURCE_NOT_FOUND\",\"detail\":\"The resource with id 99 is not found\"}"))}),
     })
-    ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @PathVariable Long id, @RequestBody TestimonialRequest request);
+    ResponseEntity<TestimonialResponse> updateTestimonial(@PathVariable Long id, @RequestBody UpdateTestimonialRequest request);
 
 
 
