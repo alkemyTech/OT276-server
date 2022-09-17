@@ -2,12 +2,15 @@ package com.alkemy.ong.core.usecase.impl;
 
 import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.core.model.Comment;
+import com.alkemy.ong.core.model.CommentList;
 import com.alkemy.ong.core.model.New;
 import com.alkemy.ong.core.model.User;
 import com.alkemy.ong.core.repository.CommentRepository;
 import com.alkemy.ong.core.repository.NewRepository;
 import com.alkemy.ong.core.usecase.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.access.AccessDeniedException;
@@ -57,5 +60,12 @@ public class CommentServiceImpl implements CommentService {
                     }
                 })
                 .orElseThrow(() -> new NotFoundException(id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CommentList getList(PageRequest pageRequest) {
+        Page<Comment> page = commentRepository.findAllByOrderByAuditCreatedAtAsc(pageRequest);
+        return new CommentList(page.getContent(), pageRequest, page.getTotalElements());
     }
 }
