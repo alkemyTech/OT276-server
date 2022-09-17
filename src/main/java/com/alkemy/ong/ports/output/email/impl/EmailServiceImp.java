@@ -11,6 +11,7 @@ import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ import java.io.IOException;
 public class EmailServiceImp implements EmailService {
 
     private static final String NO_REPLY_SOMOSMAS_ORG = "no-reply@somosmas.org";
+
 
     private final SendGrid sendGridClient;
 

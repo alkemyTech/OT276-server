@@ -2,6 +2,7 @@ package com.alkemy.ong.ports.input.rs.api;
 
 import com.alkemy.ong.config.exception.error.ErrorDetails;
 import com.alkemy.ong.ports.input.rs.request.TestimonialRequest;
+import com.alkemy.ong.ports.input.rs.request.UpdateTestimonialRequest;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponseList;
 
@@ -64,13 +65,13 @@ public interface TestimonialApi {
                             schema = @Schema(implementation = ErrorDetails.class),
                             examples = @ExampleObject(value = "{\"code\":\"ROLE_INVALID\",\"detail\":\"The user does not have access to the current resource \"}"))})
     })
-    void deleteTestimonial(@NotNull @RequestParam long id);
+    void deleteTestimonial(@NotNull @RequestParam Long id);
 
 
     ResponseEntity<TestimonialResponseList> getTestimonialList(@RequestParam Optional<Integer> page,
                                                                @RequestParam Optional<Integer> size);
 
-    ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @PathVariable Long id, @RequestBody TestimonialRequest request);
+    ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @PathVariable Long id, @RequestBody UpdateTestimonialRequest request);
 
 
 }
