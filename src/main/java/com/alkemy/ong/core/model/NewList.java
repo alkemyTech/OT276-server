@@ -7,7 +7,7 @@ import java.util.List;
 
 public class NewList extends PageImpl<New> {
 
-public NewList(List<Alkymer> content, Pageable pageable, long total) {
+public NewList(List<New> content, Pageable pageable, long total) {
         super(content, pageable, total);
         }
 

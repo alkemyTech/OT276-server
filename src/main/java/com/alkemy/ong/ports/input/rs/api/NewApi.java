@@ -4,6 +4,7 @@ import com.alkemy.ong.ports.input.rs.request.CreateNewRequest;
 import com.alkemy.ong.ports.input.rs.response.AlkymerResponseList;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import com.alkemy.ong.ports.input.rs.response.NewResponse;
+import com.alkemy.ong.ports.input.rs.response.NewResponseList;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,5 +26,5 @@ public interface NewApi {
 
     void deleteNew(@NotNull Long id);
 
-    ResponseEntity<AlkymerResponseList> getNew(Optional<Integer> page, Optional<Integer> size);
+    ResponseEntity<NewResponseList> getNew(Optional<Integer> page, Optional<Integer> size);
 }

@@ -23,5 +23,5 @@ public interface NewControllerMapper extends CommonMapper {
     @Mapping(source = "category.name", target = "category")
     NewResponse newToNewResponse(New news);
 
-    List<NewResponse> newListToNewResponse(List<New> testimonialList);
+    List<NewResponse> newListToNewResponseList(List<New> newList);
 }
