@@ -59,7 +59,7 @@ public class TestimonialController implements TestimonialApi {
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTestimonial(@NotNull @PathVariable Long id ) {
+    public void deleteTestimonial(@Valid @PathVariable Long id) {
         testimonialService.deleteTestimonial(id);
     }
 
@@ -95,7 +95,7 @@ public class TestimonialController implements TestimonialApi {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<TestimonialResponse> updateTestimonial(@PathVariable Long id, @RequestBody UpdateTestimonialRequest request) {
+    public ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @PathVariable Long id, @RequestBody UpdateTestimonialRequest request) {
         Testimonial testimonial = mapper.updateTestimonialToEntity(request);
         testimonialService.updateTestimonialIfExist(id, testimonial);
         return new ResponseEntity<>(mapper.EntityToTestimonialResponse(testimonial), HttpStatus.OK);

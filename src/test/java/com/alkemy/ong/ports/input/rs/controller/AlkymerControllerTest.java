@@ -70,7 +70,7 @@ class AlkymerControllerTest {
                 .skills(List.of())
                 .build();
 
-        given(service.createEntity(any(Alkymer.class))).willReturn(99L);
+        given(service.createEntity(any(Alkymer.class))).willReturn(98L);
 
         final String actualLocation = mockMvc.perform(post(ApiConstants.ALKYMERS_URI)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -81,7 +81,7 @@ class AlkymerControllerTest {
                 .getResponse()
                 .getHeader(HttpHeaders.LOCATION);
 
-        assertThat(actualLocation).isEqualTo("http://localhost/v1/alkymers/99");
+        assertThat(actualLocation).isEqualTo("http://localhost/v1/alkymers/98");
     }
 
     @Test
