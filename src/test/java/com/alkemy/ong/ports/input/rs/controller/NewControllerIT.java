@@ -45,10 +45,10 @@ class NewControllerIT {
     @WithUserDetails("admin@somosmas.org")
     void createEntity_shouldReturn201() throws Exception {
         CreateNewRequest request = CreateNewRequest.builder()
-                .name("nombre")
-                .content("hola")
+                .name("foo")
+                .content("bar")
                 .image("")
-                .categoryId(List.of())
+                .categoryId(1L)
                 .build();
 
         final String actualLocation = mockMvc.perform(post(ApiConstants.NEWS_URI)
@@ -87,7 +87,7 @@ class NewControllerIT {
     @Test
     @Order(3)
     @WithAnonymousUser
-    void getAlkymer_shouldReturn401() throws Exception {
+    void getNew_shouldReturn401() throws Exception {
         mockMvc.perform(get(ApiConstants.NEWS_URI + "/1"))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
