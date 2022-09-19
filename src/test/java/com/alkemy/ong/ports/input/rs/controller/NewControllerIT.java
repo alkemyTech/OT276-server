@@ -47,7 +47,7 @@ class NewControllerIT {
         CreateNewRequest request = CreateNewRequest.builder()
                 .name("foo")
                 .content("bar")
-                .image("")
+                .image("foo")
                 .categoryId(1L)
                 .build();
 
@@ -60,7 +60,7 @@ class NewControllerIT {
                 .getResponse()
                 .getHeader(HttpHeaders.LOCATION);
 
-        assertThat(actualLocation).isEqualTo("http://localhost/v1/new/1");
+        assertThat(actualLocation).isEqualTo("http://localhost/v1/news/1");
     }
 
 

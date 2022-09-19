@@ -5,4 +5,4 @@ insert into `user` (user_id, first_name, last_name, email, password, photo, role
 insert into `user` (user_id, first_name, last_name, email, password, photo, role_id, is_active, created_at) values (2, 'John', 'Doe', 'jdoe@somosmas.org', '$2a$10$npmFpCbBFdtXjGGhgc1ste1quwGaF4MvkgYk9N2rBDFkOrV5Lj6M6', 'https://static-url.com/avatar.jpg', 2, true, CURRENT_DATE());
 insert into `user` (user_id, first_name, last_name, email, password, photo, role_id, is_active, created_at) values (3, 'Jane', 'Smith', 'jsmmith@somosmas.org', '$2a$10$npmFpCbBFdtXjGGhgc1ste1quwGaF4MvkgYk9N2rBDFkOrV5Lj6M6', 'https://static-url.com/avatar.jpg', 2, true, CURRENT_DATE());
 
-insert into category(categoryId, name, description, image) values(1,'politica','for test','foo',CURRENT_DATE(),1,null);
+insert into category(category_id, name, description, image, created_at, is_active) values(1,'politica','for test','foo',CURRENT_DATE(),1);
