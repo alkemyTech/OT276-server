@@ -70,7 +70,7 @@ class AlkymerControllerTest {
                 .skills(List.of())
                 .build();
 
-        given(service.createEntity(any(Alkymer.class))).willReturn(98L);
+        given(service.createEntity(any(Alkymer.class))).willReturn(99L);
 
         final String actualLocation = mockMvc.perform(post(ApiConstants.ALKYMERS_URI)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -81,7 +81,7 @@ class AlkymerControllerTest {
                 .getResponse()
                 .getHeader(HttpHeaders.LOCATION);
 
-        assertThat(actualLocation).isEqualTo("http://localhost/v1/alkymers/98");
+        assertThat(actualLocation).isEqualTo("http://localhost/v1/alkymers/99");
     }
 
     @Test
@@ -157,7 +157,7 @@ class AlkymerControllerTest {
 
         //willDoNothing().given(service).updateEntityIfExists(eq(99L), any(Alkymer.class));
 
-        mockMvc.perform(patch(ApiConstants.ALKYMERS_URI + "/98")
+        mockMvc.perform(patch(ApiConstants.ALKYMERS_URI + "/99")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
                 .andExpect(status().isNoContent())
