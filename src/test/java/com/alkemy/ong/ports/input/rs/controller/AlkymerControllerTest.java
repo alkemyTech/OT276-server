@@ -157,7 +157,7 @@ class AlkymerControllerTest {
 
         //willDoNothing().given(service).updateEntityIfExists(eq(99L), any(Alkymer.class));
 
-        mockMvc.perform(patch(ApiConstants.ALKYMERS_URI + "/99")
+        mockMvc.perform(patch(ApiConstants.ALKYMERS_URI + "/98")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
                 .andExpect(status().isNoContent())

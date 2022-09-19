@@ -4,6 +4,7 @@ import com.alkemy.ong.H2Config;
 import com.alkemy.ong.config.util.JsonUtils;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.request.TestimonialRequest;
+import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponseList;
 import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.MethodOrderer;
@@ -35,7 +36,6 @@ public class TestimonialControllerIT {
     @Autowired
     MockMvc mockMvc;
 
-
     @Test
     @Order(1)
     @WithUserDetails("admin@somosmas.org")
@@ -43,7 +43,7 @@ public class TestimonialControllerIT {
 
         TestimonialRequest request = TestimonialRequest.builder()
                 .name("testi")
-                .content("hola")
+                .content("content 1")
                 .build();
         final String actualLocation = mockMvc.perform(post(ApiConstants.TESTIMONIALS_URI)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -93,12 +93,38 @@ public class TestimonialControllerIT {
                 .image("Nueva Imagen")
                 .build();
 
-        mockMvc.perform(put(ApiConstants.TESTIMONIALS_URI + "/1")
+        String content = mockMvc.perform(put(ApiConstants.TESTIMONIALS_URI + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
-                .andExpect(status().isOk()).andDo(print());
+                .andExpect(status().isOk()).andDo(print())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
-        /*String content = mockMvc.perform(get(ApiConstants.TESTIMONIALS_URI))
+
+        TestimonialResponse response = JsonUtils.jsonToObject(content, TestimonialResponse.class);
+
+        assertThat(response.getName()).isEqualTo("Updated Name");
+        assertThat(response.getContent()).isEqualTo("New Content");
+        assertThat(response.getImage()).isEqualTo("Nueva Imagen");
+        assertThat(response).isInstanceOf(TestimonialResponse.class);
+
+
+    }
+    @Test
+    @Order(4)
+    @WithUserDetails("admin@somosmas.org")
+    void deleteTestimonial_shouldReturn204() throws Exception {
+        mockMvc.perform(delete(ApiConstants.TESTIMONIALS_URI + "/{id}", 1L))
+                .andExpect(status().isNoContent())
+                .andDo(print());
+    }
+    @Test
+    @Order(5)
+    @WithUserDetails("jdoe@somosmas.org")
+    void getTEstimonial_shouldReturn404() throws Exception {
+
+        String content = mockMvc.perform(get(ApiConstants.TESTIMONIALS_URI))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn()
@@ -107,32 +133,13 @@ public class TestimonialControllerIT {
 
         TestimonialResponseList response = JsonUtils.jsonToObject(content, TestimonialResponseList.class);
 
-        assertThat(response).isEqualTo(request);*/
-
-
-    }
-    @Test
-    @Order(4)
-    @WithUserDetails("admin@somosmas.org")
-    void deleteTestimonial_shouldReturn204() throws Exception {
-        mockMvc.perform(delete(ApiConstants.TESTIMONIALS_URI + "/1"))
-                .andExpect(status().isNoContent())
-                .andDo(print());
-
-    }
-    @Test
-    @Order(5)
-    @WithUserDetails("jdoe@somosmas.org")
-    void getTEstimonial_shouldReturn404() throws Exception {
-        mockMvc.perform(get(ApiConstants.TESTIMONIALS_URI + "/1"))
-                .andExpect(status().isNotFound())
-                .andDo(print());
+        assertThat(response.getTotalElements()).isEqualTo(0);
     }
     @Test
     @Order(6)
     @WithUserDetails("jdoe@somosmas.org")
     void deleteTestimonail_shouldReturn403() throws Exception {
-        mockMvc.perform(delete(ApiConstants.TESTIMONIALS_URI + "/1"))
+        mockMvc.perform(delete(ApiConstants.TESTIMONIALS_URI ))
                 .andExpect(status().isForbidden())
                 .andDo(print());
     }
@@ -140,7 +147,7 @@ public class TestimonialControllerIT {
     @Order(7)
     @WithAnonymousUser
     void geTestimonail_shouldReturn401() throws Exception {
-        mockMvc.perform(get(ApiConstants.TESTIMONIALS_URI + "/1"))
+        mockMvc.perform(get(ApiConstants.TESTIMONIALS_URI))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
     }
