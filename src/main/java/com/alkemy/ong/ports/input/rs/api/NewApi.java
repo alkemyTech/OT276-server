@@ -23,5 +23,7 @@ public interface NewApi {
 
     ResponseEntity<NewResponse> getNew(@NotNull Long id);
 
+    void deleteNew(@NotNull Long id);
+
     ResponseEntity<AlkymerResponseList> getNew(Optional<Integer> page, Optional<Integer> size);
 }

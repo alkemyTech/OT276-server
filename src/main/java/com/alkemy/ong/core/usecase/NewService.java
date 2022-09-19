@@ -15,5 +15,7 @@ public interface NewService {
 
     New getByIdIfExists(Long id);
 
+    void deleteById(Long id);
+
     NewList getList(PageRequest pageRequest);
 }

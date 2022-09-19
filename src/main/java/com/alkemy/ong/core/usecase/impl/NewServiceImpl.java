@@ -49,6 +49,12 @@ public class NewServiceImpl implements NewService {
     }
 
     @Override
+    @Transactional
+    public void deleteById(Long id) {
+        newRepository.findById(id).ifPresent(newRepository::delete);
+    }
+
+    @Override
     @Transactional(readOnly = true)
         public NewList getList(PageRequest pageRequest) {
         Page<New> page = newRepository.findAll(pageRequest);
