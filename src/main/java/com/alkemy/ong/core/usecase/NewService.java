@@ -2,6 +2,8 @@ package com.alkemy.ong.core.usecase;
 
 import com.alkemy.ong.core.model.Comment;
 import com.alkemy.ong.core.model.New;
+import com.alkemy.ong.core.model.NewList;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -14,4 +16,6 @@ public interface NewService {
     New getByIdIfExists(Long id);
 
     void deleteById(Long id);
+
+    NewList getList(PageRequest pageRequest);
 }
