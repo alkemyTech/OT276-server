@@ -81,7 +81,7 @@ class NewControllerIT {
         NewResponse response = JsonUtils.jsonToObject(content, NewResponse.class);
 
         assertThat(response.getId()).isEqualTo(1);
-        assertThat(response.getName()).isEqualTo("nombre");
+        assertThat(response.getName()).isEqualTo("foo");
     }
 
     @Test
@@ -95,21 +95,21 @@ class NewControllerIT {
 
     @Test
     @Order(4)
-    @WithUserDetails("jdoe@somosmas.org")
-    void getNew_shouldReturn404() throws Exception {
-        mockMvc.perform(get(ApiConstants.NEWS_URI + "/1"))
-                .andExpect(status().isNotFound())
-                .andDo(print());
-    }
-
-    @Test
-    @Order(5)
     @WithUserDetails("admin@somosmas.org")
     void deleteNew_shouldReturn204() throws Exception {
         mockMvc.perform(delete(ApiConstants.NEWS_URI + "/1"))
                 .andExpect(status().isNoContent())
                 .andDo(print());
 
+    }
+
+    @Test
+    @Order(5)
+    @WithUserDetails("jdoe@somosmas.org")
+    void getNew_shouldReturn404() throws Exception {
+        mockMvc.perform(get(ApiConstants.NEWS_URI + "/1"))
+                .andExpect(status().isNotFound())
+                .andDo(print());
     }
 
     @Test
