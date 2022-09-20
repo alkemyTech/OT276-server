@@ -73,4 +73,6 @@ public interface NewApi {
                             examples = @ExampleObject(value = "{\"code\":\"RESOURCE_NOT_FOUND\",\"detail\":\"The resource with id 99 is not found\"}"))}),
     })
     ResponseEntity<NewResponse> getNew(@NotNull Long id);
+
+    void deleteNew(@NotNull Long id);
 }
