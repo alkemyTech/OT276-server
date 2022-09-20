@@ -2,6 +2,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.config.exception.handler.GlobalExceptionHandler;
 import com.alkemy.ong.config.util.JsonUtils;
+import com.alkemy.ong.core.model.User;
 import com.alkemy.ong.core.usecase.UserService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.mapper.UserControllerMapper;
@@ -18,8 +19,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.Collection;
+import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -36,7 +41,6 @@ class AuthControllerTest {
     AuthController controller;
     @Mock
     UserService service;
-
     @Mock
     AuthenticationManager authenticationManager;
 
@@ -65,6 +69,16 @@ class AuthControllerTest {
                 .lastName("test")
                 .photo("img")
                 .build();
+
+
+        Collection authorities = Collections.emptyList();
+
+        User user = mapper.createUserRequestToUser(request);
+        user.setId(99L);
+
+        given(service.createEntity(any(User.class))).willReturn(99L);
+        given(authenticationManager.authenticate(any(Authentication.class))).willReturn(new UsernamePasswordAuthenticationToken(user, "test", authorities));
+
 
         mockMvc.perform(
                         post(ApiConstants.AUTHENTICATION_URI + "/register")
