@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -61,7 +62,7 @@ class NewControllerTest {
                 .categoryId(1L)
                 .build();
 
-        given(service.createEntity(any(New.class))).willReturn(22L);
+        given(service.createEntity(any(New.class),anyLong())).willReturn(22L);
 
         final String actualLocation = mockMvc.perform(post(ApiConstants.NEWS_URI)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -83,7 +84,7 @@ class NewControllerTest {
         New news = new New();
         news.setId(22L);
         news.setName("foo");
-        news.getCategory();
+        news.setCategory(category);
 
         given(service.getByIdIfExists(22L)).willReturn(news);
 
@@ -101,7 +102,7 @@ class NewControllerTest {
         assertThat(response.getId()).isEqualTo(22);
         assertThat(response.getName()).isEqualTo("foo");
         assertThat(response.getCategory()).isNotEmpty();
-        assertThat(response.getCategory().stream().findFirst().orElseThrow().getName()).isEqualTo("politica");
+        assertThat(response.getCategory()).isEqualTo("politica");
     }
 
     @Test
