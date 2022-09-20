@@ -114,9 +114,13 @@ class AuthControllerTest {
                 .password("jdoe123")
                 .build();
 
+        User user = new User();
+        user.setId(2L);
+        user.setEmail(request.getUserName());
+
 
         given(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).willReturn(new UsernamePasswordAuthenticationToken(
-                request.getUserName(), request.getPassword(), authorities));
+                user, request.getPassword(), authorities));
         when(jwtUtils.generateToken(any(UserDetails.class))).thenReturn("token");
         when(jwtUtils.extractExpiration(any())).thenReturn(new Date());
 
