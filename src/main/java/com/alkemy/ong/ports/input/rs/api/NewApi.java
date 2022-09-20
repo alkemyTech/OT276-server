@@ -2,7 +2,6 @@ package com.alkemy.ong.ports.input.rs.api;
 
 import com.alkemy.ong.config.exception.error.ErrorDetails;
 import com.alkemy.ong.ports.input.rs.request.CreateNewRequest;
-import com.alkemy.ong.ports.input.rs.response.AlkymerResponseList;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import com.alkemy.ong.ports.input.rs.response.NewResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -90,5 +89,14 @@ public interface NewApi {
     })
     void deleteNew(@NotNull Long id);
 
+    @Operation(summary = "Get New List", description = "Get New List", responses = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = NewResponseList.class))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}"))}),
+    })
     ResponseEntity<NewResponseList> getNew(Optional<Integer> page, Optional<Integer> size);
 }
