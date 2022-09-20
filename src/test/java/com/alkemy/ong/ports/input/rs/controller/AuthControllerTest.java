@@ -140,7 +140,6 @@ class AuthControllerTest {
     }
 
     @Test
-    @WithUserDetails("jdoe@somosmas.org")
     void me_shouldReturn201() throws Exception {
         User user = new User();
         user.setId(2L);
