@@ -4,10 +4,13 @@ import com.alkemy.ong.config.exception.NotFoundException;
 import com.alkemy.ong.core.model.Category;
 import com.alkemy.ong.core.model.Comment;
 import com.alkemy.ong.core.model.New;
+import com.alkemy.ong.core.model.NewList;
 import com.alkemy.ong.core.repository.CategoryRepository;
 import com.alkemy.ong.core.repository.NewRepository;
 import com.alkemy.ong.core.usecase.NewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,5 +52,12 @@ public class NewServiceImpl implements NewService {
     @Transactional
     public void deleteById(Long id) {
         newRepository.findById(id).ifPresent(newRepository::delete);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+        public NewList getList(PageRequest pageRequest) {
+        Page<New> page = newRepository.findAll(pageRequest);
+        return new NewList(page.getContent(), pageRequest, page.getTotalElements());
     }
 }
