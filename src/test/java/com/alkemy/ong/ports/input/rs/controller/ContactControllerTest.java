@@ -51,7 +51,7 @@ class ContactControllerTest {
     }
 
     @Test
-    void createContacts() throws Exception {
+    void createContacts_shouldReturn201() throws Exception {
 
         CreateContactRequest request = CreateContactRequest.builder()
                 .name("nombre")
@@ -75,7 +75,7 @@ class ContactControllerTest {
     }
 
     @Test
-    void getContacts() throws Exception {
+    void getContacts_shouldReturn200() throws Exception {
 
         Contact contact = new Contact();
         Contact contact2 = new Contact();
