@@ -40,7 +40,7 @@ public class OrganizationControllerIT {
 
     @Test
     @Order(1)
-    @WithUserDetails("admin@somosmas.org")
+    @WithAnonymousUser
     void getOrganization_shouldReturn200() throws Exception{
 
         String content = mockMvc.perform(get(ApiConstants.ORGANIZATIONS_URI + "/1"))
