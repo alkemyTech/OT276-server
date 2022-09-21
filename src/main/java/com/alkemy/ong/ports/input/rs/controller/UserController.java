@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.USERS_URI;
 
@@ -46,7 +47,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@NotNull @PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest, @AuthenticationPrincipal User loggedUser) {
 
-        if (loggedUser.getId() == id || loggedUser.getRole().getName().equals("ROLE_ADMIN")) {
+        if (Objects.equals(loggedUser.getId(), id) || loggedUser.getRole().getName().equals("ROLE_ADMIN")) {
             User user = mapper.updateUserRequestToUser(updateUserRequest);
             service.updateEntityIfExists(id, user);
         } else {
@@ -58,7 +59,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@NotNull @PathVariable Long id, @AuthenticationPrincipal User loggedUser) {
 
-        if (loggedUser.getId() == id || loggedUser.getRole().getName().equals("ROLE_ADMIN")) {
+        if (Objects.equals(loggedUser.getId(), id) || loggedUser.getRole().getName().equals("ROLE_ADMIN")) {
             service.deleteById(id);
         } else {
             throw new AccessDeniedException("Access denied to resource");
