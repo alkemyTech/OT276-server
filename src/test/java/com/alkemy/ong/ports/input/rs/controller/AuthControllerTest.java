@@ -23,7 +23,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -63,7 +62,6 @@ class AuthControllerTest {
     @BeforeEach
     void setUp() {
 
-        authorities = Collections.emptyList();
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setControllerAdvice(GlobalExceptionHandler.class)
                 .build();
@@ -72,7 +70,7 @@ class AuthControllerTest {
 
     @Test
     void register_shouldReturn201() throws Exception {
-
+        authorities = Collections.emptyList();
         CreateUserRequest request = CreateUserRequest.builder()
                 .email("test@test.com")
                 .password("test123")
@@ -108,7 +106,7 @@ class AuthControllerTest {
 
     @Test
     void login_shouldReturn201() throws Exception {
-
+        authorities = Collections.emptyList();
         LoginRequest request = LoginRequest.builder()
                 .userName("jdoe@somosmas.org")
                 .password("jdoe123")
