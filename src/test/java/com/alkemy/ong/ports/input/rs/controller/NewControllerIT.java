@@ -4,6 +4,7 @@ import com.alkemy.ong.H2Config;
 import com.alkemy.ong.config.util.JsonUtils;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.request.CreateNewRequest;
+import com.alkemy.ong.ports.input.rs.response.AlkymerResponse;
 import com.alkemy.ong.ports.input.rs.response.NewResponse;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -63,9 +64,27 @@ class NewControllerIT {
         assertThat(actualLocation).isEqualTo("http://localhost/v1/news/1");
     }
 
-
     @Test
     @Order(2)
+    @WithUserDetails("jdoe@somosmas.org")
+    void getNews_shouldReturn200() throws Exception{
+        String content = mockMvc.perform(get(ApiConstants.NEWS_URI + "/1"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        assertThat(content).isNotBlank();
+
+        NewResponse response = JsonUtils.jsonToObject(content, NewResponse.class);
+
+        assertThat(response.getId()).isEqualTo(1);
+        assertThat(response.getName()).isEqualTo("foo");
+    }
+
+    @Test
+    @Order(3)
     @WithUserDetails("admin@somosmas.org")
     void getNew_shouldReturn200() throws Exception {
 
@@ -85,7 +104,7 @@ class NewControllerIT {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @WithAnonymousUser
     void getNew_shouldReturn401() throws Exception {
         mockMvc.perform(get(ApiConstants.NEWS_URI + "/1"))
@@ -94,7 +113,7 @@ class NewControllerIT {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @WithUserDetails("admin@somosmas.org")
     void deleteNew_shouldReturn204() throws Exception {
         mockMvc.perform(delete(ApiConstants.NEWS_URI + "/1"))
@@ -104,7 +123,7 @@ class NewControllerIT {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     @WithUserDetails("jdoe@somosmas.org")
     void getNew_shouldReturn404() throws Exception {
         mockMvc.perform(get(ApiConstants.NEWS_URI + "/1"))
@@ -113,7 +132,7 @@ class NewControllerIT {
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     @WithUserDetails("jdoe@somosmas.org")
     void deleteNew_shouldReturn403() throws Exception {
         mockMvc.perform(delete(ApiConstants.NEWS_URI + "/1"))

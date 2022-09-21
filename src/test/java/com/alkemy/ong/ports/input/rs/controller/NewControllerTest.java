@@ -2,13 +2,19 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.config.exception.handler.GlobalExceptionHandler;
 import com.alkemy.ong.config.util.JsonUtils;
+import com.alkemy.ong.core.model.Alkymer;
+import com.alkemy.ong.core.model.AlkymerList;
 import com.alkemy.ong.core.model.Category;
 import com.alkemy.ong.core.model.New;
+import com.alkemy.ong.core.model.NewList;
+import com.alkemy.ong.core.model.Skill;
 import com.alkemy.ong.core.usecase.NewService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.mapper.NewControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateNewRequest;
+import com.alkemy.ong.ports.input.rs.response.AlkymerResponseList;
 import com.alkemy.ong.ports.input.rs.response.NewResponse;
+import com.alkemy.ong.ports.input.rs.response.NewResponseList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,10 +23,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -103,6 +113,39 @@ class NewControllerTest {
         assertThat(response.getName()).isEqualTo("foo");
         assertThat(response.getCategory()).isNotEmpty();
         assertThat(response.getCategory()).isEqualTo("politica");
+    }
+
+    @Test
+    void getNews_shouldReturn200() throws Exception {
+
+        Category category = new Category();
+        category.setName("politica");
+
+        New news = new New();
+        news.setId(22L);
+        news.setName("foo");
+        news.setCategory(category);
+
+        NewList list = new NewList(List.of(news), Pageable.ofSize(1), 1);
+
+        given(service.getList(any(PageRequest.class))).willReturn(list);
+
+        String content = mockMvc.perform(get(ApiConstants.NEWS_URI + "?page=0&size=1"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        assertThat(content).isNotBlank();
+
+        NewResponseList response = JsonUtils.jsonToObject(content, NewResponseList.class);
+
+        assertThat(response.getTotalElements()).isEqualTo(1);
+        assertThat(response.getTotalPages()).isEqualTo(1);
+        assertThat(response.getNextUri()).isEqualTo("http://localhost/v1/news?size=1&page=1");
+        assertThat(response.getPreviousUri()).isEqualTo("http://localhost/v1/news?size=1&page=0");
+        assertThat(response.getContent()).isNotEmpty();
     }
 
     @Test
