@@ -124,6 +124,7 @@ class TestimonialControllerTest {
                 .andExpect(status().isNoContent())
                 .andDo(print());
     }
+
     @Test
     void updateTestimonial_shouldReturn200() throws Exception {
 
@@ -142,8 +143,4 @@ class TestimonialControllerTest {
                 .andDo(print());
 
     }
-
-
-
-
 }

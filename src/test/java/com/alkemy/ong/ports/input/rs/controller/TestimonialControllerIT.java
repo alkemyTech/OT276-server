@@ -22,7 +22,10 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -104,13 +107,13 @@ public class TestimonialControllerIT {
 
         TestimonialResponse response = JsonUtils.jsonToObject(content, TestimonialResponse.class);
 
+        assertThat(response).isInstanceOf(TestimonialResponse.class);
         assertThat(response.getName()).isEqualTo("Updated Name");
         assertThat(response.getContent()).isEqualTo("New Content");
         assertThat(response.getImage()).isEqualTo("Nueva Imagen");
-        assertThat(response).isInstanceOf(TestimonialResponse.class);
-
 
     }
+
     @Test
     @Order(4)
     @WithUserDetails("admin@somosmas.org")
@@ -119,6 +122,7 @@ public class TestimonialControllerIT {
                 .andExpect(status().isNoContent())
                 .andDo(print());
     }
+
     @Test
     @Order(5)
     @WithUserDetails("jdoe@somosmas.org")
@@ -135,18 +139,20 @@ public class TestimonialControllerIT {
 
         assertThat(response.getTotalElements()).isEqualTo(0);
     }
+
     @Test
     @Order(6)
     @WithUserDetails("jdoe@somosmas.org")
-    void deleteTestimonail_shouldReturn403() throws Exception {
-        mockMvc.perform(delete(ApiConstants.TESTIMONIALS_URI ))
+    void deleteTestimonial_shouldReturn403() throws Exception {
+        mockMvc.perform(delete(ApiConstants.TESTIMONIALS_URI))
                 .andExpect(status().isForbidden())
                 .andDo(print());
     }
+
     @Test
     @Order(7)
     @WithAnonymousUser
-    void geTestimonail_shouldReturn401() throws Exception {
+    void geTestimonial_shouldReturn401() throws Exception {
         mockMvc.perform(get(ApiConstants.TESTIMONIALS_URI))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
