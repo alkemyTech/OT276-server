@@ -26,9 +26,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -45,7 +44,6 @@ class AuthControllerTest {
 
     private MockMvc mockMvc;
 
-    private Collection authorities;
     @InjectMocks
     AuthController controller;
     @Mock
@@ -70,7 +68,6 @@ class AuthControllerTest {
 
     @Test
     void register_shouldReturn201() throws Exception {
-        authorities = Collections.emptyList();
         CreateUserRequest request = CreateUserRequest.builder()
                 .email("test@test.com")
                 .password("test123")
@@ -85,7 +82,7 @@ class AuthControllerTest {
 
         given(service.createEntity(any(User.class))).willReturn(99L);
         when(authenticationManager.authenticate(any(Authentication.class)))
-                .thenReturn(new UsernamePasswordAuthenticationToken(user, "test", authorities));
+                .thenReturn(new UsernamePasswordAuthenticationToken(user, "test", List.of()));
         when(jwtUtils.generateToken(any(UserDetails.class))).thenReturn("token");
         when(jwtUtils.extractExpiration(any())).thenReturn(new Date());
 
@@ -106,7 +103,6 @@ class AuthControllerTest {
 
     @Test
     void login_shouldReturn201() throws Exception {
-        authorities = Collections.emptyList();
         LoginRequest request = LoginRequest.builder()
                 .userName("jdoe@somosmas.org")
                 .password("jdoe123")
@@ -118,7 +114,7 @@ class AuthControllerTest {
 
 
         given(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).willReturn(new UsernamePasswordAuthenticationToken(
-                user, request.getPassword(), authorities));
+                user, request.getPassword(), List.of()));
         when(jwtUtils.generateToken(any(UserDetails.class))).thenReturn("token");
         when(jwtUtils.extractExpiration(any())).thenReturn(new Date());
 

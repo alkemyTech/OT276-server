@@ -30,5 +30,7 @@ values (1,
         CURRENT_DATE(),
         1,
         '¡Gracias por contactarte con Somos Más! A la brevedad vamos a estar respondiendo a tu consulta.');
+
 insert into category(category_id, name, description, image, created_at, is_active) values(1,'politica','for test','foo',CURRENT_DATE(),1);
+
 insert into slide (slide_id, image_url, text, slide_order, organization_id, is_active, created_at) values(1, 'image url', 'text', 1, 1, 1, CURRENT_DATE());
