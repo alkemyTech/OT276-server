@@ -1,6 +1,5 @@
 package com.alkemy.ong.ports.input.rs.request;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,13 +12,16 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequest {
+public class UpdateTestimonialRequest {
 
-    @NotEmpty
-    @JsonProperty("username")
-    private String userName;
 
-    @NotEmpty
-    @JsonProperty("password")
-    private String password;
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("image")
+    private String image;
+
+
+    @JsonProperty("content")
+    private String content;
 }

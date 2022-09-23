@@ -7,14 +7,22 @@ import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.api.TestimonialApi;
 import com.alkemy.ong.ports.input.rs.mapper.TestimonialControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.TestimonialRequest;
+import com.alkemy.ong.ports.input.rs.request.UpdateTestimonialRequest;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
 import com.alkemy.ong.ports.input.rs.response.TestimonialResponseList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -22,12 +30,6 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.TESTIMONIALS_URI;
 
@@ -57,7 +59,7 @@ public class TestimonialController implements TestimonialApi {
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTestimonial(@NotNull @PathVariable("id") long id) {
+    public void deleteTestimonial(@PathVariable Long id) {
         testimonialService.deleteTestimonial(id);
     }
 
@@ -93,8 +95,8 @@ public class TestimonialController implements TestimonialApi {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<TestimonialResponse> updateTestimonial(@PathVariable Long id, @RequestBody TestimonialRequest request) {
-        Testimonial testimonial = mapper.testimonialRequestToEntity(request);
+    public ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @PathVariable Long id, @RequestBody UpdateTestimonialRequest request) {
+        Testimonial testimonial = mapper.updateTestimonialToEntity(request);
         testimonialService.updateTestimonialIfExist(id, testimonial);
         return new ResponseEntity<>(mapper.EntityToTestimonialResponse(testimonial), HttpStatus.OK);
     }
