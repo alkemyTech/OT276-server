@@ -32,28 +32,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/docs/**", "/api/swagger-ui/**", "/v3/api-docs/**", "/auth/login", "/auth/register").permitAll()
                 .antMatchers(HttpMethod.GET, ApiConstants.ORGANIZATIONS_URI + "/{id}").permitAll()
                 .antMatchers(HttpMethod.POST, ApiConstants.CONTACTS_URI).permitAll()
+                .antMatchers(HttpMethod.POST, ApiConstants.MEMBERS_URI).authenticated()
+                .antMatchers(HttpMethod.GET, ApiConstants.MEMBERS_URI).authenticated()
                 .antMatchers(HttpMethod.PUT, ApiConstants.MEMBERS_URI + "/{id}").authenticated()
-                .antMatchers(HttpMethod.GET, ApiConstants.USERS_URI, ApiConstants.CONTACTS_URI).hasRole("ADMIN")
-                .antMatchers(HttpMethod.PATCH, ApiConstants.USERS_URI + "/{id}").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, ApiConstants.USERS_URI + "/{id}").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PATCH, ApiConstants.USERS_URI + "/{id}").authenticated()
+                .antMatchers(HttpMethod.DELETE, ApiConstants.USERS_URI + "/{id}").authenticated()
+                .antMatchers(HttpMethod.DELETE, ApiConstants.COMMENTS_URI + "/{id}").authenticated()
+                .antMatchers(HttpMethod.PUT, ApiConstants.COMMENTS_URI + "/{id}").authenticated()
+                .antMatchers(HttpMethod.POST, ApiConstants.COMMENTS_URI).authenticated()
                 .antMatchers(HttpMethod.GET, ApiConstants.SLIDES_URI).hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, ApiConstants.SLIDES_URI + "/{id}").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, ApiConstants.COMMENTS_URI).hasRole("USER")
-                .antMatchers(HttpMethod.DELETE, ApiConstants.COMMENTS_URI + "/{id}").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, ApiConstants.COMMENTS_URI + "/{id}").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, ApiConstants.USERS_URI).hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, ApiConstants.CONTACTS_URI).hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, ApiConstants.COMMENTS_URI).hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, ApiConstants.CATEGORIES_URI + "/{id}").hasRole("ADMIN")
+                // Default access for each Method
                 .antMatchers(HttpMethod.GET).authenticated()
                 .antMatchers(HttpMethod.POST).hasRole("ADMIN")
                 .antMatchers(HttpMethod.PATCH).hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
-                .and().exceptionHandling()
+                // Error handling
+                .and()
+                .exceptionHandling()
                 .authenticationEntryPoint(new AuthenticationEntryPointHandler())
                 .accessDeniedHandler(new CustomAccessDeniedHandler())
-                .and().sessionManagement()
+                // Session
+                .and()
+                .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                // filters
+                .and()
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
